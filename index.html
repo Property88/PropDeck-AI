@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PropertyAI</title>
+<style>
+:root{--ink:#101828;--muted:#667085;--line:#e4e7ec;--bg:#f6f7f9;--card:#fff;--accent:#111827}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:20px}.tag{font-size:11px;background:#eef2f6;padding:6px 9px;border-radius:999px}
+main{max-width:1050px;margin:auto;padding:20px}.hero{padding:20px 2px}.hero h1{font-size:30px;margin:0 0 7px}.hero p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}.full{grid-column:1/-1}
+h2{font-size:17px;margin:0 0 15px}label{display:block;font-size:12px;font-weight:750;margin:11px 0 6px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #d0d5dd;border-radius:10px;background:#fff;font-size:14px;outline:none}
+textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}button{border:0;border-radius:10px;padding:11px 14px;font-weight:750;cursor:pointer}.primary{background:#111827;color:#fff}.secondary{background:#eef2f6;color:#111827}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.gallery img{width:100%;height:105px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.preview{background:#111827;color:#fff;border-radius:14px;padding:22px;min-height:300px}.eyebrow{font-size:11px;letter-spacing:2px;opacity:.7}.preview h3{font-size:28px;margin:9px 0}.price{font-size:21px;font-weight:850}.pills{display:flex;gap:6px;flex-wrap:wrap;margin:13px 0}.pill{font-size:11px;border:1px solid #ffffff2b;background:#ffffff15;border-radius:99px;padding:6px 8px}.desc{color:#e7eaf0;line-height:1.6;font-size:13px}
+.output{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:10px;background:#fafbfc}.output h3{font-size:14px;margin:0 0 8px}.text{white-space:pre-wrap;line-height:1.6;font-size:13px}
+.small{font-size:11px;color:var(--muted);margin-top:7px}.ok{display:none;background:#ecfdf3;color:#027a48;padding:9px;border-radius:9px;margin-top:9px;font-size:12px}
+@media(max-width:760px){main{padding:14px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.two{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(3,1fr)}header{padding:12px 14px}.hero h1{font-size:25px}}
+@media print{header,.hero .small,.formOnly,.actions,.noPrint{display:none!important}body{background:#fff}.card{box-shadow:none;border:0}.grid{display:block}.preview{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><div class="logo">PropertyAI</div><div class="tag">Real Estate Marketing</div></header>
+<main>
+<section class="hero"><h1>Turn property details into marketing content.</h1><p>Enter only the information your client has. Optional fields can stay empty.</p></section>
+<div class="grid">
+<section class="card formOnly">
+<h2>1. Property Details</h2>
+<label>Property Type *</label><select id="type"><option>Residential</option><option>Commercial</option><option>Plot / Land</option><option>Farmhouse</option><option>Office</option><option>Shop</option><option>Warehouse</option><option>Industrial</option><option>Other</option></select>
+<div class="two"><div><label>Purpose *</label><select id="purpose"><option>For Sale</option><option>For Rent</option><option>For Lease</option></select></div><div><label>Property Title</label><input id="title" placeholder="Premium 3 BHK Apartment"></div></div>
+<div class="two"><div><label>Location *</label><input id="location" placeholder="Dwarka, New Delhi"></div><div><label>Price *</label><input id="price" placeholder="₹2.40 Cr"></div></div>
+<div class="two"><div><label>Area</label><input id="area" placeholder="1,850 Sq.Ft."></div><div><label>Ownership</label><select id="ownership"><option value="">Not specified</option><option>Freehold</option><option>Leasehold</option><option>Other</option></select></div></div>
+</section>
+
+<section class="card formOnly">
+<h2>2. Specifications</h2>
+<div class="two"><div><label>Bedrooms</label><input id="beds"></div><div><label>Bathrooms</label><input id="baths"></div></div>
+<div class="two"><div><label>Floor</label><input id="floor"></div><div><label>Facing</label><input id="facing"></div></div>
+<div class="two"><div><label>Parking</label><input id="parking"></div><div><label>Furnished</label><select id="furnished"><option value="">Not specified</option><option>Furnished</option><option>Semi-Furnished</option><option>Unfurnished</option></select></div></div>
+<label>Amenities</label><input id="amenities" placeholder="Lift, Security, Gym, Garden">
+<label>Nearby / Location Highlights</label><textarea id="nearby" placeholder="Metro, school, hospital, market, highway..."></textarea>
+</section>
+
+<section class="card full formOnly">
+<h2>3. Photos & Additional Information</h2>
+<label>Property Photos</label><input id="photos" type="file" accept="image/*" multiple>
+<div id="gallery" class="gallery"></div>
+<label>Tell us more</label><textarea id="more" placeholder="Write anything you know about the property. The AI will use only the information provided."></textarea>
+<div class="two"><div><label>Description Style</label><select id="style"><option>Professional</option><option>Premium / Luxury</option><option>Simple</option><option>Family-focused</option><option>Investor-focused</option></select></div><div><label>Language</label><select id="lang"><option>English</option><option>Hinglish</option><option>Hindi</option></select></div></div>
+<label>Agent / Company / Contact</label><input id="contact" placeholder="Karan Estates • +91 XXXXX XXXXX">
+<div class="actions"><button class="primary" onclick="generate()">✨ Generate Content</button><button class="secondary" onclick="clearAll()">Reset</button></div>
+</section>
+
+<section class="card">
+<h2>4. Property Preview</h2>
+<div class="preview"><div class="eyebrow">PROPERTY PRESENTATION</div><h3 id="pvTitle">Your Property Title</h3><div id="pvLoc">Location</div><div class="price" id="pvPrice">Price</div><div id="pills" class="pills"></div><div id="pvDesc" class="desc">Your generated description will appear here.</div></div>
+</section>
+
+<section class="card">
+<h2>5. Marketing Outputs</h2>
+<div class="output"><h3>AI Description</h3><div id="desc" class="text">—</div></div>
+<div class="output"><h3>WhatsApp</h3><div id="wa" class="text">—</div><div class="actions"><button class="secondary" onclick="copyWA()">📋 Copy WhatsApp</button><button class="secondary" onclick="shareWA()">💬 Share</button></div></div>
+<div class="output"><h3>Website Listing</h3><div id="web" class="text">—</div></div>
+<div class="output"><h3>Instagram Caption</h3><div id="ig" class="text">—</div></div>
+<div class="actions"><button class="primary" onclick="window.print()">📄 Save / Print PDF</button></div>
+<div id="notice" class="ok"></div>
+</section>
+</div>
+</main>
+<script>
+const $=x=>document.getElementById(x),v=x=>($(x).value||'').trim();
+let lastWA='';
+function desc(){
+ const title=v('title')||v('type')+' Property',loc=v('location'),price=v('price'),area=v('area'),own=v('ownership'),beds=v('beds'),baths=v('baths'),floor=v('floor'),face=v('facing'),park=v('parking'),furn=v('furnished'),amen=v('amenities'),near=v('nearby'),more=v('more');
+ let s=`${title} is available ${v('purpose').toLowerCase()}${loc?' in '+loc:''}.`;
+ let specs=[];if(area)specs.push(area);if(beds)specs.push(beds+' bedroom'+(beds==='1'?'':'s'));if(baths)specs.push(baths+' bathroom'+(baths==='1'?'':'s'));if(furn)specs.push(furn.toLowerCase());
+ if(specs.length)s+=` The property offers ${specs.join(', ')}.`;
+ let key=[];if(price)key.push('asking price of '+price);if(own)key.push(own+' ownership');if(floor)key.push(floor);if(face)key.push(face+' facing');if(park)key.push(park+' parking');
+ if(key.length)s+=` Key details include ${key.join(', ')}.`;
+ if(amen)s+=` Amenities include ${amen}.`;if(near)s+=` Location highlights: ${near}.`;if(more)s+=` Additional information: ${more}.`;
+ return s;
+}
+function generate(){
+ const title=v('title')||v('type')+' Property',loc=v('location')||'Location not specified',price=v('price')||'Price on request',d=desc();
+ const h=[v('area')&&'Area: '+v('area'),v('ownership')&&'Ownership: '+v('ownership'),v('beds')&&'Bedrooms: '+v('beds'),v('baths')&&'Bathrooms: '+v('baths'),v('floor')&&'Floor: '+v('floor'),v('facing')&&'Facing: '+v('facing'),v('parking')&&'Parking: '+v('parking'),v('furnished')&&'Furnished: '+v('furnished'),v('amenities')&&'Amenities: '+v('amenities')].filter(Boolean);
+ $('pvTitle').textContent=title;$('pvLoc').textContent=loc;$('pvPrice').textContent=price;$('pvDesc').textContent=d;$('desc').textContent=d;
+ $('pills').innerHTML=h.slice(0,5).map(x=>`<span class="pill">${x}</span>`).join('');
+ const contact=v('contact')||'Contact details not provided';
+ lastWA=`🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n${h.length?'✨ KEY HIGHLIGHTS\n'+h.map(x=>'• '+x).join('\n'):''}\n\n📞 ${contact}`;
+ $('wa').textContent=lastWA;
+ $('web').textContent=`${title}\n\n${d}\n\nKEY DETAILS\n${h.length?h.map(x=>'• '+x).join('\n'):'Details available on request.'}\n\nCONTACT\n${contact}`;
+ $('ig').textContent=`🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n${h.slice(0,6).join(' • ')}\n\n📞 ${contact}`;
+}
+function copyWA(){
+ if(!lastWA)generate();
+ navigator.clipboard?.writeText(lastWA).then(()=>show('WhatsApp message copied. Paste it in WhatsApp.')).catch(()=>{
+  const t=document.createElement('textarea');t.value=lastWA;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();show('WhatsApp message copied. Paste it in WhatsApp.');
+ });
+}
+async function shareWA(){
+ if(!lastWA)generate();
+ const data={title:'PropertyAI',text:lastWA};
+ if(navigator.share){try{await navigator.share(data);return}catch(e){}}
+ copyWA();
+}
+function show(x){$('notice').style.display='block';$('notice').textContent=x;setTimeout(()=>$('notice').style.display='none',3000)}
+$('photos').addEventListener('change',e=>{
+ $('gallery').innerHTML='';[...e.target.files].forEach(f=>{let img=document.createElement('img');img.src=URL.createObjectURL(f);$('gallery').appendChild(img)});
+});
+function clearAll(){document.querySelectorAll('input,textarea').forEach(x=>x.value='');$('gallery').innerHTML='';lastWA='';['desc','wa','web','ig'].forEach(x=>$(x).textContent='—');$('pvTitle').textContent='Your Property Title';$('pvLoc').textContent='Location';$('pvPrice').textContent='Price';$('pvDesc').textContent='Your generated description will appear here.';$('pills').innerHTML=''}
+</script>
+</body></html>
