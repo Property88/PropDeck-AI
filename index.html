@@ -286,6 +286,53 @@ textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-column
     max-width:none!important;
     padding:0!important;
   }
+}@media print {
+  @page {
+    size: A4;
+    margin: 8mm;
+  }
+
+  .pdfOnly {
+    padding: 12px !important;
+    max-width: 100% !important;
+    font-size: 10px !important;
+  }
+
+  .pdfHeader {
+    padding-bottom: 8px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .pdfPhotos {
+    gap: 6px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .pdfPhotos img {
+    max-height: 110px !important;
+  }
+
+  .pdfMainInfo {
+    gap: 6px !important;
+  }
+
+  .pdfMainInfo > div {
+    margin-bottom: 5px !important;
+  }
+
+  .pdfContact {
+  margin-top: 3px !important;
+  padding: 4px !important;
+  font-size: 9px !important;
+  line-height: 1.1 !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  }
+  }
+
+  .pdfOnly * {
+    line-height: 1.2 !important;
+  }
 }
 </style>
 </head>
