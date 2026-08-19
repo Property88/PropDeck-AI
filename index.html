@@ -23,7 +23,121 @@ textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-column
 .output{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:10px;background:#fafbfc}.output h3{font-size:14px;margin:0 0 8px}.text{white-space:pre-wrap;line-height:1.6;font-size:13px}
 .small{font-size:11px;color:var(--muted);margin-top:7px}.ok{display:none;background:#ecfdf3;color:#027a48;padding:9px;border-radius:9px;margin-top:9px;font-size:12px}
 @media(max-width:760px){main{padding:14px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.two{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(3,1fr)}header{padding:12px 14px}.hero h1{font-size:25px}}
-@media print{header,.hero .small,.formOnly,.actions,.noPrint{display:none!important}body{background:#fff}.card{box-shadow:none;border:0}.grid{display:block}.preview{page-break-inside:avoid}}
+@media print{
+  body{
+    background:#fff;
+    color:#101828;
+  }
+
+  header,
+  .hero,
+  .formOnly,
+  .actions,
+  .noPrint{
+    display:none!important;
+  }
+
+  main{
+    max-width:none;
+    padding:0;
+  }
+
+  .grid{
+    display:block;
+  }
+
+  .card{
+    border:0;
+    box-shadow:none;
+    padding:0;
+  }
+
+  .pdfOnly{
+    display:block!important;
+  }
+
+  .pdfHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:2px solid #111827;
+    padding-bottom:15px;
+    margin-bottom:20px;
+  }
+
+  .pdfHeader img{
+    max-height:70px;
+    max-width:220px;
+  }
+
+  .pdfTitle{
+    font-size:28px;
+    font-weight:800;
+    margin:10px 0 5px;
+  }
+
+  .pdfLocation{
+    color:#667085;
+    font-size:14px;
+  }
+
+  .pdfPrice{
+    font-size:22px;
+    font-weight:800;
+    margin:12px 0;
+  }
+
+  .pdfPhotos{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin:18px 0;
+  }
+
+  .pdfPhotos img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:8px;
+  }
+
+  .pdfDetails{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:18px 0;
+  }
+
+  .pdfDetail{
+    border:1px solid #e4e7ec;
+    padding:10px;
+    border-radius:8px;
+  }
+
+  .pdfDetail b{
+    display:block;
+    font-size:11px;
+    color:#667085;
+    margin-bottom:4px;
+  }
+
+  .pdfDescription{
+    line-height:1.6;
+    margin:18px 0;
+  }
+
+  .pdfContact{
+    margin-top:25px;
+    padding:15px;
+    background:#f6f7f9;
+    border-radius:10px;
+    font-weight:700;
+  }
+}
+
+.pdfOnly{
+  display:none;
+}
 </style>
 </head>
 <body>
@@ -34,7 +148,12 @@ textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-column
   <div class="tag">Real Estate Marketing</div>
 </header>
 <main>
-<section class="hero"><h1>Turn property details into marketing content.</h1><p>Enter only the information your client has. Optional fields can stay empty.</p></section>
+
+<section class="pdfOnly" id="pdfBrochure">
+  ...
+</section>
+
+<section class="hero">
 <div class="grid">
 <section class="card formOnly">
 <h2>1. Property Details</h2>
