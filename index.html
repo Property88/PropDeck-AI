@@ -476,15 +476,34 @@ function desc(){
  return s;
 }
 function generate(){
- const title=v('title')||v('type')+' Property',loc=v('location')||'Location not specified',price=v('price')||'Price on request',d=desc();
- const h=[v('area')&&'Area: '+v('area'),v('ownership')&&'Ownership: '+v('ownership'),v('beds')&&'Bedrooms: '+v('beds'),v('baths')&&'Bathrooms: '+v('baths'),v('floor')&&'Floor: '+v('floor'),v('facing')&&'Facing: '+v('facing'),v('parking')&&'Parking: '+v('parking'),v('furnished')&&'Furnished: '+v('furnished'),v('amenities')&&'Amenities: '+v('amenities')].filter(Boolean);
- $('pvTitle').textContent=title;$('pvLoc').textContent=loc;$('pvPrice').textContent=price;$('pvDesc').textContent=d;$('desc').textContent=d;
- $('pills').innerHTML=h.slice(0,5).map(x=>`<span class="pill">${x}</span>`).join('');
- const contact=v('contact')||'Contact details not provided';
- lastWA=`🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n${h.length?'✨ KEY HIGHLIGHTS\n'+h.map(x=>'• '+x).join('\n'):''}\n\n📞 ${contact}`;
- $('wa').textContent=lastWA;
- $('web').textContent=`${title}\n\n${d}\n\nKEY DETAILS\n${h.length?h.map(x=>'• '+x).join('\n'):'Details available on request.'}\n\nCONTACT\n${contact}`;
- $('ig').textContent=`🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n${h.slice(0,6).join(' • ')}\n\n📞 ${contact}`;
+  const title = v('title') || v('type') + ' Property';
+  const loc = v('location') || '-';
+  const price = v('price') || '-';
+  const d = desc();
+
+  const h = [
+    v('area') && 'Area: ' + v('area'),
+    v('ownership') && 'Ownership: ' + v('ownership'),
+    v('beds') && 'Bedrooms: ' + v('beds'),
+    v('baths') && 'Bathrooms: ' + v('baths'),
+    v('parking') && 'Parking: ' + v('parking')
+  ].filter(Boolean);
+
+  $('pvTitle').textContent = title;
+  $('pvLoc').textContent = loc;
+  $('pvPrice').textContent = price;
+
+  $('pills').innerHTML = h.slice(0,5)
+    .map(x => `<span>${x}</span>`)
+    .join('');
+
+  const contact = v('contact') || 'Contact details not provided';
+
+  lastWA = `🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n📞 ${contact}`;
+
+  $('wa').textContent = lastWA;
+  $('web').textContent = `${title}\n\n${d}\n\nKEY DETAILS:\n${h.join('\n')}\n\n📞 ${contact}`;
+  $('ig').textContent = `🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}`;
 }
  function updatePDF(){
   const title = v('title') || v('type') + ' Property';
