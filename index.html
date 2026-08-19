@@ -486,7 +486,7 @@ function generate(){
  $('web').textContent=`${title}\n\n${d}\n\nKEY DETAILS\n${h.length?h.map(x=>'• '+x).join('\n'):'Details available on request.'}\n\nCONTACT\n${contact}`;
  $('ig').textContent=`🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n${h.slice(0,6).join(' • ')}\n\n📞 ${contact}`;
 }
- price'function updatePDF(){
+ 'function updatePDF(){
   const title = v('title') || v('type') + ' Property';
   const contact = v('contact') || 'Contact details not provided';
 
