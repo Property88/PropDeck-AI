@@ -486,7 +486,7 @@ function generate(){
  $('web').textContent=`${title}\n\n${d}\n\nKEY DETAILS\n${h.length?h.map(x=>'• '+x).join('\n'):'Details available on request.'}\n\nCONTACT\n${contact}`;
  $('ig').textContent=`🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n${h.slice(0,6).join(' • ')}\n\n📞 ${contact}`;
 }
- function updatePDF(){
+ price'function updatePDF(){
   const title = v('title') || v('type') + ' Property';
   const contact = v('contact') || 'Contact details not provided';
 
@@ -523,7 +523,7 @@ function generate(){
 
     <div>
       <div class="pdfLabel">PRICE</div>
-      <div>${v('price') || '-'}</div>
+      <div>${v(') || '-'}</div>
     </div>
 
     <div>
@@ -545,41 +545,53 @@ function generate(){
       <div class="pdfLabel">FLOOR</div>
       <div>${v('floor') || '-'}</div>
     </div>
+function updatePDF(){
+  const title = v('title') || v('type') || 'Property';
+  const contact = v('contact') || 'Contact details not provided';
 
-    <div>
-      <div class="pdfLabel">FACING</div>
-      <div>${v('facing') || '-'}</div>
-    </div>
+  // Title
+  $('pdfTitle').textContent = title;
 
-    <div>
-      <div class="pdfLabel">PARKING</div>
-      <div>${v('parking') || '-'}</div>
-    </div>
+  // Photos
+  const galleryImages = document.querySelectorAll('#gallery img');
+  $('pdfPhotos').innerHTML = '';
 
-    <div>
-      <div class="pdfLabel">FURNISHED</div>
-      <div>${v('furnished') || '-'}</div>
-    </div>
+  galleryImages.forEach(img => {
+    const photo = document.createElement('img');
+    photo.src = img.src;
+    photo.style.width = '100%';
+    photo.style.height = '120px';
+    photo.style.objectFit = 'cover';
+    photo.style.borderRadius = '8px';
+    $('pdfPhotos').appendChild(photo);
+  });
 
-    <div>
-      <div class="pdfLabel">OWNERSHIP</div>
-      <div>${v('ownership') || '-'}</div>
-    </div>
+  // Main Property Information
+  $('pdfType').textContent = v('type') || '-';
+  $('pdfPurpose').textContent = v('purpose') || '-';
+  $('pdfLocation').textContent = v('location') || '-';
+  $('pdfPrice').textContent = v('price') || '-';
+  $('pdfArea').textContent = v('area') || '-';
+  $('pdfOwnership').textContent = v('ownership') || '-';
 
-    <div>
-      <div class="pdfLabel">AMENITIES</div>
-      <div>${v('amenities') || '-'}</div>
-    </div>
+  // Property Specifications
+  $('pdfBeds').textContent = v('beds') || '-';
+  $('pdfBaths').textContent = v('baths') || '-';
+  $('pdfFloor').textContent = v('floor') || '-';
+  $('pdfFacing').textContent = v('facing') || '-';
+  $('pdfParking').textContent = v('parking') || '-';
+  $('pdfFurnished').textContent = v('furnished') || '-';
 
-    <div>
-      <div class="pdfLabel">LOCATION HIGHLIGHTS</div>
-      <div>${v('nearby') || '-'}</div>
-    </div>
+  // Additional Information
+  $('pdfAmenities').textContent = v('amenities') || '-';
+  $('pdfNearby').textContent = v('nearby') || '-';
 
-    <div class="pdfContact">
-      CONTACT: ${contact}
-    </div>
-  `;
+  // Description
+  $('pdfDescription').textContent =
+    v('more') || v('description') || '-';
+
+  // Contact
+  $('pdfContact').textContent = contact;
 }
 function copyWA(){
  if(!lastWA)generate();
