@@ -410,7 +410,7 @@ textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-column
 <div class="output"><h3>WhatsApp</h3><div id="wa" class="text">—</div><div class="actions"><button class="secondary" onclick="copyWA()">📋 Copy WhatsApp</button><button class="secondary" onclick="shareWA()">💬 Share</button></div></div>
 <div class="output"><h3>Website Listing</h3><div id="web" class="text">—</div></div>
 <div class="output"><h3>Instagram Caption</h3><div id="ig" class="text">—</div></div>
-<div class="actions"><button class="primary" onclick="updatePDF();window.print()">📄 Save / Print PDF</button>
+<div class="actions"><button class="primary"onclick="try{updatePDF()}catch(e){console.error(e)};setTimeout(function(){window.print()},500)" >📄 Save / Print PDF</button>
 <div id="notice" class="ok"></div>
 </section>
 </div>
