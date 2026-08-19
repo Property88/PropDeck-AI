@@ -1,633 +1,1673 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropDeck AI - Property Marketing</title>
+
 <style>
- <title>PropDeck</title>
-:root{--ink:#101828;--muted:#667085;--line:#e4e7ec;--bg:#f6f7f9;--card:#fff;--accent:#111827}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:900;font-size:20px}.logo img{
-  height:60px;
-  width:auto;
-  display:block;
-}tag{font-size:11px;background:#eef2f6;padding:6px 9px;border-radius:999px}
-main{max-width:1050px;margin:auto;padding:20px}.hero{padding:20px 2px}.hero h1{font-size:30px;margin:0 0 7px}.hero p{color:var(--muted);margin:0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}.full{grid-column:1/-1}
-h2{font-size:17px;margin:0 0 15px}label{display:block;font-size:12px;font-weight:750;margin:11px 0 6px}
-input,select,textarea{width:100%;padding:11px 12px;border:1px solid #d0d5dd;border-radius:10px;background:#fff;font-size:14px;outline:none}
-textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}button{border:0;border-radius:10px;padding:11px 14px;font-weight:750;cursor:pointer}.primary{background:#111827;color:#fff}.secondary{background:#eef2f6;color:#111827}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.gallery img{width:100%;height:105px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
-.preview{background:#111827;color:#fff;border-radius:14px;padding:22px;min-height:300px}.eyebrow{font-size:11px;letter-spacing:2px;opacity:.7}.preview h3{font-size:28px;margin:9px 0}.price{font-size:21px;font-weight:850}.pills{display:flex;gap:6px;flex-wrap:wrap;margin:13px 0}.pill{font-size:11px;border:1px solid #ffffff2b;background:#ffffff15;border-radius:99px;padding:6px 8px}.desc{color:#e7eaf0;line-height:1.6;font-size:13px}
-.output{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:10px;background:#fafbfc}.output h3{font-size:14px;margin:0 0 8px}.text{white-space:pre-wrap;line-height:1.6;font-size:13px}
-.small{font-size:11px;color:var(--muted);margin-top:7px}.ok{display:none;background:#ecfdf3;color:#027a48;padding:9px;border-radius:9px;margin-top:9px;font-size:12px}
-@media(max-width:760px){main{padding:14px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.two{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(3,1fr)}header{padding:12px 14px}.hero h1{font-size:25px}}
-@media print{
-  body{
-    background:#fff;
-    color:#101828;
-  }
+*{box-sizing:border-box}
 
-  header,
-  .hero,
-  .formOnly,
-  .actions,
-  .noPrint{
-    display:none!important;
-  }
-
-  main{
-    max-width:none;
-    padding:0;
-  }
-
-  .grid{
-    display:block;
-  }
-
-  .card{
-    border:0;
-    box-shadow:none;
-    padding:0;
-  }
-
-  .pdfOnly{
-    display:block!important;
-  }
-
-  .pdfHeader{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:2px solid #111827;
-    padding-bottom:15px;
-    margin-bottom:20px;
-  }
-
-  .pdfHeader img{
-    max-height:70px;
-    max-width:220px;
-  }
-
-  .pdfTitle{
-    font-size:28px;
-    font-weight:800;
-    margin:10px 0 5px;
-  }
-
-  .pdfLocation{
-    color:#667085;
-    font-size:14px;
-  }
-
-  .pdfPrice{
-    font-size:22px;
-    font-weight:800;
-    margin:12px 0;
-  }
-
-  .pdfPhotos{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin:18px 0;
-  }
-
-  .pdfPhotos img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:8px;
-  }
-
-  .pdfDetails{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin:18px 0;
-  }
-
-  .pdfDetail{
-    border:1px solid #e4e7ec;
-    padding:10px;
-    border-radius:8px;
-  }
-
-  .pdfDetail b{
-    display:block;
-    font-size:11px;
-    color:#667085;
-    margin-bottom:4px;
-  }
-
-  .pdfDescription{
-    line-height:1.6;
-    margin:18px 0;
-  }
-
-  .pdfContact{
-    margin-top:25px;
-    padding:15px;
-    background:#f6f7f9;
-    border-radius:10px;
-    font-weight:700;
-  }
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f6f9;
+  color:#111827
 }
 
-.pdfOnly{
-  display:none;
-}/* PDF BROCHURE DESIGN */
-
-.pdfOnly{
-  display:none;
+header{
   background:#fff;
-  color:#101828;
-  padding:28px;
-  max-width:900px;
+  border-bottom:1px solid #ddd;
+  padding:18px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800;
+  color:#1167b1
+}
+
+.brand{text-align:right}
+.brand small{
+  display:block;
+  letter-spacing:3px;
+  color:#777;
+  font-size:10px
+}
+.brand strong{font-size:22px}
+
+main{
+  max-width:1180px;
+  margin:25px auto;
+  padding:0 16px
+}
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:0 5px 18px rgba(0,0,0,.06)
+}
+
+h2{
+  margin:0 0 18px;
+  font-size:20px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px
+}
+
+.two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+
+label{
+  display:block;
+  font-weight:700;
+  font-size:13px;
+  margin:0 0 7px
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid #d7dce2;
+  border-radius:10px;
+  font-size:14px;
+  background:#fff
+}
+
+textarea{
+  min-height:110px;
+  resize:vertical
+}
+
+.full{grid-column:1/-1}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:12px 18px;
+  font-weight:700;
+  cursor:pointer
+}
+
+.primary{
+  background:#111827;
+  color:#fff
+}
+
+.secondary{
+  background:#e9eef5;
+  color:#111827
+}
+
+.canva{
+  background:#7b2cff;
+  color:#fff
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:8px;
+  margin-bottom:18px
+}
+
+.gallery img{
+  width:100%;
+  height:145px;
+  object-fit:cover;
+  border-radius:10px;
+  background:#eee
+}
+
+.gallery img:first-child{
+  grid-row:span 2;
+  height:298px
+}
+
+.preview{
+  background:#111827;
+  color:#fff;
+  border-radius:16px;
+  padding:30px;
+  min-height:300px
+}
+
+.eyebrow{
+  font-size:11px;
+  letter-spacing:3px;
+  opacity:.65
+}
+
+.preview h1{
+  font-size:34px;
+  margin:10px 0
+}
+
+.preview .loc{
+  font-size:17px;
+  opacity:.8
+}
+
+.preview .price{
+  font-size:25px;
+  font-weight:800;
+  margin-top:6px
+}
+
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px
+}
+
+.pills span{
+  background:rgba(255,255,255,.12);
+  padding:8px 10px;
+  border-radius:30px;
+  font-size:12px
+}
+
+.output{
+  background:#f8fafc;
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:12px;
+  white-space:pre-wrap;
+  line-height:1.5
+}
+
+#pdfPreview{display:none}
+
+.pdfPage{
+  width:794px;
+  min-height:1123px;
+  background:#fff;
   margin:auto;
+  padding:42px;
+  color:#111;
+  overflow:hidden
 }
 
 .pdfHeader{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:20px;
-  padding-bottom:18px;
-  border-bottom:2px solid #e4e7ec;
-  margin-bottom:22px;
-}
-
-.pdfHeader img{
-  width:auto;
-  height:70px;
-  max-width:260px;
-  object-fit:contain;
+  align-items:center;
+  border-bottom:1px solid #ddd;
+  padding-bottom:12px;
+  margin-bottom:15px
 }
 
 .pdfBrand{
+  text-align:right;
   font-size:11px;
   letter-spacing:2px;
-  color:#667085;
-  text-align:right;
+  color:#777
 }
 
 .pdfTitle{
-  font-size:25px;
-  font-weight:850;
-  margin-top:5px;
-  text-align:right;
+  font-size:18px;
+  font-weight:800;
+  margin-top:5px
 }
 
 .pdfPhotos{
   display:grid;
   grid-template-columns:2fr 1fr 1fr;
-  gap:8px;
-  margin-bottom:24px;
+  gap:6px;
+  margin-bottom:14px
 }
 
 .pdfPhotos img{
   width:100%;
-  height:150px;
+  height:110px;
   object-fit:cover;
-  border-radius:8px;
+  border-radius:7px
+}
+
+.pdfPhotos img:first-child{
+  grid-row:span 2;
+  height:226px
 }
 
 .pdfMainInfo{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  padding:16px;
-  background:#f6f7f9;
-  border-radius:10px;
-  margin-bottom:22px;
+  gap:10px;
+  background:#f5f6f8;
+  padding:12px;
+  border-radius:8px
+}
+
+.pdfMainInfo>div{
+  font-size:10px;
+  min-height:34px
+}
+
+.pdfMainInfo>div>div:last-child{
+  font-size:11px;
+  margin-top:4px
 }
 
 .pdfLabel{
+  display:block;
   font-size:9px;
-  color:#667085;
-  font-weight:750;
   letter-spacing:1px;
-  margin-bottom:4px;
+  color:#777;
+  font-weight:700
 }
 
 .pdfSectionTitle{
-  font-size:17px;
-  margin:20px 0 12px;
+  font-size:14px;
+  margin:16px 0 8px
 }
 
 .pdfSpecs{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  gap:8px
 }
 
-.pdfSpecs div{
-  border:1px solid #e4e7ec;
-  border-radius:8px;
-  padding:11px;
+.pdfSpecs>div{
+  border:1px solid #ddd;
+  padding:7px;
+  border-radius:6px;
+  font-size:10px
 }
 
 .pdfSpecs b{
   display:block;
-  font-size:10px;
-  color:#667085;
-  margin-bottom:4px;
-}
-
-.pdfSpecs span{
-  font-size:13px;
-  font-weight:700;
+  font-size:9px;
+  color:#777
 }
 
 .pdfBlock{
-  margin-top:18px;
+  font-size:10px;
+  line-height:1.4
 }
 
 .pdfBlock h2{
-  font-size:14px;
-  margin-bottom:6px;
-}
-
-.pdfBlock p{
   font-size:12px;
-  line-height:1.6;
-  margin:0;
+  margin:14px 0 4px
 }
 
 .pdfContact{
-  margin-top:25px;
-  padding:14px;
-  background:#101828;
-  color:#fff;
-  border-radius:8px;
-  font-size:13px;
-  font-weight:700;
+  font-size:10px;
+  margin-top:15px;
+  padding-top:8px;
+  border-top:1px solid #ddd
 }
 
-@media print{
-  .pdfOnly{
-    display:block!important;
+.notice{
+  padding:10px;
+  border-radius:8px;
+  background:#e9f7ee;
+  color:#176b39;
+  display:none;
+  margin-top:10px
+}
+
+#canvaCanvas{
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:24px;
+  max-width:850px;
+  margin:auto
+}
+
+@media(max-width:800px){
+
+  .grid,
+  .two{
+    grid-template-columns:1fr
   }
 
-  header,
-  .hero,
-  .formOnly,
-  .actions,
-  .card:not(.formOnly){
-    display:none!important;
+  .info-grid,
+  .specs{
+    grid-template-columns:1fr 1fr
   }
 
-  body{
-    background:#fff!important;
+  .gallery{
+    grid-template-columns:1fr 1fr
   }
 
-  main{
-    max-width:none!important;
-    padding:0!important;
-  }
-}@media print {
-  @page {
-    size: A4;
-    margin: 8mm;
+  .gallery img:first-child{
+    grid-column:span 2;
+    height:220px
   }
 
-  .pdfOnly {
-    padding: 12px !important;
-    max-width: 100% !important;
-    font-size: 10px !important;
+  .pdfPage{
+    transform-origin:top left
   }
 
-  .pdfHeader {
-    padding-bottom: 8px !important;
-    margin-bottom: 10px !important;
-  }
-
-  .pdfPhotos {
-    gap: 6px !important;
-    margin-bottom: 8px !important;
-  }
-
-  .pdfPhotos img {
-    max-height: 110px !important;
-  }
-
-  .pdfMainInfo {
-    gap: 6px !important;
-  }
-
-  .pdfMainInfo > div {
-    margin-bottom: 5px !important;
-  }
-
-  .pdfContact {
-  margin-top: 3px !important;
-  padding: 4px !important;
-  font-size: 9px !important;
-  line-height: 1.1 !important;
-  break-inside: avoid !important;
-  page-break-inside: avoid !important;
-  }
-  }
-
-  .pdfOnly * {
-    line-height: 1.2 !important;
-  }
 }
 </style>
 </head>
+
 <body>
+
 <header>
+
   <div class="logo">
-    <img src="./file_00000000bc188211a200a0ccdbc1cecd.png" alt="PropDeck Logo">
+    <div>🏢 PropDeck</div>
   </div>
-  <div class="tag">Real Estate Marketing</div>
+
+  <div class="brand">
+    <small>REAL ESTATE MARKETING</small>
+    <strong>Property Brochure</strong>
+  </div>
+
 </header>
+
 <main>
 
-<div class="pdfHeader">
-  <img src="./file_00000000bc188211a200a0ccdbc1cecd.png" alt="Client Logo">
-  <div>
-    <div class="pdfBrand">REAL ESTATE MARKETING</div>
-    <div class="pdfTitle" id="pdfTitle">Property Brochure</div>
-  </div>
+<!-- ================= PROPERTY DETAILS ================= -->
+
+<section class="card">
+
+<h2>1. Property Details</h2>
+
+<div class="grid">
+
+<div>
+<label>Property Type *</label>
+
+<select id="type">
+<option>Residential</option>
+<option>Commercial</option>
+<option>Plot</option>
+<option>Villa</option>
+<option>Apartment</option>
+</select>
+
 </div>
 
-<div id="pdfPhotos" class="pdfPhotos"></div>
+<div>
+<label>Property Title</label>
+<input id="title" placeholder="e.g. Luxury 4 BHK House">
+</div>
+
+<div>
+
+<label>Purpose *</label>
+
+<select id="purpose">
+<option>For Sale</option>
+<option>For Rent</option>
+<option>For Lease</option>
+</select>
+
+</div>
+
+<div>
+<label>Price *</label>
+<input id="price" placeholder="e.g. ₹4 Cr">
+</div>
+
+<div>
+<label>Location *</label>
+<input id="location" placeholder="e.g. Dwarka, New Delhi">
+</div>
+
+<div>
+<label>Area</label>
+<input id="area" placeholder="e.g. 2000 Sq.Ft.">
+</div>
+
+<div>
+
+<label>Ownership</label>
+
+<select id="ownership">
+<option>Not specified</option>
+<option>Freehold</option>
+<option>Leasehold</option>
+</select>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SPECIFICATIONS ================= -->
+
+<section class="card">
+
+<h2>2. Specifications</h2>
+
+<div class="grid">
+
+<div>
+<label>Bedrooms</label>
+<input id="beds" placeholder="e.g. 4">
+</div>
+
+<div>
+<label>Bathrooms</label>
+<input id="baths" placeholder="e.g. 4">
+</div>
+
+<div>
+<label>Floor</label>
+<input id="floor" placeholder="e.g. 2">
+</div>
+
+<div>
+<label>Facing</label>
+<input id="facing" placeholder="e.g. East">
+</div>
+
+<div>
+<label>Parking</label>
+<input id="parking" placeholder="e.g. 2 Cars">
+</div>
+
+<div>
+
+<label>Furnished</label>
+
+<select id="furnished">
+<option>Not specified</option>
+<option>Fully Furnished</option>
+<option>Semi Furnished</option>
+<option>Unfurnished</option>
+</select>
+
+</div>
+
+<div class="full">
+
+<label>Amenities</label>
+
+<input
+id="amenities"
+placeholder="Lift, Security, Gym, Garden, Parking">
+
+</div>
+
+<div class="full">
+
+<label>Nearby / Location Highlights</label>
+
+<textarea
+id="nearby"
+placeholder="Metro, school, hospital, market, highway etc."></textarea>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PHOTOS ================= -->
+
+<section class="card">
+
+<h2>3. Photos & Additional Information</h2>
+
+<label>Property Photos</label>
+
+<input
+id="photos"
+type="file"
+accept="image/*"
+multiple>
+
+<div
+id="gallery"
+class="gallery"
+style="margin-top:12px">
+</div>
+
+
+<label>Tell us more</label>
+
+<textarea
+id="more"
+placeholder="Write anything you know about the property. The system will use only the information provided."></textarea>
+
+
+<div
+class="two"
+style="margin-top:14px">
+
+<div>
+
+<label>Description Style</label>
+
+<select id="style">
+
+<option>Professional</option>
+<option>Luxury</option>
+<option>Short & Clean</option>
+<option>Premium</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Language</label>
+
+<select id="language">
+
+<option>English</option>
+<option>Hindi</option>
+<option>Hinglish</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<label style="margin-top:14px">
+Agent / Company / Contact
+</label>
+
+<input
+id="contact"
+placeholder="Karan Estates • +91 XXXXX XXXXX">
+
+
+<div class="actions">
+
+<button
+class="primary"
+onclick="generate()">
+
+✨ Generate Content
+
+</button>
+
+<button
+class="secondary"
+onclick="clearAll()">
+
+Reset
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= PREVIEW ================= -->
+
+<section class="card">
+
+<h2>4. Property Preview</h2>
+
+<div class="preview">
+
+<div class="eyebrow">
+PROPERTY PRESENTATION
+</div>
+
+<h1 id="pvTitle">
+Your Property Title
+</h1>
+
+<div
+class="loc"
+id="pvLoc">
+
+Location
+
+</div>
+
+<div
+class="price"
+id="pvPrice">
+
+Price
+
+</div>
+
+<div
+class="pills"
+id="pills">
+</div>
+
+<p id="pvDesc">
+Your generated description will appear here.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= MARKETING OUTPUT ================= -->
+
+<section class="card">
+
+<h2>5. Marketing Outputs</h2>
+
+
+<div class="output">
+
+<h3>AI Description</h3>
+
+<div id="ai">—</div>
+
+</div>
+
+
+<div class="output">
+
+<h3>WhatsApp</h3>
+
+<div id="wa">—</div>
+
+<div class="actions">
+
+<button
+class="secondary"
+onclick="copyWA()">
+
+📋 Copy WhatsApp
+
+</button>
+
+<button
+class="secondary"
+onclick="shareWA()">
+
+💬 Share
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="output">
+
+<h3>Website Listing</h3>
+
+<div id="web">—</div>
+
+</div>
+
+
+<div class="output">
+
+<h3>Instagram Caption</h3>
+
+<div id="ig">—</div>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="primary"
+onclick="savePrintPDF()">
+
+📄 Save / Print PDF
+
+</button>
+
+<button
+class="canva"
+onclick="openCanva()">
+
+🎨 Open Canva
+
+</button>
+
+<button
+class="canva"
+onclick="downloadCanvaImage()">
+
+⬇️ Canva-ready Image
+
+</button>
+
+</div>
+
+
+<div
+id="notice"
+class="notice">
+</div>
+
+</section>
+
+
+<!-- ================= CANVA ================= -->
+
+<section
+id="canvaDesign"
+class="card">
+
+<h2>6. Canva-ready Design</h2>
+
+<p
+style="font-size:13px;color:#666">
+
+Generate your property brochure above,
+then download a Canva-ready PNG and
+upload it into Canva for further editing.
+
+</p>
+
+
+<div id="canvaCanvas">
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+border-bottom:1px solid #ddd;
+padding-bottom:12px">
+
+<b style="font-size:22px">
+PropDeck
+</b>
+
+<span
+style="
+font-size:11px;
+letter-spacing:2px;
+color:#777">
+
+REAL ESTATE MARKETING
+
+</span>
+
+</div>
+
+
+<div
+id="canvaPhotos"
+class="gallery"
+style="margin-top:16px">
+</div>
+
+
+<h1
+id="canvaTitle"
+style="font-size:30px">
+
+Your Property Title
+
+</h1>
+
+
+<p id="canvaLocation">
+Location
+</p>
+
+
+<h2 id="canvaPrice">
+Price
+</h2>
+
+
+<div
+id="canvaDetails"
+style="
+line-height:1.8;
+font-size:14px">
+
+</div>
+
+
+<p
+id="canvaDescription"
+style="
+line-height:1.5;
+color:#444">
+
+Generate content to prepare this design.
+
+</p>
+
+
+<p
+id="canvaContact"
+style="
+font-weight:700;
+border-top:1px solid #ddd;
+padding-top:12px">
+
+Contact details
+
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- ================= PDF ================= -->
+
+<div id="pdfPreview">
+
+<div
+class="pdfPage"
+id="pdfPage">
+
+
+<div class="pdfHeader">
+
+<div>
+🏢 <b>PropDeck</b>
+</div>
+
+<div>
+
+<div class="pdfBrand">
+REAL ESTATE MARKETING
+</div>
+
+<div
+class="pdfTitle"
+id="pdfTitle">
+
+Property Brochure
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+id="pdfPhotos"
+class="pdfPhotos">
+</div>
+
 
 <div class="pdfMainInfo">
-  <div>
-    <div class="pdfLabel">PROPERTY TYPE</div>
-    <div id="pdfType">Residential</div>
-  </div>
 
-  <div>
-    <div class="pdfLabel">PURPOSE</div>
-    <div id="pdfPurpose">For Sale</div>
-  </div>
-
-  <div>
-    <div class="pdfLabel">LOCATION</div>
-    <div id="pdfLocation">—</div>
-  </div>
-
-  <div>
-    <div class="pdfLabel">PRICE</div>
-    <div id="pdfPrice">—</div>
-  </div>
-
-  <div>
-    <div class="pdfLabel">AREA</div>
-    <div id="pdfArea">—</div>
-  </div>
-
-  <div>
-    <div class="pdfLabel">OWNERSHIP</div>
-    <div id="pdfOwnership">—</div>
-  </div>
+<div>
+<div class="pdfLabel">
+PROPERTY TYPE
+</div>
+<div id="pdfType">-</div>
 </div>
 
-<h2 class="pdfSectionTitle">Property Specifications</h2>
+<div>
+<div class="pdfLabel">
+PURPOSE
+</div>
+<div id="pdfPurpose">-</div>
+</div>
+
+<div>
+<div class="pdfLabel">
+LOCATION
+</div>
+<div id="pdfLocation">-</div>
+</div>
+
+<div>
+<div class="pdfLabel">
+PRICE
+</div>
+<div id="pdfPrice">-</div>
+</div>
+
+<div>
+<div class="pdfLabel">
+AREA
+</div>
+<div id="pdfArea">-</div>
+</div>
+
+<div>
+<div class="pdfLabel">
+OWNERSHIP
+</div>
+<div id="pdfOwnership">-</div>
+</div>
+
+</div>
+
+
+<h2 class="pdfSectionTitle">
+Property Specifications
+</h2>
+
 
 <div class="pdfSpecs">
-  <div><b>Bedrooms</b><span id="pdfBeds">—</span></div>
-  <div><b>Bathrooms</b><span id="pdfBaths">—</span></div>
-  <div><b>Floor</b><span id="pdfFloor">—</span></div>
-  <div><b>Facing</b><span id="pdfFacing">—</span></div>
-  <div><b>Parking</b><span id="pdfParking">—</span></div>
-  <div><b>Furnished</b><span id="pdfFurnished">—</span></div>
+
+<div>
+<b>BEDROOMS</b>
+<span id="pdfBeds">-</span>
 </div>
 
-<div class="pdfBlock">
-  <h2>Amenities</h2>
-  <p id="pdfAmenities">—</p>
+<div>
+<b>BATHROOMS</b>
+<span id="pdfBaths">-</span>
 </div>
 
-<div class="pdfBlock">
-  <h2>Location Highlights</h2>
-  <p id="pdfNearby">—</p>
+<div>
+<b>FLOOR</b>
+<span id="pdfFloor">-</span>
 </div>
 
-<div class="pdfBlock">
-  <h2>Property Description</h2>
-  <p id="pdfDescription">—</p>
+<div>
+<b>FACING</b>
+<span id="pdfFacing">-</span>
 </div>
+
+<div>
+<b>PARKING</b>
+<span id="pdfParking">-</span>
+</div>
+
+<div>
+<b>FURNISHED</b>
+<span id="pdfFurnished">-</span>
+</div>
+
+</div>
+
+
+<div class="pdfBlock">
+
+<h2>Amenities</h2>
+
+<p id="pdfAmenities">-</p>
+
+</div>
+
+
+<div class="pdfBlock">
+
+<h2>Location Highlights</h2>
+
+<p id="pdfNearby">-</p>
+
+</div>
+
+
+<div class="pdfBlock">
+
+<h2>Property Description</h2>
+
+<p id="pdfDescription">-</p>
+
+</div>
+
 
 <div class="pdfContact">
-  📞 <span id="pdfContact">Contact details</span>
+
+☎
+
+<span id="pdfContact">
+Contact details
+</span>
+
 </div>
 
-<section class="hero">
-<div class="grid">
-<section class="card formOnly">
-<h2>1. Property Details</h2>
-<label>Property Type *</label><select id="type"><option>Residential</option><option>Commercial</option><option>Plot / Land</option><option>Farmhouse</option><option>Office</option><option>Shop</option><option>Warehouse</option><option>Industrial</option><option>Other</option></select>
-<div class="two"><div><label>Purpose *</label><select id="purpose"><option>For Sale</option><option>For Rent</option><option>For Lease</option></select></div><div><label>Property Title</label><input id="title" placeholder="Premium 3 BHK Apartment"></div></div>
-<div class="two"><div><label>Location *</label><input id="location" placeholder="Dwarka, New Delhi"></div><div><label>Price *</label><input id="price" placeholder="₹2.40 Cr"></div></div>
-<div class="two"><div><label>Area</label><input id="area" placeholder="1,850 Sq.Ft."></div><div><label>Ownership</label><select id="ownership"><option value="">Not specified</option><option>Freehold</option><option>Leasehold</option><option>Other</option></select></div></div>
-</section>
-
-<section class="card formOnly">
-<h2>2. Specifications</h2>
-<div class="two"><div><label>Bedrooms</label><input id="beds"></div><div><label>Bathrooms</label><input id="baths"></div></div>
-<div class="two"><div><label>Floor</label><input id="floor"></div><div><label>Facing</label><input id="facing"></div></div>
-<div class="two"><div><label>Parking</label><input id="parking"></div><div><label>Furnished</label><select id="furnished"><option value="">Not specified</option><option>Furnished</option><option>Semi-Furnished</option><option>Unfurnished</option></select></div></div>
-<label>Amenities</label><input id="amenities" placeholder="Lift, Security, Gym, Garden">
-<label>Nearby / Location Highlights</label><textarea id="nearby" placeholder="Metro, school, hospital, market, highway..."></textarea>
-</section>
-
-<section class="card full formOnly">
-<h2>3. Photos & Additional Information</h2>
-<label>Property Photos</label><input id="photos" type="file" accept="image/*" multiple>
-<div id="gallery" class="gallery"></div>
-<label>Tell us more</label><textarea id="more" placeholder="Write anything you know about the property. The AI will use only the information provided."></textarea>
-<div class="two"><div><label>Description Style</label><select id="style"><option>Professional</option><option>Premium / Luxury</option><option>Simple</option><option>Family-focused</option><option>Investor-focused</option></select></div><div><label>Language</label><select id="lang"><option>English</option><option>Hinglish</option><option>Hindi</option></select></div></div>
-<label>Agent / Company / Contact</label><input id="contact" placeholder="Karan Estates • +91 XXXXX XXXXX">
-<div class="actions"><button class="primary" onclick="generate()">✨ Generate Content</button><button class="secondary" onclick="clearAll()">Reset</button></div>
-</section>
-
-<section class="card">
-<h2>4. Property Preview</h2>
-<div class="preview"><div class="eyebrow">PROPERTY PRESENTATION</div><h3 id="pvTitle">Your Property Title</h3><div id="pvLoc">Location</div><div class="price" id="pvPrice">Price</div><div id="pills" class="pills"></div><div id="pvDesc" class="desc">Your generated description will appear here.</div></div>
-</section>
-
-<section class="card">
-<h2>5. Marketing Outputs</h2>
-<div class="output"><h3>AI Description</h3><div id="desc" class="text">—</div></div>
-<div class="output"><h3>WhatsApp</h3><div id="wa" class="text">—</div><div class="actions"><button class="secondary" onclick="copyWA()">📋 Copy WhatsApp</button><button class="secondary" onclick="shareWA()">💬 Share</button></div></div>
-<div class="output"><h3>Website Listing</h3><div id="web" class="text">—</div></div>
-<div class="output"><h3>Instagram Caption</h3><div id="ig" class="text">—</div></div>
-<div class="actions"><button class="primary"onclick="try{updatePDF()}catch(e){console.error(e)};setTimeout(function(){window.print()},500)" >📄 Save / Print PDF</button>
-<div id="notice" class="ok"></div>
-</section>
 </div>
-</main>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
 <script>
-const $=x=>document.getElementById(x),v=x=>($(x).value||'').trim();
-let lastWA='';
+
+const $ = id => document.getElementById(id);
+
+const v = id =>
+  ($(id) ? ($(id).value || '').trim() : '');
+
+let lastWA = '';
+
+let photoData = [];
+
+
+/* ================= DESCRIPTION ================= */
+
 function desc(){
- const title=v('title')||v('type')+' Property',loc=v('location'),price=v('price'),area=v('area'),own=v('ownership'),beds=v('beds'),baths=v('baths'),floor=v('floor'),face=v('facing'),park=v('parking'),furn=v('furnished'),amen=v('amenities'),near=v('nearby'),more=v('more');
- let s=`${title} is available ${v('purpose').toLowerCase()}${loc?' in '+loc:''}.`;
- let specs=[];if(area)specs.push(area);if(beds)specs.push(beds+' bedroom'+(beds==='1'?'':'s'));if(baths)specs.push(baths+' bathroom'+(baths==='1'?'':'s'));if(furn)specs.push(furn.toLowerCase());
- if(specs.length)s+=` The property offers ${specs.join(', ')}.`;
- let key=[];if(price)key.push('asking price of '+price);if(own)key.push(own+' ownership');if(floor)key.push(floor);if(face)key.push(face+' facing');if(park)key.push(park+' parking');
- if(key.length)s+=` Key details include ${key.join(', ')}.`;
- if(amen)s+=` Amenities include ${amen}.`;if(near)s+=` Location highlights: ${near}.`;if(more)s+=` Additional information: ${more}.`;
- return s;
+
+  const title =
+    v('title') ||
+    v('type') + ' Property';
+
+  const purpose = v('purpose') || '';
+
+  const area = v('area') || '';
+
+  const beds = v('beds') || '';
+
+  const baths = v('baths') || '';
+
+  const price = v('price') || '';
+
+  const amen = v('amenities') || '';
+
+  const nearby = v('nearby') || '';
+
+  const more = v('more') || '';
+
+
+  let s =
+    `${title} is available ${
+      purpose
+      ? 'for ' + purpose.toLowerCase()
+      : ''
+    }.`;
+
+  let specs = [];
+
+
+  if(area)
+    specs.push(area);
+
+
+  if(beds)
+    specs.push(`${beds} bedrooms`);
+
+
+  if(baths)
+    specs.push(`${baths} bathrooms`);
+
+
+  if(specs.length)
+
+    s +=
+      ` The property offers ${
+        specs.join(', ')
+      }.`;
+
+
+
+  if(price)
+
+    s +=
+      ` The asking price is ${price}.`;
+
+
+
+  if(amen)
+
+    s +=
+      ` Amenities include ${amen}.`;
+
+
+
+  if(nearby)
+
+    s +=
+      ` Nearby highlights include ${nearby}.`;
+
+
+
+  if(more)
+
+    s += ` ${more}`;
+
+
+  return s;
+
 }
+
+
+/* ================= GENERATE ================= */
+
 function generate(){
-  const title = v('title') || v('type') + ' Property';
-  const loc = v('location') || '-';
-  const price = v('price') || '-';
+
+  const title =
+    v('title') ||
+    v('type') + ' Property';
+
+
+  const loc =
+    v('location') || '-';
+
+
+  const price =
+    v('price') || '-';
+
+
   const d = desc();
 
+
   const h = [
-    v('area') && 'Area: ' + v('area'),
-    v('ownership') && 'Ownership: ' + v('ownership'),
-    v('beds') && 'Bedrooms: ' + v('beds'),
-    v('baths') && 'Bathrooms: ' + v('baths'),
-    v('parking') && 'Parking: ' + v('parking')
+
+    v('area') &&
+    'Area: ' + v('area'),
+
+    v('ownership') &&
+    'Ownership: ' + v('ownership'),
+
+    v('beds') &&
+    'Bedrooms: ' + v('beds'),
+
+    v('baths') &&
+    'Bathrooms: ' + v('baths'),
+
+    v('parking') &&
+    'Parking: ' + v('parking')
+
   ].filter(Boolean);
 
-  $('pvTitle').textContent = title;
-  $('pvLoc').textContent = loc;
-  $('pvPrice').textContent = price;
 
-  $('pills').innerHTML = h.slice(0,5)
-    .map(x => `<span>${x}</span>`)
+
+  $('pvTitle').textContent =
+    title;
+
+
+  $('pvLoc').textContent =
+    loc;
+
+
+  $('pvPrice').textContent =
+    price;
+
+
+  $('pvDesc').textContent =
+    d;
+
+
+
+  $('pills').innerHTML =
+    h.slice(0,5)
+    .map(x =>
+      `<span>${escapeHtml(x)}</span>`
+    )
     .join('');
 
-  const contact = v('contact') || 'Contact details not provided';
 
-  lastWA = `🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n📞 ${contact}`;
 
-  $('wa').textContent = lastWA;
-  $('web').textContent = `${title}\n\n${d}\n\nKEY DETAILS:\n${h.join('\n')}\n\n📞 ${contact}`;
-  $('ig').textContent = `🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}`;
+  const contact =
+    v('contact') ||
+    'Contact details not provided';
+
+
+
+  lastWA =
+`🏠 ${title}
+📍 ${loc}
+💰 ${price}
+
+${d}
+
+📞 ${contact}`;
+
+
+
+  $('ai').textContent =
+    d;
+
+
+  $('wa').textContent =
+    lastWA;
+
+
+  $('web').textContent =
+`${title}
+
+${d}
+
+KEY DETAILS:
+${h.join('\n')}
+
+📞 ${contact}`;
+
+
+
+  $('ig').textContent =
+`🏠 ${title}
+📍 ${loc}
+💰 ${price}
+
+${d}`;
+
+
+
+  updatePDF();
+
+  updateCanva();
+
+  showNotice(
+    'Content generated successfully.'
+  );
+
 }
- function updatePDF(){
-  const title = v('title') || v('type') + ' Property';
-  const contact = v('contact') || 'Contact details not provided';
 
-  $('pdfTitle').textContent = title;
 
-  const galleryImages = document.querySelectorAll('#gallery img');
-  $('pdfPhotos').innerHTML = '';
+/* ================= PDF UPDATE ================= */
 
-  galleryImages.forEach(img => {
-    const photo = document.createElement('img');
-    photo.src = img.src;
-    photo.style.width = '100%';
-    photo.style.height = '180px';
-    photo.style.objectFit = 'cover';
-    photo.style.borderRadius = '10px';
-    $('pdfPhotos').appendChild(photo);
-  });
-
-  $('pdfMainInfo').innerHTML = `
-    <div>
-      <div class="pdfLabel">PROPERTY TYPE</div>
-      <div>${v('type') || '-'}</div>
-    </div>
-
-    <div>
-      <div class="pdfLabel">PURPOSE</div>
-      <div>${v('purpose') || '-'}</div>
-    </div>
-
-    <div>
-      <div class="pdfLabel">LOCATION</div>
-      <div>${v('location') || '-'}</div>
-    </div>
-
-    <div>
-      <div class="pdfLabel">PRICE</div>
-      <div>${v(') || '-'}</div>
-    </div>
-
-    <div>
-      <div class="pdfLabel">AREA</div>
-      <div>${v('area') || '-'}</div>
-    </div>
-
-    <div>
-      <div class="pdfLabel">BEDROOMS</div>
-      <div>${v('beds') || '-'}</div>
-    </div>
-
-    <div>
-      <div class="pdfLabel">BATHROOMS</div>
-      <div>${v('baths') || '-'}</div>
-    </div>
-
-    <div>
-      <div class="pdfLabel">FLOOR</div>
-      <div>${v('floor') || '-'}</div>
-    </div>
 function updatePDF(){
-  const title = v('title') || v('type') || 'Property';
-  const contact = v('contact') || 'Contact details not provided';
 
-  // Title
-  $('pdfTitle').textContent = title;
+  const title =
+    v('title') ||
+    v('type') + ' Property';
 
-  // Photos
-  const galleryImages = document.querySelectorAll('#gallery img');
+
+  $('pdfTitle').textContent =
+    title;
+
+
+  $('pdfType').textContent =
+    v('type') || '-';
+
+
+  $('pdfPurpose').textContent =
+    v('purpose') || '-';
+
+
+  $('pdfLocation').textContent =
+    v('location') || '-';
+
+
+  $('pdfPrice').textContent =
+    v('price') || '-';
+
+
+  $('pdfArea').textContent =
+    v('area') || '-';
+
+
+  $('pdfOwnership').textContent =
+    v('ownership') || '-';
+
+
+  $('pdfBeds').textContent =
+    v('beds') || '-';
+
+
+  $('pdfBaths').textContent =
+    v('baths') || '-';
+
+
+  $('pdfFloor').textContent =
+    v('floor') || '-';
+
+
+  $('pdfFacing').textContent =
+    v('facing') || '-';
+
+
+  $('pdfParking').textContent =
+    v('parking') || '-';
+
+
+  $('pdfFurnished').textContent =
+    v('furnished') || '-';
+
+
+  $('pdfAmenities').textContent =
+    v('amenities') || '-';
+
+
+  $('pdfNearby').textContent =
+    v('nearby') || '-';
+
+
+  $('pdfDescription').textContent =
+    desc();
+
+
+  $('pdfContact').textContent =
+    v('contact') ||
+    'Contact details not provided';
+
+
+
   $('pdfPhotos').innerHTML = '';
 
-  galleryImages.forEach(img => {
-    const photo = document.createElement('img');
-    photo.src = img.src;
-    photo.style.width = '100%';
-    photo.style.height = '120px';
-    photo.style.objectFit = 'cover';
-    photo.style.borderRadius = '8px';
-    $('pdfPhotos').appendChild(photo);
+
+  photoData.forEach(src => {
+
+    const img =
+      document.createElement('img');
+
+    img.src = src;
+
+    $('pdfPhotos')
+      .appendChild(img);
+
   });
 
-  // Main Property Information
-  $('pdfType').textContent = v('type') || '-';
-  $('pdfPurpose').textContent = v('purpose') || '-';
-  $('pdfLocation').textContent = v('location') || '-';
-  $('pdfPrice').textContent = v('price') || '-';
-  $('pdfArea').textContent = v('area') || '-';
-  $('pdfOwnership').textContent = v('ownership') || '-';
-
-  // Property Specifications
-  $('pdfBeds').textContent = v('beds') || '-';
-  $('pdfBaths').textContent = v('baths') || '-';
-  $('pdfFloor').textContent = v('floor') || '-';
-  $('pdfFacing').textContent = v('facing') || '-';
-  $('pdfParking').textContent = v('parking') || '-';
-  $('pdfFurnished').textContent = v('furnished') || '-';
-
-  // Additional Information
-  $('pdfAmenities').textContent = v('amenities') || '-';
-  $('pdfNearby').textContent = v('nearby') || '-';
-
-  // Description
-  $('pdfDescription').textContent =
-    v('more') || v('description') || '-';
-
-  // Contact
-  $('pdfContact').textContent = contact;
 }
+
+
+/* ================= CANVA UPDATE ================= */
+
+function updateCanva(){
+
+  const title =
+    v('title') ||
+    v('type') + ' Property';
+
+
+  $('canvaTitle').textContent =
+    title;
+
+
+  $('canvaLocation').textContent =
+    '📍 ' + (v('location') || '-');
+
+
+  $('canvaPrice').textContent =
+    '💰 ' + (v('price') || '-');
+
+
+  $('canvaDescription').textContent =
+    desc();
+
+
+  $('canvaContact').textContent =
+    '☎ ' +
+    (
+      v('contact') ||
+      'Contact details not provided'
+    );
+
+
+
+  $('canvaDetails').innerHTML = [
+
+    ['Property Type',v('type')],
+
+    ['Purpose',v('purpose')],
+
+    ['Area',v('area')],
+
+    ['Bedrooms',v('beds')],
+
+    ['Bathrooms',v('baths')],
+
+    ['Floor',v('floor')],
+
+    ['Facing',v('facing')],
+
+    ['Parking',v('parking')],
+
+    ['Furnished',v('furnished')],
+
+    ['Ownership',v('ownership')],
+
+    ['Amenities',v('amenities')],
+
+    ['Nearby',v('nearby')]
+
+  ]
+
+  .filter(x => x[1])
+
+  .map(x =>
+    `<div>
+      <b>${escapeHtml(x[0])}:</b>
+      ${escapeHtml(x[1])}
+    </div>`
+  )
+
+  .join('');
+
+
+
+  $('canvaPhotos').innerHTML = '';
+
+
+  photoData.forEach(src => {
+
+    const img =
+      document.createElement('img');
+
+    img.src = src;
+
+    $('canvaPhotos')
+      .appendChild(img);
+
+  });
+
+}
+
+
+/* ================= WHATSAPP COPY ================= */
+
 function copyWA(){
- if(!lastWA)generate();
- navigator.clipboard?.writeText(lastWA).then(()=>show('WhatsApp message copied. Paste it in WhatsApp.')).catch(()=>{
-  const t=document.createElement('textarea');t.value=lastWA;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();show('WhatsApp message copied. Paste it in WhatsApp.');
- });
+
+  if(!lastWA)
+    generate();
+
+
+  if(navigator.clipboard){
+
+    navigator.clipboard
+      .writeText(lastWA)
+      .then(() =>
+        showNotice(
+          'WhatsApp text copied.'
+        )
+      );
+
+  }
+
 }
+
+
+/* ================= SHARE ================= */
+
 async function shareWA(){
- if(!lastWA)generate();
- const data={title:'PropertyAI',text:lastWA};
- if(navigator.share){try{await navigator.share(data);return}catch(e){}}
- copyWA();
+
+  if(!lastWA)
+    generate();
+
+
+  if(navigator.share){
+
+    try{
+
+      await navigator.share({
+
+        title:'PropertyAI',
+
+        text:lastWA
+
+      });
+
+    }
+
+    catch(e){}
+
+  }
+
+  else{
+
+    copyWA();
+
+  }
+
 }
-function show(x){$('notice').style.display='block';$('notice').textContent=x;setTimeout(()=>$('notice').style.display='none',3000)}
-$('photos').addEventListener('change',e=>{
- $('gallery').innerHTML='';[...e.target.files].forEach(f=>{let img=document.createElement('img');img.src=URL.createObjectURL(f);$('gallery').appendChild(img)});
-});
-function clearAll(){document.querySelectorAll('input,textarea').forEach(x=>x.value='');$('gallery').innerHTML='';lastWA='';['desc','wa','web','ig'].forEach(x=>$(x).textContent='—');$('pvTitle').textContent='Your Property Title';$('pvLoc').textContent='Location';$('pvPrice').textContent='Price';$('pvDesc').textContent='Your generated description will appear here.';$('pills').innerHTML=''}
-</script>
-</body></html>
+
+
+/* ================= PRINT PDF ================= */
+
+function savePrintPDF(){
+
+  updatePDF();
+
+
+  const page =
+    $('pdfPage').outerHTML;
+
+
+  const old =
+    document.body.innerHTML;
+
+
+  document.body.innerHTML =
+    page;
+
+
+  document.body.style.background =
+    '#fff';
+
+
+  window.print();
+
+
+  setTimeout(() => {
+
+    location.reload();
+
+  },500);
+
+}
+
+
+/* ================= OPEN CANVA ================= */
+
+function openCanva(){
+
+  window.open(
+    'https://www.canva.com/create/',
+    '_blank'
+  );
+
+}
+
+
+/* ================= CANVA PNG ================= */
+
+function downloadCanvaImage(){
+
+  updateCanva();
+
+
+  const node =
+    $('canvaCanvas');
+
+
+  if(
+    typeof html2canvas ===
+    'undefined'
+  ){
+
+    const s =
+      document.createElement('script');
+
+
+    s.src =
+      'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+
+
+    s.onload =
+      () => makePNG(node);
+
+
+    document.head
+      .appendChild(s);
+
+  }
+
+  else{
+
+    makePNG(node);
+
+  }
+
+}
+
+
+/* ================= MAKE PNG ================= */
+
+function makePNG(node){
+
+  html2canvas(
+    node,
+    {
+      scale:2,
+      backgroundColor:'#ffffff',
+      useCORS:true
+    }
+  )
+
+  .then(canvas => {
+
+    const a =
+      document.createElement('a');
+
+
+    a.download =
+      (
+        v('title') ||
+        'property-brochure'
+      )
+
+      .replace(
+        /[^a-z0-9]+/gi,
+        '-'
+      )
+
+      + '.png';
+
+
+    a.href =
+      canvas.toDataURL(
+        'image/png'
+      );
+
+
+    a.click();
+
+
+    showNotice(
+      'Canva-ready PNG downloaded. Upload it to Canva for editing.'
+    );
+
+  });
+
+}
+
+
+/* ================= PHOTO UPLOAD ================= */
+
+$('photos')
+.addEventListener(
+  'change',
+  e => {
+
+    photoData = [];
+
+    $('gallery').innerHTML = '';
+
+
+   
