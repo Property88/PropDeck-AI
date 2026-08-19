@@ -137,6 +137,155 @@ textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-column
 
 .pdfOnly{
   display:none;
+}/* PDF BROCHURE DESIGN */
+
+.pdfOnly{
+  display:none;
+  background:#fff;
+  color:#101828;
+  padding:28px;
+  max-width:900px;
+  margin:auto;
+}
+
+.pdfHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding-bottom:18px;
+  border-bottom:2px solid #e4e7ec;
+  margin-bottom:22px;
+}
+
+.pdfHeader img{
+  width:auto;
+  height:70px;
+  max-width:260px;
+  object-fit:contain;
+}
+
+.pdfBrand{
+  font-size:11px;
+  letter-spacing:2px;
+  color:#667085;
+  text-align:right;
+}
+
+.pdfTitle{
+  font-size:25px;
+  font-weight:850;
+  margin-top:5px;
+  text-align:right;
+}
+
+.pdfPhotos{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:8px;
+  margin-bottom:24px;
+}
+
+.pdfPhotos img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.pdfMainInfo{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  padding:16px;
+  background:#f6f7f9;
+  border-radius:10px;
+  margin-bottom:22px;
+}
+
+.pdfLabel{
+  font-size:9px;
+  color:#667085;
+  font-weight:750;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+.pdfSectionTitle{
+  font-size:17px;
+  margin:20px 0 12px;
+}
+
+.pdfSpecs{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.pdfSpecs div{
+  border:1px solid #e4e7ec;
+  border-radius:8px;
+  padding:11px;
+}
+
+.pdfSpecs b{
+  display:block;
+  font-size:10px;
+  color:#667085;
+  margin-bottom:4px;
+}
+
+.pdfSpecs span{
+  font-size:13px;
+  font-weight:700;
+}
+
+.pdfBlock{
+  margin-top:18px;
+}
+
+.pdfBlock h2{
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.pdfBlock p{
+  font-size:12px;
+  line-height:1.6;
+  margin:0;
+}
+
+.pdfContact{
+  margin-top:25px;
+  padding:14px;
+  background:#101828;
+  color:#fff;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:700;
+}
+
+@media print{
+  .pdfOnly{
+    display:block!important;
+  }
+
+  header,
+  .hero,
+  .formOnly,
+  .actions,
+  .card:not(.formOnly){
+    display:none!important;
+  }
+
+  body{
+    background:#fff!important;
+  }
+
+  main{
+    max-width:none!important;
+    padding:0!important;
+  }
 }
 </style>
 </head>
@@ -149,9 +298,77 @@ textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-column
 </header>
 <main>
 
-<section class="pdfOnly" id="pdfBrochure">
-  ...
-</section>
+<div class="pdfHeader">
+  <img src="./file_00000000bc188211a200a0ccdbc1cecd.png" alt="Client Logo">
+  <div>
+    <div class="pdfBrand">REAL ESTATE MARKETING</div>
+    <div class="pdfTitle" id="pdfTitle">Property Brochure</div>
+  </div>
+</div>
+
+<div id="pdfPhotos" class="pdfPhotos"></div>
+
+<div class="pdfMainInfo">
+  <div>
+    <div class="pdfLabel">PROPERTY TYPE</div>
+    <div id="pdfType">Residential</div>
+  </div>
+
+  <div>
+    <div class="pdfLabel">PURPOSE</div>
+    <div id="pdfPurpose">For Sale</div>
+  </div>
+
+  <div>
+    <div class="pdfLabel">LOCATION</div>
+    <div id="pdfLocation">—</div>
+  </div>
+
+  <div>
+    <div class="pdfLabel">PRICE</div>
+    <div id="pdfPrice">—</div>
+  </div>
+
+  <div>
+    <div class="pdfLabel">AREA</div>
+    <div id="pdfArea">—</div>
+  </div>
+
+  <div>
+    <div class="pdfLabel">OWNERSHIP</div>
+    <div id="pdfOwnership">—</div>
+  </div>
+</div>
+
+<h2 class="pdfSectionTitle">Property Specifications</h2>
+
+<div class="pdfSpecs">
+  <div><b>Bedrooms</b><span id="pdfBeds">—</span></div>
+  <div><b>Bathrooms</b><span id="pdfBaths">—</span></div>
+  <div><b>Floor</b><span id="pdfFloor">—</span></div>
+  <div><b>Facing</b><span id="pdfFacing">—</span></div>
+  <div><b>Parking</b><span id="pdfParking">—</span></div>
+  <div><b>Furnished</b><span id="pdfFurnished">—</span></div>
+</div>
+
+<div class="pdfBlock">
+  <h2>Amenities</h2>
+  <p id="pdfAmenities">—</p>
+</div>
+
+<div class="pdfBlock">
+  <h2>Location Highlights</h2>
+  <p id="pdfNearby">—</p>
+</div>
+
+<div class="pdfBlock">
+  <h2>Property Description</h2>
+  <p id="pdfDescription">—</p>
+</div>
+
+<div class="pdfContact">
+  📞 <span id="pdfContact">Contact details</span>
+</div>
 
 <section class="hero">
 <div class="grid">
@@ -193,7 +410,7 @@ textarea{min-height:100px;resize:vertical}.two{display:grid;grid-template-column
 <div class="output"><h3>WhatsApp</h3><div id="wa" class="text">—</div><div class="actions"><button class="secondary" onclick="copyWA()">📋 Copy WhatsApp</button><button class="secondary" onclick="shareWA()">💬 Share</button></div></div>
 <div class="output"><h3>Website Listing</h3><div id="web" class="text">—</div></div>
 <div class="output"><h3>Instagram Caption</h3><div id="ig" class="text">—</div></div>
-<div class="actions"><button class="primary" onclick="window.print()">📄 Save / Print PDF</button></div>
+<div class="actions"><button class="primary" onclick="updatePDF();window.print()">📄 Save / Print PDF</button>
 <div id="notice" class="ok"></div>
 </section>
 </div>
@@ -221,6 +438,101 @@ function generate(){
  $('wa').textContent=lastWA;
  $('web').textContent=`${title}\n\n${d}\n\nKEY DETAILS\n${h.length?h.map(x=>'• '+x).join('\n'):'Details available on request.'}\n\nCONTACT\n${contact}`;
  $('ig').textContent=`🏠 ${title}\n📍 ${loc}\n💰 ${price}\n\n${d}\n\n${h.slice(0,6).join(' • ')}\n\n📞 ${contact}`;
+}
+ function updatePDF(){
+  const title = v('title') || v('type') + ' Property';
+  const contact = v('contact') || 'Contact details not provided';
+
+  $('pdfTitle').textContent = title;
+
+  const galleryImages = document.querySelectorAll('#gallery img');
+  $('pdfPhotos').innerHTML = '';
+
+  galleryImages.forEach(img => {
+    const photo = document.createElement('img');
+    photo.src = img.src;
+    photo.style.width = '100%';
+    photo.style.height = '180px';
+    photo.style.objectFit = 'cover';
+    photo.style.borderRadius = '10px';
+    $('pdfPhotos').appendChild(photo);
+  });
+
+  $('pdfMainInfo').innerHTML = `
+    <div>
+      <div class="pdfLabel">PROPERTY TYPE</div>
+      <div>${v('type') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">PURPOSE</div>
+      <div>${v('purpose') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">LOCATION</div>
+      <div>${v('location') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">PRICE</div>
+      <div>${v('price') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">AREA</div>
+      <div>${v('area') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">BEDROOMS</div>
+      <div>${v('beds') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">BATHROOMS</div>
+      <div>${v('baths') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">FLOOR</div>
+      <div>${v('floor') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">FACING</div>
+      <div>${v('facing') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">PARKING</div>
+      <div>${v('parking') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">FURNISHED</div>
+      <div>${v('furnished') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">OWNERSHIP</div>
+      <div>${v('ownership') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">AMENITIES</div>
+      <div>${v('amenities') || '-'}</div>
+    </div>
+
+    <div>
+      <div class="pdfLabel">LOCATION HIGHLIGHTS</div>
+      <div>${v('nearby') || '-'}</div>
+    </div>
+
+    <div class="pdfContact">
+      CONTACT: ${contact}
+    </div>
+  `;
 }
 function copyWA(){
  if(!lastWA)generate();
