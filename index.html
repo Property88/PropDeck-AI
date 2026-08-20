@@ -2,571 +2,588 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PropDeck AI - Property Marketing</title>
 
 <style>
-*{
- box-sizing:border-box;
-}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
 body{
- margin:0;
- background:#f4f6f9;
- color:#101828;
- font-family:Arial,Helvetica,sans-serif;
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#f4f6f9;
+color:#101828
 }
 
-header{
- height:82px;
- background:#fff;
- border-bottom:1px solid #e5e7eb;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:10px 28px;
- position:sticky;
- top:0;
- z-index:50;
-}
-
-.logo img{
- height:58px;
- width:auto;
- max-width:210px;
- object-fit:contain;
- display:block;
-}
-
-.badge{
- border:1px solid #8db9e5;
- background:#eef7ff;
- color:#075da8;
- padding:9px 13px;
- border-radius:8px;
- font-size:12px;
-}
-
-main{
- max-width:1450px;
- margin:auto;
- padding:30px 24px 70px;
-}
-
-.hero h1{
- margin:0 0 7px;
- font-size:30px;
-}
-
-.hero p{
- margin:0 0 24px;
- color:#667085;
- font-size:14px;
-}
-
-.grid{
- display:grid;
- grid-template-columns:1fr 1fr 1fr;
- gap:14px;
-}
-
-.card{
- background:#fff;
- border:1px solid #e3e7ed;
- border-radius:14px;
- padding:16px;
- box-shadow:0 2px 8px rgba(16,24,40,.04);
-}
-
-.card h2{
- font-size:15px;
- margin:0 0 15px;
-}
-
-.previewCard{
- grid-column:3;
- grid-row:1 / span 2;
-}
-
-.photos,
-.outputs,
-.branding,
-.canva{
- grid-column:1 / 3;
-}
-
-.two{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
-}
-
-.field{
- margin-bottom:11px;
-}
-
-label{
- display:block;
- font-size:10px;
- font-weight:700;
- color:#344054;
- margin-bottom:5px;
-}
-
-input,
-select,
-textarea{
- width:100%;
- padding:10px;
- border:1px solid #d8dee8;
- border-radius:8px;
- background:#fff;
- color:#101828;
- font-size:12px;
- outline:none;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
- border-color:#1677ff;
- box-shadow:0 0 0 3px rgba(22,119,255,.08);
-}
-
-textarea{
- min-height:90px;
- resize:vertical;
-}
-
-.actions{
- display:flex;
- flex-wrap:wrap;
- gap:8px;
- margin-top:12px;
+button,input,select,textarea{
+font-family:inherit
 }
 
 button{
- border:0;
- border-radius:8px;
- padding:10px 14px;
- font-size:12px;
- font-weight:700;
- cursor:pointer;
+cursor:pointer;
+border:0
 }
 
-button:active{
- transform:scale(.97);
+header{
+height:82px;
+background:#fff;
+border-bottom:1px solid #e4e7ec;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 28px;
+position:sticky;
+top:0;
+z-index:1000
 }
 
-.primary{
- background:#111827;
- color:#fff;
+.header-logo{
+height:56px;
+width:auto;
+max-width:220px;
+object-fit:contain
 }
 
-.secondary{
- background:#edf1f6;
- color:#111827;
+.header-badge{
+border:1px solid #9fc3e8;
+color:#075a9c;
+background:#eef7ff;
+padding:9px 14px;
+border-radius:9px;
+font-size:13px;
+font-weight:600
 }
 
-.purple{
- background:#6d28d9;
- color:#fff;
+.container{
+width:min(1500px,calc(100% - 40px));
+margin:28px auto 60px
 }
 
-.preview{
- background:#0b1730;
- color:#fff;
- border-radius:14px;
- padding:22px;
- min-height:450px;
+.page-heading{
+margin-bottom:20px
 }
 
-.eyebrow{
- font-size:9px;
- letter-spacing:2px;
- color:#b9c2d1;
+.page-heading h1{
+margin:0 0 8px;
+font-size:clamp(25px,3vw,34px)
 }
 
-.preview h3{
- font-size:25px;
- margin:8px 0;
+.page-heading p{
+margin:0;
+color:#667085;
+font-size:14px
 }
 
-.loc{
- font-size:13px;
- margin-bottom:7px;
+.main-grid{
+display:grid;
+grid-template-columns:minmax(0,1fr) 380px;
+gap:20px;
+align-items:start
 }
 
-.price{
- font-size:30px;
- font-weight:800;
- margin:12px 0;
+.left-column,
+.right-column{
+min-width:0
 }
 
-.pills{
- display:flex;
- flex-wrap:wrap;
- gap:6px;
- border-bottom:1px solid rgba(255,255,255,.2);
- padding-bottom:14px;
+.card{
+background:#fff;
+border:1px solid #e4e7ec;
+border-radius:16px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 3px 14px rgba(16,24,40,.04)
 }
 
-.pill{
- border:1px solid rgba(255,255,255,.45);
- border-radius:15px;
- padding:5px 8px;
- font-size:10px;
+.card-title{
+margin:0 0 18px;
+font-size:18px;
+color:#101828
 }
 
-.desc{
- margin-top:14px;
- font-size:12px;
- line-height:1.55;
+.card-subtitle{
+margin:-10px 0 18px;
+color:#667085;
+font-size:12px
 }
 
-.photoGrid{
- display:grid;
- grid-template-columns:repeat(6,1fr);
- gap:8px;
- margin-top:8px;
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:15px
 }
 
-.photo{
- height:90px;
- border-radius:8px;
- overflow:hidden;
- position:relative;
- background:#eef1f5;
+.form-grid.three{
+grid-template-columns:repeat(3,minmax(0,1fr))
 }
 
-.photo img{
- width:100%;
- height:100%;
- object-fit:cover;
- display:block;
+.field{
+min-width:0
 }
 
-.remove{
- position:absolute;
- top:4px;
- right:4px;
- width:21px;
- height:21px;
- padding:0;
- border-radius:50%;
- background:#fff;
- color:#111;
+.field.full{
+grid-column:1/-1
 }
 
-.output{
- background:#f8fafc;
- border:1px solid #e8ecf1;
- border-radius:10px;
- padding:13px;
- margin-bottom:10px;
+.field label{
+display:block;
+margin-bottom:7px;
+font-size:12px;
+font-weight:700;
+color:#344054
 }
 
-.output h3{
- margin:0 0 8px;
- font-size:12px;
+.field input,
+.field select,
+.field textarea{
+width:100%;
+border:1px solid #d0d5dd;
+border-radius:9px;
+background:#fff;
+color:#101828;
+outline:none;
+padding:11px 12px;
+font-size:13px
 }
 
-.outtext{
- font-size:11px;
- line-height:1.55;
- white-space:pre-wrap;
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+border-color:#1769aa;
+box-shadow:0 0 0 3px rgba(23,105,170,.10)
 }
 
-.brandingBox{
- background:#f8fafc;
- border:1px solid #e4e7ec;
- border-radius:10px;
- padding:13px;
+.field textarea{
+min-height:105px;
+resize:vertical
 }
 
-.brandPreview{
- display:flex;
- align-items:center;
- gap:12px;
- margin-top:10px;
- padding:10px;
- background:#fff;
- border:1px solid #e5e7eb;
- border-radius:8px;
+.photo-upload{
+border:1px dashed #b8c1cc;
+border-radius:12px;
+padding:16px;
+background:#fafbfc
 }
 
-.brandPreview img{
- width:100px;
- height:45px;
- object-fit:contain;
+.photo-upload input{
+width:100%
 }
 
-.brandText{
- font-size:11px;
- line-height:1.6;
+.photo-gallery{
+display:grid;
+grid-template-columns:repeat(6,minmax(0,1fr));
+gap:10px;
+margin-top:14px
 }
 
-.socialTools{
- margin-top:14px;
- padding:14px;
- border:1px solid #e4e7ec;
- border-radius:12px;
- background:#fff;
+.photo-item{
+position:relative;
+aspect-ratio:1/1;
+overflow:hidden;
+border-radius:10px;
+background:#eef2f6;
+border:1px solid #e4e7ec
 }
 
-.socialTools h3{
- margin:0 0 5px;
- font-size:13px;
+.photo-item img{
+width:100%;
+height:100%;
+display:block;
+object-fit:cover
 }
 
-.socialTools p{
- margin:0 0 12px;
- color:#667085;
- font-size:10px;
+.photo-remove{
+position:absolute;
+top:5px;
+right:5px;
+width:24px;
+height:24px;
+border-radius:50%;
+background:#fff;
+color:#d92d20;
+font-weight:bold
 }
 
-.socialButtons{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:8px;
+.branding-box{
+display:grid;
+grid-template-columns:150px minmax(0,1fr);
+gap:18px;
+align-items:start
 }
 
-.socialButtons button{
- min-height:50px;
+.logo-preview{
+height:120px;
+border:1px solid #e4e7ec;
+border-radius:12px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:12px
 }
 
-.facebookBtn{
- background:#1877f2;
- color:#fff;
+.logo-preview img{
+max-width:100%;
+max-height:100%;
+object-fit:contain
 }
 
-.instagramBtn{
- background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
- color:#fff;
+.brand-fields{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:12px
 }
 
-.whatsappBtn{
- background:#25d366;
- color:#fff;
+.brand-fields .full{
+grid-column:1/-1
 }
 
-.notice{
- display:none;
- margin-top:10px;
- padding:10px;
- border-radius:8px;
- background:#ecfdf3;
- border:1px solid #bbf7d0;
- color:#15803d;
- font-size:12px;
- font-weight:700;
+.action-row{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:18px
 }
 
-/* CANVA PREVIEW */
-
-.canvaBox{
- border:1px solid #dfe4ea;
- border-radius:10px;
- padding:12px;
- background:#fff;
+.btn{
+border:0;
+border-radius:10px;
+padding:11px 17px;
+font-size:13px;
+font-weight:700;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:7px;
+min-height:42px
 }
 
-.design{
- border:1px solid #e1e4e8;
- border-radius:7px;
- overflow:hidden;
- background:#fff;
+.btn-primary{
+background:#101828;
+color:#fff
 }
 
-.designTop{
- display:grid;
- grid-template-columns:170px 1fr auto;
- align-items:center;
- gap:10px;
- padding:12px;
+.btn-secondary{
+background:#eef2f6;
+color:#101828
 }
 
-.designLogo{
- width:155px;
- height:48px;
- object-fit:contain;
+.btn-canva{
+background:#7c3aed;
+color:#fff
 }
 
-.designTitle{
- text-align:center;
- font-size:19px;
- font-weight:800;
+.property-preview{
+background:linear-gradient(145deg,#0b1735,#111d3d);
+color:#fff;
+border-radius:16px;
+padding:24px;
+min-height:420px
 }
 
-.designLoc{
- text-align:center;
- margin-top:4px;
- font-size:10px;
- color:#667085;
+.preview-brand{
+font-size:10px;
+letter-spacing:3px;
+opacity:.7;
+margin-bottom:12px
 }
 
-.designPrice{
- background:#0b1730;
- color:#fff;
- padding:10px 13px;
- border-radius:6px;
- font-weight:800;
- white-space:nowrap;
+.preview-title{
+font-size:28px;
+font-weight:800;
+line-height:1.15;
+margin-bottom:9px
 }
 
-.designPhotos{
- display:grid;
- grid-template-columns:2fr 1fr 1fr;
- grid-template-rows:105px 105px;
- gap:4px;
- padding:0 10px;
+.preview-location{
+font-size:14px;
+opacity:.9;
+margin-bottom:8px
 }
 
-.designPhotos img{
- width:100%;
- height:100%;
- object-fit:cover;
- border-radius:5px;
+.preview-price{
+font-size:30px;
+font-weight:800;
+margin-bottom:15px
 }
 
-.placeholder{
- background:linear-gradient(135deg,#edf1f5,#dfe4ea);
- border-radius:5px;
+.preview-pills{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+margin-bottom:18px
 }
 
-.stats{
- display:grid;
- grid-template-columns:repeat(6,1fr);
- gap:6px;
- padding:12px 10px;
+.preview-pills span{
+border:1px solid rgba(255,255,255,.35);
+border-radius:20px;
+padding:6px 9px;
+font-size:11px
 }
 
-.stat{
- text-align:center;
- font-size:9px;
- font-weight:700;
+.preview-description{
+font-size:13px;
+line-height:1.6;
+color:#e5e7eb
 }
 
-.stat b{
- display:block;
- font-size:14px;
- margin-bottom:3px;
+.output-box{
+background:#f8fafc;
+border:1px solid #e4e7ec;
+border-radius:12px;
+padding:15px;
+margin-bottom:12px
 }
 
-.designInfo{
- border-top:1px solid #e5e7eb;
- padding:10px;
- font-size:9px;
- line-height:1.7;
+.output-box h3{
+margin:0 0 10px;
+font-size:14px
 }
 
-.contact{
- background:#0b1730;
- color:#fff;
- text-align:center;
- padding:10px;
- font-size:11px;
- font-weight:800;
+.output-text{
+white-space:pre-wrap;
+font-size:13px;
+line-height:1.65;
+color:#344054;
+min-height:30px
 }
 
-.muted{
- color:#667085;
- font-size:10px;
+.output-actions{
+display:flex;
+gap:8px;
+margin-top:12px
 }
 
-/* MOBILE */
-
-@media(max-width:1000px){
-
- .grid{
-  grid-template-columns:1fr 1fr;
- }
-
- .previewCard{
-  grid-column:1 / 3;
-  grid-row:auto;
- }
-
- .photos,
- .outputs,
- .branding,
- .canva{
-  grid-column:1 / 3;
- }
+.output-actions button{
+border-radius:9px;
+padding:9px 12px;
+background:#eef2f6;
+color:#101828;
+font-weight:700;
+font-size:12px
 }
 
-@media(max-width:650px){
-
- header{
-  height:70px;
-  padding:8px 12px;
- }
-
- .logo img{
-  height:48px;
- }
-
- .badge{
-  display:none;
- }
-
- main{
-  padding:20px 12px 50px;
- }
-
- .grid{
-  grid-template-columns:1fr;
- }
-
- .previewCard,
- .photos,
- .outputs,
- .branding,
- .canva{
-  grid-column:auto;
- }
-
- .two{
-  grid-template-columns:1fr;
- }
-
- .photoGrid{
-  grid-template-columns:repeat(3,1fr);
- }
-
- .socialButtons{
-  grid-template-columns:1fr;
- }
-
- .designTop{
-  grid-template-columns:1fr 1fr;
- }
-
- .designLogo{
-  width:125px;
- }
-
- .stats{
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
- }
+.social-section{
+background:#fff;
+border:1px solid #e4e7ec;
+border-radius:16px;
+padding:20px;
+margin-bottom:20px
 }
 
-@media print{
+.social-section h2{
+margin:0 0 5px;
+font-size:18px
+}
 
- header,
- .hero,
- .form,
- .actions,
- .socialTools,
- .branding,
- .notice{
-  display:none !important;
- }
+.social-section>p{
+margin:0 0 16px;
+color:#667085;
+font-size:12px
+}
 
- body{
-  background:#fff;
- }
+.social-grid{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:12px
+}
+
+.social-card{
+border:0;
+border-radius:12px;
+padding:15px;
+min-height:75px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+color:#fff;
+font-weight:800;
+font-size:14px
+}
+
+.social-card span{
+font-size:20px
+}
+
+.social-whatsapp{
+background:#16c965
+}
+
+.social-facebook{
+background:#1877f2
+}
+
+.social-instagram{
+background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af)
+}
+
+.canva-preview{
+background:#fff;
+border:1px solid #e4e7ec;
+border-radius:12px;
+padding:15px;
+overflow:hidden
+}
+
+#mainCanvas{
+width:100%;
+height:auto;
+display:block;
+background:#fff;
+box-shadow:0 8px 30px rgba(15,23,42,.12)
+}
+
+.design-modal{
+position:fixed;
+inset:0;
+z-index:99999;
+background:rgba(15,23,42,.82);
+display:none;
+align-items:center;
+justify-content:center;
+padding:15px
+}
+
+.design-modal.active{
+display:flex
+}
+
+.design-modal-box{
+width:min(900px,100%);
+max-height:96vh;
+overflow:auto;
+background:#fff;
+border-radius:18px;
+box-shadow:0 30px 90px rgba(0,0,0,.4)
+}
+
+.design-modal-header{
+position:sticky;
+top:0;
+z-index:5;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 18px;
+border-bottom:1px solid #eaecf0
+}
+
+.design-modal-header h2{
+margin:0;
+font-size:17px
+}
+
+.design-modal-header p{
+margin:4px 0 0;
+color:#667085;
+font-size:11px
+}
+
+.close-modal{
+width:38px;
+height:38px;
+border-radius:9px;
+background:#f2f4f7;
+color:#344054;
+font-size:20px
+}
+
+.canvas-area{
+background:#eef2f6;
+padding:20px;
+display:flex;
+justify-content:center;
+align-items:center
+}
+
+#socialCanvas{
+display:block;
+width:min(100%,600px);
+height:auto;
+background:#fff;
+box-shadow:0 12px 35px rgba(16,24,40,.18)
+}
+
+.modal-actions{
+display:flex;
+flex-wrap:wrap;
+gap:9px;
+padding:15px 18px
+}
+
+.modal-actions button{
+border:0;
+border-radius:9px;
+padding:11px 15px;
+font-size:12px;
+font-weight:800
+}
+
+.download-png{
+background:#101828;
+color:#fff
+}
+
+.download-jpg{
+background:#eef2f6;
+color:#101828
+}
+
+.modal-canva{
+background:#7c3aed;
+color:#fff
+}
+
+#systemMessage{
+position:fixed;
+bottom:25px;
+left:50%;
+transform:translateX(-50%);
+background:#0b1735;
+color:#fff;
+padding:14px 22px;
+border-radius:10px;
+z-index:999999;
+box-shadow:0 8px 30px rgba(0,0,0,.25);
+display:none
+}
+
+@media(max-width:1100px){
+.main-grid{grid-template-columns:1fr}
+.right-column{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:20px
+}
+.right-column .card{margin-bottom:0}
+}
+
+@media(max-width:750px){
+header{height:70px;padding:0 15px}
+.header-logo{height:45px}
+.container{
+width:calc(100% - 20px);
+margin-top:18px
+}
+.form-grid,.form-grid.three{grid-template-columns:1fr}
+.field.full{grid-column:auto}
+.photo-gallery{grid-template-columns:repeat(3,1fr)}
+.branding-box{grid-template-columns:1fr}
+.brand-fields{grid-template-columns:1fr}
+.brand-fields .full{grid-column:auto}
+.right-column{display:block}
+.social-grid{grid-template-columns:1fr}
+.action-row{flex-direction:column}
+.action-row .btn{width:100%}
+}
+
+@media(max-width:450px){
+.card{padding:15px}
+.page-heading h1{font-size:23px}
+.photo-gallery{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -574,439 +591,280 @@ button:active{
 <body>
 
 <header>
-
-<div class="logo">
 <img
+id="headerLogo"
+class="header-logo"
 src="./file_00000000bc188211a200a0ccdbc1cecd.png"
 alt="PropDeck"
 >
-</div>
 
-<div class="badge">
+<div class="header-badge">
 Real Estate Marketing
 </div>
-
 </header>
 
-<main>
+<main class="container">
 
-<div class="hero">
-
-<h1>
-Turn property details into marketing content.
-</h1>
-
+<div class="page-heading">
+<h1>Turn property details into marketing content.</h1>
 <p>
-Enter the property information, upload photos and generate a complete marketing pack.
+Enter the property information, upload photos
+and generate a complete marketing pack.
 </p>
-
 </div>
 
-<div class="grid">
+<div class="main-grid">
 
-<!-- PROPERTY DETAILS -->
+<div class="left-column">
 
-<section class="card form">
+<section class="card">
 
-<h2>
+<h2 class="card-title">
 1. Property Details
 </h2>
 
+<div class="form-grid">
+
 <div class="field">
+<label>Property Type *</label>
 
-<label>
-Property Type *
-</label>
-
-<select id="type">
-
+<select id="propertyType">
 <option>Residential</option>
 <option>Commercial</option>
-<option>Apartment</option>
-<option>Villa</option>
 <option>Plot</option>
-
+<option>Villa</option>
+<option>Apartment</option>
+<option>Office</option>
 </select>
-
 </div>
 
-<div class="two">
-
 <div class="field">
-
-<label>
-Purpose *
-</label>
+<label>Purpose *</label>
 
 <select id="purpose">
-
 <option>For Sale</option>
 <option>For Rent</option>
 <option>For Lease</option>
-
 </select>
-
 </div>
 
 <div class="field">
-
-<label>
-Property Title
-</label>
+<label>Property Title</label>
 
 <input
 id="title"
+type="text"
 placeholder="Premium 4 BHK House"
 >
-
 </div>
-
-</div>
-
-<div class="two">
 
 <div class="field">
-
-<label>
-Location *
-</label>
+<label>Location *</label>
 
 <input
 id="location"
+type="text"
 placeholder="Dwarka, New Delhi"
 >
-
 </div>
 
 <div class="field">
-
-<label>
-Price *
-</label>
+<label>Price *</label>
 
 <input
 id="price"
-placeholder="₹4 Cr"
+type="text"
+placeholder="₹ 4 Cr"
 >
-
 </div>
-
-</div>
-
-<div class="two">
 
 <div class="field">
-
-<label>
-Area
-</label>
+<label>Area</label>
 
 <input
 id="area"
+type="text"
 placeholder="2000 Sq.Ft."
 >
-
 </div>
 
 <div class="field">
-
-<label>
-Ownership
-</label>
+<label>Ownership</label>
 
 <select id="ownership">
-
+<option value="">Not specified</option>
 <option>Freehold</option>
 <option>Leasehold</option>
-<option>Not specified</option>
-
 </select>
-
 </div>
 
 </div>
-
 </section>
 
+<section class="card">
 
-<!-- SPECIFICATIONS -->
-
-<section class="card form">
-
-<h2>
+<h2 class="card-title">
 2. Specifications
 </h2>
 
-<div class="two">
+<div class="form-grid">
 
 <div class="field">
-
-<label>
-Bedrooms
-</label>
-
+<label>Bedrooms</label>
 <input
 id="beds"
+type="text"
 placeholder="4"
 >
-
 </div>
 
 <div class="field">
-
-<label>
-Bathrooms
-</label>
-
+<label>Bathrooms</label>
 <input
 id="baths"
+type="text"
 placeholder="4"
 >
-
 </div>
-
-</div>
-
-<div class="two">
 
 <div class="field">
-
-<label>
-Floor
-</label>
-
+<label>Floor</label>
 <input
 id="floor"
+type="text"
 placeholder="2nd Floor"
 >
-
 </div>
 
 <div class="field">
-
-<label>
-Facing
-</label>
-
+<label>Facing</label>
 <input
 id="facing"
+type="text"
 placeholder="North-East"
 >
-
 </div>
-
-</div>
-
-<div class="two">
 
 <div class="field">
-
-<label>
-Parking
-</label>
-
+<label>Parking</label>
 <input
 id="parking"
+type="text"
 placeholder="2 Covered"
 >
-
 </div>
 
 <div class="field">
-
-<label>
-Furnished
-</label>
+<label>Furnished</label>
 
 <select id="furnished">
-
+<option value="">Not specified</option>
+<option>Furnished</option>
 <option>Semi-Furnished</option>
-<option>Fully Furnished</option>
 <option>Unfurnished</option>
-<option>Not specified</option>
-
 </select>
-
 </div>
 
-</div>
-
-<div class="field">
-
-<label>
-Amenities
-</label>
+<div class="field full">
+<label>Amenities</label>
 
 <input
 id="amenities"
+type="text"
 placeholder="Lift, Security, Gym, Garden"
 >
-
 </div>
 
-<div class="field">
-
-<label>
-Nearby / Location Highlights
-</label>
+<div class="field full">
+<label>Nearby / Location Highlights</label>
 
 <textarea
 id="nearby"
 placeholder="Metro, school, hospital, market, highway..."
 ></textarea>
-
 </div>
 
+</div>
 </section>
 
+<section class="card">
 
-<!-- PROPERTY PREVIEW -->
-
-<section class="card previewCard">
-
-<h2>
-4. Property Preview
+<h2 class="card-title">
+3. Photos & Additional Information
 </h2>
 
-<div class="preview">
-
-<div class="eyebrow">
-PROPERTY PRESENTATION
-</div>
-
-<h3 id="pvTitle">
-Premium Property
-</h3>
-
-<div class="loc" id="pvLoc">
-📍 Location
-</div>
-
-<div class="price" id="pvPrice">
-₹ —
-</div>
-
-<div
-class="pills"
-id="pills"
-></div>
-
-<div
-class="desc"
-id="pvDesc"
->
-Your generated property description will appear here.
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PHOTOS -->
-
-<section class="card photos form">
-
-<h2>
-3. Photos &amp; Additional Information
-</h2>
+<div class="photo-upload">
 
 <div class="field">
-
-<label>
-Property Photos
-</label>
+<label>Property Photos</label>
 
 <input
-id="photos"
+id="propertyPhotos"
 type="file"
 accept="image/*"
 multiple
 >
+</div>
 
 <div
-class="photoGrid"
-id="gallery"
+id="photoGallery"
+class="photo-gallery"
 ></div>
 
 </div>
 
-<div class="field">
+<br>
 
-<label>
-Tell us more
-</label>
+<div class="field">
+<label>Tell us more</label>
 
 <textarea
-id="more"
-placeholder="Write anything you know about the property..."
+id="moreInfo"
+placeholder="Write anything you know about the property."
 ></textarea>
-
 </div>
 
-<div class="two">
+<br>
+
+<div class="form-grid">
 
 <div class="field">
+<label>Description Style</label>
 
-<label>
-Description Style
-</label>
-
-<select id="style">
-
+<select id="descriptionStyle">
 <option>Professional</option>
 <option>Luxury</option>
-<option>Premium</option>
-<option>Friendly</option>
-<option>Short & Direct</option>
-
+<option>Modern</option>
+<option>Simple</option>
 </select>
-
 </div>
 
 <div class="field">
-
-<label>
-Language
-</label>
+<label>Language</label>
 
 <select id="language">
-
 <option>English</option>
 <option>Hindi</option>
 <option>Hinglish</option>
-
 </select>
-
 </div>
 
 </div>
 
-<div class="field">
-
-<label>
-Agent / Company / Contact
-</label>
-
-<input
-id="contact"
-placeholder="Karan Estates • +91 XXXXX XXXXX"
->
-
-</div>
-
-<div class="actions">
+<div class="action-row">
 
 <button
-class="primary"
+type="button"
 id="generateBtn"
+class="btn btn-primary"
 >
 ✨ Generate Content
 </button>
 
 <button
-class="secondary"
+type="button"
 id="resetBtn"
+class="btn btn-secondary"
 >
 Reset
 </button>
@@ -1015,165 +873,189 @@ Reset
 
 </section>
 
+<section class="card">
 
-<!-- BRANDING -->
-
-<section class="card branding">
-
-<h2>
-🏢 4. Company Branding
+<h2 class="card-title">
+4. Company Branding
 </h2>
 
-<div class="brandingBox">
-
-<p class="muted">
-Client/company apna logo, email aur website yahan add kar sakta hai. Ye details Facebook, Instagram aur WhatsApp designs mein automatically use hongi.
+<p class="card-subtitle">
+Add your company's logo, email and website.
+These details will appear in social designs.
 </p>
 
-<div class="two">
+<div class="branding-box">
 
-<div class="field">
-
-<label>
-Company Logo
-</label>
-
-<input
-id="brandLogo"
-type="file"
-accept="image/*"
->
-
-</div>
-
-<div class="field">
-
-<label>
-Company Name
-</label>
-
-<input
-id="companyName"
-placeholder="Karan Estates"
->
-
-</div>
-
-</div>
-
-<div class="two">
-
-<div class="field">
-
-<label>
-Email ID
-</label>
-
-<input
-id="email"
-type="email"
-placeholder="info@example.com"
->
-
-</div>
-
-<div class="field">
-
-<label>
-Website
-</label>
-
-<input
-id="website"
-placeholder="www.example.com"
->
-
-</div>
-
-</div>
-
-<div class="brandPreview">
+<div class="logo-preview">
 
 <img
-id="brandPreviewImg"
+id="brandingLogoPreview"
 src="./file_00000000bc188211a200a0ccdbc1cecd.png"
 alt="Company Logo"
 >
 
-<div class="brandText">
+</div>
 
-<b id="brandPreviewName">
-Karan Estates
-</b>
+<div class="brand-fields">
 
-<br>
+<div class="field">
+<label>Company / Brand Name</label>
 
-<span id="brandPreviewEmail">
-info@example.com
-</span>
+<input
+id="company"
+type="text"
+placeholder="Arzu Estates"
+>
+</div>
 
-<br>
+<div class="field">
+<label>Contact Number</label>
 
-<span id="brandPreviewWeb">
-www.example.com
-</span>
+<input
+id="contact"
+type="text"
+placeholder="+91 XXXXX XXXXX"
+>
+</div>
 
+<div class="field">
+<label>Email ID</label>
+
+<input
+id="email"
+type="email"
+placeholder="hello@example.com"
+>
+</div>
+
+<div class="field">
+<label>Website</label>
+
+<input
+id="website"
+type="text"
+placeholder="www.example.com"
+>
+</div>
+
+<div class="field full">
+<label>Company Logo</label>
+
+<input
+id="companyLogo"
+type="file"
+accept="image/*"
+>
 </div>
 
 </div>
+</div>
+
+</section>
 
 </div>
 
- </section>
- <!-- MARKETING OUTPUTS -->
+<div class="right-column">
 
-<section class="card outputs">
+<section class="card">
 
-<h2>
-5. Marketing Outputs
+<h2 class="card-title">
+5. Property Preview
 </h2>
 
-<div class="output">
+<div
+id="propertyPreview"
+class="property-preview"
+>
+
+<div class="preview-brand">
+PROPERTY PRESENTATION
+</div>
+
+<div
+id="pvTitle"
+class="preview-title"
+>
+Residential Property
+</div>
+
+<div
+id="pvLocation"
+class="preview-location"
+>
+📍 Location not specified
+</div>
+
+<div
+id="pvPrice"
+class="preview-price"
+>
+Price on request
+</div>
+
+<div
+id="previewPills"
+class="preview-pills"
+></div>
+
+<div
+id="pvDescription"
+class="preview-description"
+>
+Property description will appear here
+after you generate the content.
+</div>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2 class="card-title">
+6. Marketing Outputs
+</h2>
+
+<div class="output-box">
 
 <h3>
 AI Description
 </h3>
 
 <div
-class="outtext"
 id="aiDescription"
+class="output-text"
 >
 —
 </div>
 
 </div>
 
-
-<div class="output">
+<div class="output-box">
 
 <h3>
 WhatsApp
 </h3>
 
 <div
-class="outtext"
-id="whatsappText"
+id="whatsappOutput"
+class="output-text"
 >
 —
 </div>
 
-<div class="actions">
+<div class="output-actions">
 
 <button
-class="secondary"
-id="copyWA"
+type="button"
+id="copyWhatsappBtn"
 >
 📋 Copy WhatsApp
 </button>
 
 <button
-class="secondary"
-id="shareWA"
+type="button"
+id="shareWhatsappBtn"
 >
 💬 Share
 </button>
@@ -1182,262 +1064,199 @@ id="shareWA"
 
 </div>
 
-
-<div class="output">
+<div class="output-box">
 
 <h3>
 Website Listing
 </h3>
 
 <div
-class="outtext"
-id="websiteText"
+id="websiteOutput"
+class="output-text"
 >
 —
 </div>
 
 </div>
 
-
-<div class="output">
+<div class="output-box">
 
 <h3>
 Instagram Caption
 </h3>
 
 <div
-class="outtext"
-id="instagramText"
+id="instagramOutput"
+class="output-text"
 >
 —
 </div>
 
-</div>
-
-
-<!-- SOCIAL DESIGN BUTTONS -->
-
-<div class="socialTools">
-
-<h3>
-🎨 Social Media Designs
-</h3>
-
-<p>
-Property details aur uploaded photos se ready-to-download social media post banaye.
-</p>
-
-<div class="socialButtons">
-
-<button
-class="whatsappBtn"
-id="makeWhatsAppDesign"
->
-🟢 WhatsApp Post
-</button>
-
-<button
-class="facebookBtn"
-id="makeFacebookDesign"
->
-🔵 Facebook Post
-</button>
-
-<button
-class="instagramBtn"
-id="makeInstagramDesign"
->
-🟣 Instagram Post
-</button>
-
-</div>
-
-</div>
-
-<div
-class="notice"
-id="notice"
->
-✓ Content generated successfully.
 </div>
 
 </section>
 
+</div>
 
-<!-- CANVA READY DESIGN -->
+</div>
 
-<section class="card canva">
+<section class="social-section">
 
 <h2>
-6. Canva-ready Design
+🎨 Social Media Designs
 </h2>
 
-<p class="muted">
-Generate the design here. Download the PNG and upload it into Canva for editing.
+<p>
+Choose a platform to create a ready-to-download property post.
 </p>
 
-<div class="canvaBox">
-
-<div
-class="design"
-id="canvaDesign"
->
-
-<div class="designTop">
-
-<img
-class="designLogo"
-id="designLogo"
-src="./file_00000000bc188211a200a0ccdbc1cecd.png"
-alt="Logo"
->
-
-<div>
-
-<div
-class="designTitle"
-id="designTitle"
->
-Premium Property
-</div>
-
-<div
-class="designLoc"
-id="designLoc"
->
-📍 Location
-</div>
-
-</div>
-
-<div
-class="designPrice"
-id="designPrice"
->
-₹ —
-</div>
-
-</div>
-
-
-<div
-class="designPhotos"
-id="designPhotos"
->
-
-<div class="placeholder"></div>
-
-<div class="placeholder"></div>
-
-<div class="placeholder"></div>
-
-<div class="placeholder"></div>
-
-<div class="placeholder"></div>
-
-<div class="placeholder"></div>
-
-</div>
-
-
-<div
-class="stats"
-id="designStats"
->
-
-<div class="stat">
-
-<b id="dArea">—</b>
-
-Area
-
-</div>
-
-<div class="stat">
-
-<b id="dBeds">—</b>
-
-Bedrooms
-
-</div>
-
-<div class="stat">
-
-<b id="dBaths">—</b>
-
-Bathrooms
-
-</div>
-
-<div class="stat">
-
-<b id="dParking">—</b>
-
-Parking
-
-</div>
-
-<div class="stat">
-
-<b id="dFloor">—</b>
-
-Floor
-
-</div>
-
-<div class="stat">
-
-<b id="dFacing">—</b>
-
-Facing
-
-</div>
-
-</div>
-
-
-<div
-class="designInfo"
-id="designInfo"
->
-
-<b>Amenities:</b>
-<span id="dAmenities">
-—
-</span>
-
-<br>
-
-<b>Near:</b>
-<span id="dNearby">
-—
-</span>
-
-</div>
-
-
-<div
-class="contact"
-id="designContact"
->
-KARAN ESTATES • +91 XXXXX XXXXX
-</div>
-
-</div>
-
-
-<div class="actions">
+<div class="social-grid">
 
 <button
-class="primary"
-id="downloadDesign"
+type="button"
+class="social-card social-whatsapp"
+id="whatsappDesignBtn"
+>
+<span>🟢</span>
+WhatsApp Post
+</button>
+
+<button
+type="button"
+class="social-card social-facebook"
+id="facebookDesignBtn"
+>
+<span>🔵</span>
+Facebook Post
+</button>
+
+<button
+type="button"
+class="social-card social-instagram"
+id="instagramDesignBtn"
+>
+<span>🟣</span>
+Instagram Post
+</button>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2 class="card-title">
+7. Canva-ready Design
+</h2>
+
+<p class="card-subtitle">
+Generate the design, download it and continue editing in Canva.
+</p>
+
+<div class="canva-preview">
+
+<canvas
+id="mainCanvas"
+width="1080"
+height="1080"
+></canvas>
+
+</div>
+
+<div class="action-row">
+
+<button
+type="button"
+id="downloadMainPng"
+class="btn btn-primary"
 >
 ⬇ Download PNG
 </button>
 
 <button
-class="purple"
-id="openCanva"
+type="button"
+id="openCanvaBtn"
+class="btn btn-canva"
+>
+🎨 Open Canva
+</button>
+
+</div>
+
+</section>
+<!-- =====================================================
+     SOCIAL DESIGN MODAL
+===================================================== -->
+
+<div
+id="designModal"
+class="design-modal"
+>
+
+<div class="design-modal-box">
+
+<div class="design-modal-header">
+
+<div>
+
+<h2
+id="modalTitle"
+>
+Social Media Post
+</h2>
+
+<p
+id="modalSize"
+>
+1080 × 1350
+</p>
+
+</div>
+
+<button
+type="button"
+class="close-modal"
+id="closeModalBtn"
+>
+×
+</button>
+
+</div>
+
+
+<div class="canvas-area">
+
+<canvas
+id="socialCanvas"
+width="1080"
+height="1350"
+></canvas>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+type="button"
+class="download-png"
+id="downloadDesignPng"
+>
+⬇ Download PNG
+</button>
+
+<button
+type="button"
+class="download-jpg"
+id="downloadDesignJpg"
+>
+🖼 Download JPG
+</button>
+
+<button
+type="button"
+class="modal-canva"
+id="modalCanvaBtn"
 >
 🎨 Open Canva
 </button>
@@ -1446,961 +1265,910 @@ id="openCanva"
 
 </div>
 
-</section>
-
-
-</div>
-
-</main>
-
-
-<!-- SOCIAL DESIGN MODAL -->
-
-<div
-id="designModal"
-style="
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.72);
-z-index:999;
-overflow:auto;
-padding:25px 12px;
-"
->
-
-<div
-style="
-max-width:900px;
-margin:auto;
-background:#fff;
-border-radius:15px;
-padding:16px;
-"
->
-
-<div
-style="
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-margin-bottom:12px;
-"
->
-
-<div>
-
-<h2
-id="modalTitle"
-style="
-margin:0;
-font-size:18px;
-"
->
-Social Media Post
-</h2>
-
-<div
-id="modalSize"
-style="
-font-size:11px;
-color:#667085;
-margin-top:4px;
-"
->
-1080 × 1080
-</div>
-
-</div>
-
-<button
-class="secondary"
-id="closeModal"
->
-✕ Close
-</button>
-
 </div>
 
 
-<!-- GENERATED CANVAS -->
-
-<div
-style="
-width:100%;
-display:flex;
-justify-content:center;
-background:#eef1f5;
-padding:10px;
-border-radius:10px;
-overflow:auto;
-"
->
-
-<canvas
-id="socialCanvas"
-style="
-max-width:100%;
-height:auto;
-display:block;
-background:#fff;
-"
-></canvas>
-
-</div>
+<div id="systemMessage"></div>
 
 
-<div
-class="actions"
-style="
-justify-content:center;
-margin-top:14px;
-"
->
-
-<button
-class="primary"
-id="downloadSocial"
->
-⬇ Download Design
-</button>
-
-<button
-class="secondary"
-id="downloadJpg"
->
-🖼 Download JPG
-</button>
-
-</div>
-
-</div>
-
-</div>
-
+<!-- =====================================================
+     JAVASCRIPT START
+===================================================== -->
 
 <script>
 
-/* =========================================================
-   BASIC HELPERS
-========================================================= */
+const $ = id =>
+    document.getElementById(id);
 
-const $ = id => document.getElementById(id);
 
-const value = id => {
+function value(
+    id,
+    fallback = ""
+){
+
     const el = $(id);
-    return el ? el.value.trim() : '';
-};
 
-const safe = text => {
-    return text || '—';
-};
+    if(!el)
+        return fallback;
+
+    const result =
+        el.value !== undefined
+            ? el.value
+            : el.textContent;
+
+    return (
+        result.trim() ||
+        fallback
+    );
+}
 
 
-/* =========================================================
+function setText(
+    id,
+    text
+){
+
+    const el = $(id);
+
+    if(el)
+        el.textContent = text;
+
+}
+
+
+/* =====================================================
    PROPERTY DATA
-========================================================= */
+===================================================== */
 
-function getProperty(){
+function getPropertyData(){
 
     return {
 
-        type:value('type'),
-        purpose:value('purpose'),
-        title:value('title'),
-        location:value('location'),
-        price:value('price'),
-        area:value('area'),
-        ownership:value('ownership'),
+        type:
+            value(
+                "propertyType",
+                "Residential"
+            ),
 
-        beds:value('beds'),
-        baths:value('baths'),
-        floor:value('floor'),
-        facing:value('facing'),
-        parking:value('parking'),
-        furnished:value('furnished'),
+        purpose:
+            value(
+                "purpose",
+                "For Sale"
+            ),
 
-        amenities:value('amenities'),
-        nearby:value('nearby'),
-        more:value('more'),
+        title:
+            value(
+                "title",
+                "Premium Residential Property"
+            ),
 
-        style:value('style'),
-        language:value('language'),
+        location:
+            value(
+                "location",
+                "Location not specified"
+            ),
 
-        contact:value('contact'),
+        price:
+            value(
+                "price",
+                "Price on request"
+            ),
 
-        company:value('companyName'),
-        email:value('email'),
-        website:value('website')
+        area:
+            value(
+                "area",
+                "—"
+            ),
+
+        ownership:
+            value(
+                "ownership",
+                "—"
+            ),
+
+        bedrooms:
+            value(
+                "beds",
+                "—"
+            ),
+
+        bathrooms:
+            value(
+                "baths",
+                "—"
+            ),
+
+        floor:
+            value(
+                "floor",
+                "—"
+            ),
+
+        facing:
+            value(
+                "facing",
+                "—"
+            ),
+
+        parking:
+            value(
+                "parking",
+                "—"
+            ),
+
+        furnished:
+            value(
+                "furnished",
+                "—"
+            ),
+
+        amenities:
+            value(
+                "amenities",
+                "—"
+            ),
+
+        nearby:
+            value(
+                "nearby",
+                "—"
+            ),
+
+        extra:
+            value(
+                "moreInfo",
+                ""
+            ),
+
+        contact:
+            value(
+                "contact",
+                "Contact details not provided"
+            ),
+
+        company:
+            value(
+                "company",
+                ""
+            ),
+
+        email:
+            value(
+                "email",
+                ""
+            ),
+
+        website:
+            value(
+                "website",
+                ""
+            ),
+
+        descriptionStyle:
+            value(
+                "descriptionStyle",
+                "Professional"
+            ),
+
+        language:
+            value(
+                "language",
+                "English"
+            )
 
     };
 
 }
 
 
-/* =========================================================
-   DESCRIPTION GENERATOR
-========================================================= */
+/* =====================================================
+   PHOTO SYSTEM
+===================================================== */
 
-function makeDescription(){
+let uploadedImages = [];
 
-    const p = getProperty();
 
-    const title =
-        p.title ||
-        p.type + ' Property';
+function loadUploadedPhotos(){
 
-    let text =
-        title +
-        ' is available ' +
-        (p.purpose || 'for sale').toLowerCase() +
-        (p.location ? ' in ' + p.location : '') +
-        '.';
+    const input =
+        $("propertyPhotos");
 
-    const details=[];
-
-    if(p.area)
-        details.push(p.area);
-
-    if(p.beds)
-        details.push(p.beds + ' bedrooms');
-
-    if(p.baths)
-        details.push(p.baths + ' bathrooms');
-
-    if(details.length){
-
-        text +=
-            ' The property offers ' +
-            details.join(', ') +
-            '.';
-
-    }
-
-    if(p.price){
-
-        text +=
-            ' The asking price is ' +
-            p.price +
-            '.';
-
-    }
-
-    const key=[];
-
-    if(p.ownership)
-        key.push(p.ownership + ' ownership');
-
-    if(p.floor)
-        key.push('Floor ' + p.floor);
-
-    if(p.facing)
-        key.push(p.facing + ' facing');
-
-    if(p.parking)
-        key.push(p.parking + ' parking');
-
-    if(p.furnished)
-        key.push(p.furnished);
-
-    if(key.length){
-
-        text +=
-            ' Key details include ' +
-            key.join(', ') +
-            '.';
-
-    }
-
-    if(p.amenities){
-
-        text +=
-            ' Amenities include ' +
-            p.amenities +
-            '.';
-
-    }
-
-    if(p.nearby){
-
-        text +=
-            ' Location highlights include ' +
-            p.nearby +
-            '.';
-
-    }
-
-    if(p.more){
-
-        text +=
-            ' Additional information: ' +
-            p.more;
-
-    }
-
-    return text;
-
-}
-
-
-/* =========================================================
-   WHATSAPP TEXT
-========================================================= */
-
-function makeWhatsApp(){
-
-    const p=getProperty();
-
-    const title =
-        p.title ||
-        p.type + ' Property';
-
-    return (
-`🏠 ${title}
-
-📍 ${p.location || 'Location not specified'}
-💰 ${p.price || 'Price on request'}
-
-${makeDescription()}
-
-📐 Area: ${p.area || '—'}
-🛏 Bedrooms: ${p.beds || '—'}
-🛁 Bathrooms: ${p.baths || '—'}
-🏢 Floor: ${p.floor || '—'}
-🚗 Parking: ${p.parking || '—'}
-🧭 Facing: ${p.facing || '—'}
-
-✨ Amenities:
-${p.amenities || 'Details available on request'}
-
-📍 Nearby:
-${p.nearby || 'Details available on request'}
-
-📞 ${p.contact || 'Contact details not provided'}`
-    );
-
-}
-
-
-/* =========================================================
-   WEBSITE LISTING
-========================================================= */
-
-function makeWebsite(){
-
-    const p=getProperty();
-
-    return (
-`${p.title || p.type + ' Property'}
-
-${makeDescription()}
-
-KEY DETAILS
-
-Area: ${p.area || '—'}
-Ownership: ${p.ownership || '—'}
-Bedrooms: ${p.beds || '—'}
-Bathrooms: ${p.baths || '—'}
-Floor: ${p.floor || '—'}
-Facing: ${p.facing || '—'}
-Parking: ${p.parking || '—'}
-Furnished: ${p.furnished || '—'}
-
-AMENITIES
-
-${p.amenities || 'Details available on request'}
-
-LOCATION HIGHLIGHTS
-
-${p.nearby || 'Details available on request'}
-
-CONTACT
-
-${p.contact || 'Contact details not provided'}`
-    );
-
-}
-
-
-/* =========================================================
-   INSTAGRAM CAPTION
-========================================================= */
-
-function makeInstagram(){
-
-    const p=getProperty();
-
-    return (
-`🏠 ${p.title || p.type + ' Property'}
-
-📍 ${p.location || 'Location not specified'}
-💰 ${p.price || 'Price on request'}
-
-${makeDescription()}
-
-📐 ${p.area || '—'} • 🛏 ${p.beds || '—'} Beds • 🛁 ${p.baths || '—'} Baths • 🚗 ${p.parking || '—'} Parking
-
-✨ ${p.amenities || 'Premium amenities available'}
-
-📞 ${p.contact || 'Contact details not provided'}
-
-#RealEstate #PropertyForSale #PropertyListing #DreamHome #RealEstateMarketing`
-    );
-
-}
-
-
-/* =========================================================
-   PREVIEW
-========================================================= */
-
-function updatePreview(){
-
-    const p=getProperty();
-
-    const title =
-        p.title ||
-        p.type + ' Property';
-
-    $('pvTitle').textContent=title;
-
-    $('pvLoc').textContent=
-        '📍 ' +
-        (p.location || 'Location');
-
-    $('pvPrice').textContent=
-        p.price || '₹ —';
-
-    const arr=[];
-
-    if(p.area)
-        arr.push('Area: '+p.area);
-
-    if(p.beds)
-        arr.push('Bedrooms: '+p.beds);
-
-    if(p.baths)
-        arr.push('Bathrooms: '+p.baths);
-
-    if(p.floor)
-        arr.push('Floor: '+p.floor);
-
-    if(p.parking)
-        arr.push('Parking: '+p.parking);
-
-    $('pills').innerHTML =
-        arr.map(x =>
-            `<span class="pill">${x}</span>`
-        ).join('');
-
-    $('pvDesc').textContent =
-        makeDescription();
-
-}
-
-
-/* =========================================================
-   GENERATE CONTENT
-========================================================= */
-
-function generateContent(){
-
-    updatePreview();
-
-    $('aiDescription').textContent =
-        makeDescription();
-
-    $('whatsappText').textContent =
-        makeWhatsApp();
-
-    $('websiteText').textContent =
-        makeWebsite();
-
-    $('instagramText').textContent =
-        makeInstagram();
-
-    updateBranding();
-
-    updateCanvaPreview();
-
-    $('notice').style.display='block';
-
-    setTimeout(()=>{
-
-        $('notice').style.display='none';
-
-    },3500);
-
-}
-
-
-/* =========================================================
-   FILE READER
-========================================================= */
-
-function readFile(file){
-
-    return new Promise((resolve,reject)=>{
-
-        const reader=new FileReader();
-
-        reader.onload=()=>{
-            resolve(reader.result);
-        };
-
-        reader.onerror=reject;
-
-        reader.readAsDataURL(file);
-
-    });
-
-}
-
-
-/* =========================================================
-   PROPERTY PHOTO GALLERY
-========================================================= */
-
-let propertyImages=[];
-
-$('photos').addEventListener('change',async function(){
-
-    propertyImages=[];
-
-    const files=[
-        ...this.files
-    ];
-
-    for(const file of files){
-
-        if(!file.type.startsWith('image/'))
-            continue;
-
-        try{
-
-            const src=await readFile(file);
-
-            propertyImages.push(src);
-
-        }catch(e){}
-
-    }
-
-    renderGallery();
-
-    updateCanvaPreview();
-
-});
-
-
-function renderGallery(){
-
-    const gallery=$('gallery');
-
-    gallery.innerHTML='';
-
-    propertyImages.forEach((src,index)=>{
-
-        const box=document.createElement('div');
-
-        box.className='photo';
-
-        const img=document.createElement('img');
-
-        img.src=src;
-
-        const remove=document.createElement('button');
-
-        remove.className='remove';
-
-        remove.textContent='×';
-
-        remove.onclick=()=>{
-
-            propertyImages.splice(index,1);
-
-            renderGallery();
-
-            updateCanvaPreview();
-
-        };
-
-        box.appendChild(img);
-
-        box.appendChild(remove);
-
-        gallery.appendChild(box);
-
-    });
-
-}
-
-
-/* =========================================================
-   BRANDING
-========================================================= */
-
-let brandingLogo =
-'./file_00000000bc188211a200a0ccdbc1cecd.png';
-
-
-function updateBranding(){
-
-    const company =
-        value('companyName') ||
-        'Karan Estates';
-
-    const email =
-        value('email') ||
-        'info@example.com';
-
-    const website =
-        value('website') ||
-        'www.example.com';
-
-    $('brandPreviewName').textContent=company;
-
-    $('brandPreviewEmail').textContent=email;
-
-    $('brandPreviewWeb').textContent=website;
-
-    $('brandPreviewImg').src=brandingLogo;
-
-}
-
-
-$('brandLogo').addEventListener(
-'change',
-async function(){
-
-    const file=this.files[0];
-
-    if(!file)
-        return;
-
-    try{
-
-        brandingLogo =
-            await readFile(file);
-
-        updateBranding();
-
-        updateCanvaPreview();
-
-    }catch(e){}
-
-});
-
-
-/* =========================================================
-   LIVE INPUT UPDATE
-========================================================= */
-
-[
-'title',
-'location',
-'price',
-'area',
-'beds',
-'baths',
-'floor',
-'facing',
-'parking',
-'ownership',
-'furnished',
-'amenities',
-'nearby',
-'contact',
-'companyName',
-'email',
-'website'
-].forEach(id=>{
-
-    const el=$(id);
-
-    if(el){
-
-        el.addEventListener(
-            'input',
-            ()=>{
-                updatePreview();
-                updateBranding();
-                updateCanvaPreview();
-            }
-        );
-
-        el.addEventListener(
-            'change',
-            ()=>{
-                updatePreview();
-                updateBranding();
-                updateCanvaPreview();
-            }
-        );
-
-    }
-
-});
-/* =========================================================
-   CANVA PREVIEW DESIGN
-========================================================= */
-
-function updateCanvaPreview(){
-
-    const p = getProperty();
-
-    const title =
-        p.title ||
-        p.type + ' Property';
-
-    $('designLogo').src =
-        brandingLogo;
-
-    $('designTitle').textContent =
-        title;
-
-    $('designLoc').textContent =
-        '📍 ' + (p.location || 'Location');
-
-    $('designPrice').textContent =
-        p.price || '₹ —';
-
-    $('dArea').textContent =
-        p.area || '—';
-
-    $('dBeds').textContent =
-        p.beds || '—';
-
-    $('dBaths').textContent =
-        p.baths || '—';
-
-    $('dParking').textContent =
-        p.parking || '—';
-
-    $('dFloor').textContent =
-        p.floor || '—';
-
-    $('dFacing').textContent =
-        p.facing || '—';
-
-    $('dAmenities').textContent =
-        p.amenities || '—';
-
-    $('dNearby').textContent =
-        p.nearby || '—';
-
-    $('designContact').textContent =
-        p.contact ||
-        'Contact details not provided';
-
-
-    const gallery =
-        $('designPhotos');
-
-    gallery.innerHTML='';
-
-
-    const images =
-        propertyImages.slice(0,6);
-
-
-    if(images.length === 0){
-
-        for(let i=0;i<6;i++){
-
-            const div=
-                document.createElement('div');
-
-            div.className='placeholder';
-
-            gallery.appendChild(div);
-
-        }
-
-    }else{
-
-        images.forEach(src=>{
-
-            const img=
-                document.createElement('img');
-
-            img.src=src;
-
-            gallery.appendChild(img);
-
-        });
-
-    }
-
-}
-
-
-/* =========================================================
-   SOCIAL MEDIA CANVAS
-========================================================= */
-
-const socialCanvas =
-    $('socialCanvas');
-
-const ctx =
-    socialCanvas.getContext('2d');
-
-
-let currentDesign =
-    'instagram';
-
-
-/* ---------------------------------------------------------
-   CANVAS SETTINGS
---------------------------------------------------------- */
-
-const SOCIAL_SIZES = {
-
-    whatsapp:{
-        width:1080,
-        height:1350,
-        title:'WhatsApp Property Post',
-        ratio:'1080 × 1350'
-    },
-
-    facebook:{
-        width:1200,
-        height:1500,
-        title:'Facebook Property Post',
-        ratio:'1200 × 1500'
-    },
-
-    instagram:{
-        width:1080,
-        height:1350,
-        title:'Instagram Property Post',
-        ratio:'1080 × 1350'
-    }
-
-};
-
-
-/* =========================================================
-   IMAGE LOADING
-========================================================= */
-
-function loadImage(src){
-
-    return new Promise((resolve,reject)=>{
-
-        const img=
-            new Image();
-
-        img.onload=()=>{
-            resolve(img);
-        };
-
-        img.onerror=reject;
-
-        img.src=src;
-
-    });
-
-}
-
-
-/* =========================================================
-   TEXT WRAP
-========================================================= */
-
-function wrapText(
-    context,
-    text,
-    x,
-    y,
-    maxWidth,
-    lineHeight,
-    maxLines=4
-){
-
-    const words =
-        String(text || '')
-        .split(' ');
-
-    let line='';
-
-    let lines=[];
-
-
-    for(let n=0;n<words.length;n++){
-
-        const testLine =
-            line +
-            words[n] +
-            ' ';
-
-        const metrics =
-            context.measureText(testLine);
-
-        if(
-            metrics.width > maxWidth &&
-            n > 0
-        ){
-
-            lines.push(line.trim());
-
-            line =
-                words[n] + ' ';
-
-            if(
-                lines.length >= maxLines
-            )
-                break;
-
-        }else{
-
-            line =
-                testLine;
-
-        }
-
-    }
-
+    uploadedImages = [];
 
     if(
-        lines.length < maxLines &&
-        line.trim()
+        !input ||
+        !input.files
     ){
-
-        lines.push(
-            line.trim()
-        );
-
+        return;
     }
 
 
-    lines.forEach(
-        (item,index)=>{
+    Array
+        .from(input.files)
+        .slice(0,12)
+        .forEach(
+            file => {
 
-            context.fillText(
-                item,
-                x,
-                y +
-                index *
-                lineHeight
+                if(
+                    !file.type
+                    .startsWith(
+                        "image/"
+                    )
+                ){
+                    return;
+                }
+
+                uploadedImages.push(
+                    URL.createObjectURL(
+                        file
+                    )
+                );
+
+            }
+        );
+
+
+    renderPhotoGallery();
+
+}
+
+
+function renderPhotoGallery(){
+
+    const gallery =
+        $("photoGallery");
+
+    if(!gallery)
+        return;
+
+
+    gallery.innerHTML = "";
+
+
+    uploadedImages.forEach(
+        (
+            src,
+            index
+        ) => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "photo-item";
+
+
+            item.innerHTML = `
+
+                <img
+                    src="${src}"
+                    alt="Property photo ${index + 1}"
+                >
+
+                <button
+                    type="button"
+                    class="photo-remove"
+                    data-index="${index}"
+                >
+                    ×
+                </button>
+
+            `;
+
+
+            gallery.appendChild(
+                item
             );
 
         }
     );
 
+}
 
-    return lines.length;
+
+/* =====================================================
+   DESCRIPTION GENERATOR
+===================================================== */
+
+function createDescription(d){
+
+    let text =
+        `${d.title} is available ${d.purpose.toLowerCase()} in ${d.location}. `;
+
+
+    if(
+        d.area !== "—"
+    ){
+
+        text +=
+            `The property offers ${d.area} of space. `;
+
+    }
+
+
+    if(
+        d.bedrooms !== "—"
+    ){
+
+        text +=
+            `It features ${d.bedrooms} bedrooms `;
+
+    }
+
+
+    if(
+        d.bathrooms !== "—"
+    ){
+
+        text +=
+            `and ${d.bathrooms} bathrooms. `;
+
+    }
+
+
+    if(
+        d.floor !== "—"
+    ){
+
+        text +=
+            `The property is located on ${d.floor}. `;
+
+    }
+
+
+    if(
+        d.facing !== "—"
+    ){
+
+        text +=
+            `Facing: ${d.facing}. `;
+
+    }
+
+
+    if(
+        d.parking !== "—"
+    ){
+
+        text +=
+            `Parking: ${d.parking}. `;
+
+    }
+
+
+    if(
+        d.furnished !== "—"
+    ){
+
+        text +=
+            `Furnished status: ${d.furnished}. `;
+
+    }
+
+
+    if(
+        d.amenities !== "—"
+    ){
+
+        text +=
+            `Amenities include ${d.amenities}. `;
+
+    }
+
+
+    if(
+        d.nearby !== "—"
+    ){
+
+        text +=
+            `Nearby: ${d.nearby}. `;
+
+    }
+
+
+    if(d.extra){
+
+        text +=
+            `${d.extra} `;
+
+    }
+
+
+    if(
+        d.price !==
+        "Price on request"
+    ){
+
+        text +=
+            `The asking price is ${d.price}.`;
+
+    }
+
+
+    return text.trim();
 
 }
 
 
-/* =========================================================
-   IMAGE COVER
-========================================================= */
+/* =====================================================
+   WHATSAPP CONTENT
+===================================================== */
 
-function drawCover(
-    context,
+function createWhatsApp(
+    d,
+    description
+){
+
+    return `🏠 ${d.title}
+
+📍 ${d.location}
+💰 ${d.price}
+
+${description}
+
+📐 Area: ${d.area}
+🛏 Bedrooms: ${d.bedrooms}
+🛁 Bathrooms: ${d.bathrooms}
+🏢 Floor: ${d.floor}
+🚗 Parking: ${d.parking}
+🧭 Facing: ${d.facing}
+
+✨ Amenities:
+${d.amenities}
+
+📞 ${d.contact}
+${d.website ? `🌐 ${d.website}` : ""}`.trim();
+
+}
+
+
+/* =====================================================
+   INSTAGRAM CONTENT
+===================================================== */
+
+function createInstagram(
+    d,
+    description
+){
+
+    return `🏠 ${d.title}
+
+📍 ${d.location}
+💰 ${d.price}
+
+${description}
+
+📐 ${d.area}
+🛏 ${d.bedrooms} Bedrooms
+🛁 ${d.bathrooms} Bathrooms
+🚗 ${d.parking}
+🏢 ${d.floor}
+
+✨ ${d.amenities}
+
+📞 ${d.contact}
+
+#RealEstate
+#PropertyForSale
+#PropertyListing
+#DreamHome
+#RealEstateIndia`;
+
+}
+
+
+/* =====================================================
+   WEBSITE LISTING
+===================================================== */
+
+function createWebsiteListing(
+    d,
+    description
+){
+
+    return `${d.title}
+
+${description}
+
+KEY DETAILS
+
+Area: ${d.area}
+Ownership: ${d.ownership}
+Bedrooms: ${d.bedrooms}
+Bathrooms: ${d.bathrooms}
+Floor: ${d.floor}
+Facing: ${d.facing}
+Parking: ${d.parking}
+Furnished: ${d.furnished}
+
+Amenities:
+${d.amenities}
+
+Location Highlights:
+${d.nearby}
+
+CONTACT
+
+${d.contact}
+${d.email ? `Email: ${d.email}` : ""}
+${d.website ? `Website: ${d.website}` : ""}`.trim();
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(
+    text
+){
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   PROPERTY PREVIEW
+===================================================== */
+
+function updatePreview(
+    d,
+    description
+){
+
+    setText(
+        "pvTitle",
+        d.title
+    );
+
+
+    setText(
+        "pvLocation",
+        "📍 " + d.location
+    );
+
+
+    setText(
+        "pvPrice",
+        d.price
+    );
+
+
+    setText(
+        "pvDescription",
+        description
+    );
+
+
+    const pills =
+        $("previewPills");
+
+
+    if(!pills)
+        return;
+
+
+    const items = [
+
+        d.area !== "—"
+            ? "Area: " + d.area
+            : "",
+
+        d.bedrooms !== "—"
+            ? "Bedrooms: " + d.bedrooms
+            : "",
+
+        d.bathrooms !== "—"
+            ? "Bathrooms: " + d.bathrooms
+            : "",
+
+        d.floor !== "—"
+            ? "Floor: " + d.floor
+            : "",
+
+        d.parking !== "—"
+            ? "Parking: " + d.parking
+            : "",
+
+        d.facing !== "—"
+            ? "Facing: " + d.facing
+            : ""
+
+    ].filter(Boolean);
+
+
+    pills.innerHTML =
+        items
+            .map(
+                item =>
+                    `<span>${escapeHTML(item)}</span>`
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   GENERATE CONTENT
+===================================================== */
+
+function generateContent(){
+
+    loadUploadedPhotos();
+
+
+    const d =
+        getPropertyData();
+
+
+    const description =
+        createDescription(d);
+
+
+    const whatsapp =
+        createWhatsApp(
+            d,
+            description
+        );
+
+
+    const website =
+        createWebsiteListing(
+            d,
+            description
+        );
+
+
+    const instagram =
+        createInstagram(
+            d,
+            description
+        );
+
+
+    setText(
+        "aiDescription",
+        description
+    );
+
+
+    setText(
+        "whatsappOutput",
+        whatsapp
+    );
+
+
+    setText(
+        "websiteOutput",
+        website
+    );
+
+
+    setText(
+        "instagramOutput",
+        instagram
+    );
+
+
+    updatePreview(
+        d,
+        description
+    );
+
+
+    drawMainCanvas(
+        d
+    );
+
+
+    showMessage(
+        "Content generated successfully."
+    );
+
+}
+
+
+/* =====================================================
+   COPY WHATSAPP
+===================================================== */
+
+async function copyWhatsApp(){
+
+    const text =
+        value(
+            "whatsappOutput",
+            ""
+        );
+
+
+    if(
+        !text ||
+        text === "—"
+    ){
+
+        showMessage(
+            "Please generate content first."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+    }
+
+    catch(error){
+
+        const textarea =
+            document.createElement(
+                "textarea"
+            );
+
+        textarea.value =
+            text;
+
+        document.body.appendChild(
+            textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+            "copy"
+        );
+
+        textarea.remove();
+
+    }
+
+
+    showMessage(
+        "WhatsApp message copied!"
+    );
+
+}
+
+
+/* =====================================================
+   WHATSAPP SHARE
+===================================================== */
+
+function shareWhatsApp(){
+
+    const text =
+        value(
+            "whatsappOutput",
+            ""
+        );
+
+
+    if(
+        !text ||
+        text === "—"
+    ){
+
+        showMessage(
+            "Please generate content first."
+        );
+
+        return;
+
+    }
+
+
+    const url =
+        "https://wa.me/?text=" +
+        encodeURIComponent(
+            text
+        );
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   CANVAS HELPERS
+===================================================== */
+
+function roundRect(
+    ctx,
+    x,
+    y,
+    width,
+    height,
+    radius
+){
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + radius,
+        y
+    );
+
+    ctx.arcTo(
+        x + width,
+        y,
+        x + width,
+        y + height,
+        radius
+    );
+
+    ctx.arcTo(
+        x + width,
+        y + height,
+        x,
+        y + height,
+        radius
+    );
+
+    ctx.arcTo(
+        x,
+        y + height,
+        x,
+        y,
+        radius
+    );
+
+    ctx.arcTo(
+        x,
+        y,
+        x + width,
+        y,
+        radius
+    );
+
+    ctx.closePath();
+
+}
+
+
+/* =====================================================
+   IMAGE COVER
+===================================================== */
+
+function drawImageCover(
+    ctx,
     img,
     x,
     y,
@@ -2414,36 +2182,47 @@ function drawCover(
             height / img.height
         );
 
+
     const newWidth =
         img.width * ratio;
+
 
     const newHeight =
         img.height * ratio;
 
+
     const dx =
         x +
-        (width-newWidth)/2;
+        (
+            width -
+            newWidth
+        ) / 2;
+
 
     const dy =
         y +
-        (height-newHeight)/2;
+        (
+            height -
+            newHeight
+        ) / 2;
 
 
-    context.save();
+    ctx.save();
 
-    context.beginPath();
 
-    context.rect(
+    ctx.beginPath();
+
+    ctx.rect(
         x,
         y,
         width,
         height
     );
 
-    context.clip();
+    ctx.clip();
 
 
-    context.drawImage(
+    ctx.drawImage(
         img,
         dx,
         dy,
@@ -2452,1313 +2231,1653 @@ function drawCover(
     );
 
 
-    context.restore();
+    ctx.restore();
 
 }
 
 
-/* =========================================================
-   DRAW LOGO
-========================================================= */
+/* =====================================================
+   IMAGE LOADER
+===================================================== */
 
-async function drawLogo(
-    context,
-    x,
-    y,
-    width
+function loadImage(
+    src
 ){
 
-    try{
+    return new Promise(
+        resolve => {
 
-        const img =
-            await loadImage(
-                brandingLogo
-            );
+            const img =
+                new Image();
 
-        const ratio =
-            img.height /
-            img.width;
 
-        const height =
-            width * ratio;
+            img.onload =
+                () => resolve(img);
 
-        context.drawImage(
-            img,
+
+            img.onerror =
+                () => resolve(null);
+
+
+            img.src =
+                src;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+async function drawLogo(
+    ctx,
+    x,
+    y,
+    width,
+    height
+){
+
+    const logo =
+        $("headerLogo");
+
+
+    if(
+        logo &&
+        logo.complete &&
+        logo.naturalWidth
+    ){
+
+        ctx.drawImage(
+            logo,
             x,
             y,
             width,
             height
         );
 
-    }catch(e){
-
-        context.fillStyle='#ffffff';
-
-        context.font=
-            'bold 32px Arial';
-
-        context.fillText(
-            getProperty().company ||
-            'PropDeck',
-            x,
-            y+35
-        );
+        return;
 
     }
+
+
+    ctx.fillStyle =
+        "#1681e8";
+
+
+    ctx.font =
+        "bold 42px Arial";
+
+
+    ctx.fillText(
+        "PropDeck",
+        x,
+        y + 48
+    );
 
 }
 
 
-/* =========================================================
-   SOCIAL DESIGN GENERATOR
-========================================================= */
+/* =====================================================
+   MAIN CANVAS
+===================================================== */
 
-async function generateSocialDesign(
-    type
+async function drawMainCanvas(
+    d
 ){
 
-    currentDesign=type;
-
-    const p =
-        getProperty();
-
-    const size =
-        SOCIAL_SIZES[type];
+    const canvas =
+        $("mainCanvas");
 
 
-    socialCanvas.width =
-        size.width;
-
-    socialCanvas.height =
-        size.height;
+    if(!canvas)
+        return;
 
 
-    const w =
-        size.width;
-
-    const h =
-        size.height;
+    const ctx =
+        canvas.getContext("2d");
 
 
-    /* BACKGROUND */
+    const W =
+        canvas.width;
+
+
+    const H =
+        canvas.height;
+
 
     ctx.fillStyle =
-        '#ffffff';
+        "#ffffff";
+
 
     ctx.fillRect(
         0,
         0,
-        w,
-        h
+        W,
+        H
     );
 
 
-    /* TOP BRAND BAR */
-
     ctx.fillStyle =
-        '#0b1735';
+        "#0b1735";
+
 
     ctx.fillRect(
         0,
         0,
-        w,
-        170
+        W,
+        130
     );
 
 
     await drawLogo(
         ctx,
-        55,
-        35,
-        240
+        45,
+        25,
+        210,
+        80
     );
 
-
-    /* PROPERTY TITLE */
 
     ctx.fillStyle =
-        '#0b1735';
+        "#0b1735";
+
 
     ctx.font =
-        'bold 58px Arial';
+        "bold 50px Arial";
+
 
     ctx.fillText(
-        p.title ||
-        p.type ||
-        'Property For Sale',
-        55,
-        245
+        d.title,
+        45,
+        205
     );
 
 
-    /* LOCATION */
+    ctx.font =
+        "27px Arial";
+
 
     ctx.fillStyle =
-        '#475467';
+        "#555";
 
-    ctx.font =
-        '32px Arial';
 
     ctx.fillText(
-        '📍 ' +
-        (p.location ||
-        'Location not specified'),
-        55,
-        295
+        "📍 " + d.location,
+        45,
+        250
     );
 
 
-    /* MAIN PHOTO */
-
-    let mainImage =
-        propertyImages[0];
+    ctx.fillStyle =
+        "#0b1735";
 
 
-    if(mainImage){
+    ctx.font =
+        "bold 56px Arial";
 
-        try{
 
-            const img =
-                await loadImage(
-                    mainImage
-                );
+    ctx.fillText(
+        d.price,
+        45,
+        330
+    );
 
-            drawCover(
+
+    if(
+        uploadedImages.length
+    ){
+
+        const img =
+            await loadImage(
+                uploadedImages[0]
+            );
+
+
+        if(img){
+
+            drawImageCover(
                 ctx,
                 img,
                 45,
-                335,
-                w-90,
-                570
+                370,
+                990,
+                430
             );
 
-        }catch(e){}
+        }
 
-    }else{
+    }
+
+    else{
 
         ctx.fillStyle =
-            '#e9eef5';
+            "#edf1f6";
 
-        ctx.fillRect(
+
+        roundRect(
+            ctx,
             45,
-            335,
-            w-90,
-            570
+            370,
+            990,
+            430,
+            25
         );
 
+
+        ctx.fill();
+
+
         ctx.fillStyle =
-            '#667085';
+            "#777";
+
 
         ctx.font =
-            '32px Arial';
+            "30px Arial";
+
 
         ctx.fillText(
-            'Property Photo',
-            55,
-            625
+            "Property Photo",
+            410,
+            590
         );
 
     }
 
 
-    /* PRICE */
-
     ctx.fillStyle =
-        '#0b1735';
-
-    ctx.font =
-        'bold 58px Arial';
-
-    ctx.fillText(
-        p.price ||
-        'Price on Request',
-        55,
-        985
-    );
+        "#edf2f7";
 
 
-    /* DETAILS BOX */
-
-    ctx.fillStyle =
-        '#eef2f6';
-
-    ctx.roundRect(
+    roundRect(
+        ctx,
         45,
-        1030,
-        w-90,
-        215,
+        825,
+        990,
+        125,
         22
     );
+
 
     ctx.fill();
 
 
     ctx.fillStyle =
-        '#101828';
+        "#172033";
+
 
     ctx.font =
-        'bold 29px Arial';
-
-
-    const leftX =
-        75;
-
-    const rightX =
-        w/2 + 20;
+        "bold 22px Arial";
 
 
     ctx.fillText(
-        'Area: ' +
-        (p.area || '—'),
-        leftX,
-        1085
+        "Area: " + d.area,
+        75,
+        865
     );
 
 
     ctx.fillText(
-        'Parking: ' +
-        (p.parking || '—'),
-        rightX,
-        1085
+        "Bedrooms: " + d.bedrooms,
+        370,
+        865
     );
 
 
     ctx.fillText(
-        'Bedrooms: ' +
-        (p.beds || '—'),
-        leftX,
-        1145
+        "Bathrooms: " + d.bathrooms,
+        700,
+        865
     );
 
 
     ctx.fillText(
-        'Floor: ' +
-        (p.floor || '—'),
-        rightX,
-        1145
+        "Parking: " + d.parking,
+        75,
+        910
     );
 
 
     ctx.fillText(
-        'Bathrooms: ' +
-        (p.baths || '—'),
-        leftX,
-        1205
+        "Floor: " + d.floor,
+        370,
+        910
     );
 
 
     ctx.fillText(
-        'Facing: ' +
-        (p.facing || '—'),
-        rightX,
-        1205
+        "Facing: " + d.facing,
+        700,
+        910
     );
 
-
-    /* FOOTER */
 
     ctx.fillStyle =
-        '#0b1735';
+        "#0b1735";
+
 
     ctx.fillRect(
         0,
-        h-110,
-        w,
-        110
+        980,
+        W,
+        100
     );
 
 
     ctx.fillStyle =
-        '#ffffff';
+        "#ffffff";
+
 
     ctx.font =
-        'bold 27px Arial';
+        "bold 24px Arial";
+
 
     ctx.fillText(
-        p.contact ||
-        'Contact for details',
-        55,
-        h-65
+        d.contact,
+        45,
+        1035
+    );
+
+}
+<script>
+
+/* =====================================================
+   SOCIAL MEDIA DESIGN
+===================================================== */
+
+let currentDesign = "whatsapp";
+
+
+async function openDesign(type){
+
+    currentDesign = type;
+
+    const modal =
+        $("designModal");
+
+
+    if(!modal)
+        return;
+
+
+    const title =
+        $("modalTitle");
+
+
+    const size =
+        $("modalSize");
+
+
+    if(type === "whatsapp"){
+
+        title.textContent =
+            "WhatsApp Property Post";
+
+        size.textContent =
+            "1080 × 1350";
+
+    }
+
+    else if(type === "facebook"){
+
+        title.textContent =
+            "Facebook Property Post";
+
+        size.textContent =
+            "1200 × 1500";
+
+    }
+
+    else{
+
+        title.textContent =
+            "Instagram Property Post";
+
+        size.textContent =
+            "1080 × 1350";
+
+    }
+
+
+    modal.classList.add(
+        "active"
     );
 
 
-    /* COMPANY / WEBSITE */
+    await drawSocialDesign(
+        type
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeDesign(){
+
+    const modal =
+        $("designModal");
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SOCIAL MEDIA DESIGN
+===================================================== */
+
+async function drawSocialDesign(
+    type
+){
+
+    const canvas =
+        $("socialCanvas");
+
+
+    if(!canvas)
+        return;
+
+
+    if(type === "facebook"){
+
+        canvas.width =
+            1200;
+
+        canvas.height =
+            1500;
+
+    }
+
+    else{
+
+        canvas.width =
+            1080;
+
+        canvas.height =
+            1350;
+
+    }
+
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    const W =
+        canvas.width;
+
+
+    const H =
+        canvas.height;
+
+
+    const d =
+        getPropertyData();
+
+
+    /* WHITE BACKGROUND */
+
+    ctx.fillStyle =
+        "#ffffff";
+
+    ctx.fillRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    /* =================================================
+       HEADER
+    ================================================= */
+
+    ctx.fillStyle =
+        "#0b1735";
+
+    ctx.fillRect(
+        0,
+        0,
+        W,
+        145
+    );
+
+
+    /* LOGO */
+
+    await drawLogo(
+        ctx,
+        45,
+        28,
+        230,
+        90
+    );
+
+
+    /* =================================================
+       PROPERTY TITLE
+    ================================================= */
+
+    ctx.fillStyle =
+        "#0b1735";
+
+    ctx.font =
+        "bold 50px Arial";
+
+
+    let title =
+        d.title;
+
+
+    /*
+       Prevent very long titles
+       from going outside canvas.
+    */
+
+    if(title.length > 35){
+
+        title =
+            title.substring(
+                0,
+                35
+            ) + "...";
+
+    }
+
+
+    ctx.fillText(
+        title,
+        55,
+        225
+    );
+
+
+    /* LOCATION */
+
+    ctx.font =
+        "26px Arial";
+
+    ctx.fillStyle =
+        "#333333";
+
+
+    ctx.fillText(
+        "📍 " + d.location,
+        55,
+        275
+    );
+
+
+    /* =================================================
+       PROPERTY PHOTO
+    ================================================= */
+
+    const photoTop =
+        310;
+
+
+    const photoHeight =
+        type === "facebook"
+            ? 650
+            : 590;
+
 
     if(
-        p.company ||
-        p.website
+        uploadedImages.length
     ){
 
-        ctx.textAlign='right';
+        const img =
+            await loadImage(
+                uploadedImages[0]
+            );
 
-        ctx.font =
-            '22px Arial';
 
-        ctx.fillText(
-            p.company ||
-            p.website,
-            w-55,
-            h-65
+        if(img){
+
+            drawImageCover(
+                ctx,
+                img,
+                45,
+                photoTop,
+                W - 90,
+                photoHeight
+            );
+
+        }
+
+    }
+
+    else{
+
+        ctx.fillStyle =
+            "#edf1f6";
+
+
+        roundRect(
+            ctx,
+            45,
+            photoTop,
+            W - 90,
+            photoHeight,
+            25
         );
 
-        ctx.textAlign='left';
+
+        ctx.fill();
+
+
+        ctx.fillStyle =
+            "#777777";
+
+
+        ctx.font =
+            "32px Arial";
+
+
+        ctx.textAlign =
+            "center";
+
+
+        ctx.fillText(
+            "Property Photo",
+            W / 2,
+            photoTop +
+            photoHeight / 2
+        );
+
+
+        ctx.textAlign =
+            "left";
 
     }
 
 
-    /* MODAL */
+    /* =================================================
+       PRICE
+    ================================================= */
 
-    $('modalTitle').textContent =
-        size.title;
+    const priceY =
+        photoTop +
+        photoHeight +
+        80;
 
-    $('modalSize').textContent =
-        size.ratio;
 
-    $('designModal').style.display =
-        'block';
+    ctx.fillStyle =
+        "#0b1735";
+
+
+    ctx.font =
+        "bold 60px Arial";
+
+
+    ctx.fillText(
+        d.price,
+        55,
+        priceY
+    );
+
+
+    /* =================================================
+       DETAILS BOX
+    ================================================= */
+
+    const boxY =
+        priceY + 35;
+
+
+    ctx.fillStyle =
+        "#eef3f7";
+
+
+    roundRect(
+        ctx,
+        45,
+        boxY,
+        W - 90,
+        155,
+        25
+    );
+
+
+    ctx.fill();
+
+
+    ctx.fillStyle =
+        "#172033";
+
+
+    ctx.font =
+        "bold 24px Arial";
+
+
+    ctx.fillText(
+        "Area: " + d.area,
+        75,
+        boxY + 48
+    );
+
+
+    ctx.fillText(
+        "Bedrooms: " + d.bedrooms,
+        W / 2,
+        boxY + 48
+    );
+
+
+    ctx.fillText(
+        "Bathrooms: " + d.bathrooms,
+        75,
+        boxY + 105
+    );
+
+
+    ctx.fillText(
+        "Parking: " + d.parking,
+        W / 2,
+        boxY + 105
+    );
+
+
+    /* =================================================
+       COMPANY INFORMATION
+    ================================================= */
+
+    const companyY =
+        boxY + 190;
+
+
+    ctx.fillStyle =
+        "#0b1735";
+
+
+    ctx.font =
+        "bold 28px Arial";
+
+
+    if(d.company){
+
+        ctx.fillText(
+            d.company,
+            55,
+            companyY
+        );
+
+    }
+
+
+    ctx.font =
+        "20px Arial";
+
+
+    ctx.fillStyle =
+        "#444444";
+
+
+    if(d.contact){
+
+        ctx.fillText(
+            "📞 " + d.contact,
+            55,
+            companyY + 38
+        );
+
+    }
+
+
+    if(d.email){
+
+        ctx.fillText(
+            "✉ " + d.email,
+            55,
+            companyY + 70
+        );
+
+    }
+
+
+    if(d.website){
+
+        ctx.fillText(
+            "🌐 " + d.website,
+            55,
+            companyY + 102
+        );
+
+    }
+
+
+    /* =================================================
+       FOOTER
+    ================================================= */
+
+    ctx.fillStyle =
+        "#0b1735";
+
+
+    ctx.fillRect(
+        0,
+        H - 100,
+        W,
+        100
+    );
+
+
+    ctx.fillStyle =
+        "#ffffff";
+
+
+    ctx.font =
+        "bold 23px Arial";
+
+
+    if(d.company){
+
+        ctx.fillText(
+            d.company,
+            45,
+            H - 42
+        );
+
+    }
+
+    else{
+
+        ctx.fillText(
+            "PropDeck",
+            45,
+            H - 42
+        );
+
+    }
+
+
+    if(d.website){
+
+        ctx.textAlign =
+            "right";
+
+
+        ctx.fillText(
+            d.website,
+            W - 45,
+            H - 42
+        );
+
+
+        ctx.textAlign =
+            "left";
+
+    }
 
 }
 
 
-/* =========================================================
-   WHATSAPP DESIGN
-========================================================= */
-
-$('makeWhatsAppDesign')
-.addEventListener(
-    'click',
-    ()=>{
-        generateSocialDesign(
-            'whatsapp'
-        );
-    }
-);
-
-
-/* =========================================================
-   FACEBOOK DESIGN
-========================================================= */
-
-$('makeFacebookDesign')
-.addEventListener(
-    'click',
-    ()=>{
-        generateSocialDesign(
-            'facebook'
-        );
-    }
-);
-
-
-/* =========================================================
-   INSTAGRAM DESIGN
-========================================================= */
-
-$('makeInstagramDesign')
-.addEventListener(
-    'click',
-    ()=>{
-        generateSocialDesign(
-            'instagram'
-        );
-    }
-);
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-$('closeModal')
-.addEventListener(
-    'click',
-    ()=>{
-
-        $('designModal')
-        .style
-        .display='none';
-
-    }
-);
-
-
-/* =========================================================
-   CLICK OUTSIDE MODAL
-========================================================= */
-
-$('designModal')
-.addEventListener(
-    'click',
-    function(e){
-
-        if(
-            e.target ===
-            this
-        ){
-
-            this.style.display=
-                'none';
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   DOWNLOAD PNG
-========================================================= */
-
-$('downloadSocial')
-.addEventListener(
-    'click',
-    ()=>{
-
-        const p =
-            getProperty();
-
-        const filename =
-            (
-                p.title ||
-                'property'
-            )
-            .replace(
-                /[^a-z0-9]+/gi,
-                '-'
-            )
-            .toLowerCase();
-
-        const link =
-            document.createElement('a');
-
-        link.download =
-            filename +
-            '-' +
-            currentDesign +
-            '.png';
-
-        link.href =
-            socialCanvas
-            .toDataURL(
-                'image/png',
-                1
-            );
-
-        link.click();
-
-    }
-);
-
-
-/* =========================================================
-   DOWNLOAD JPG
-========================================================= */
-
-$('downloadJpg')
-.addEventListener(
-    'click',
-    ()=>{
-
-        const p =
-            getProperty();
-
-        const filename =
-            (
-                p.title ||
-                'property'
-            )
-            .replace(
-                /[^a-z0-9]+/gi,
-                '-'
-            )
-            .toLowerCase();
-
-        const link =
-            document.createElement('a');
-
-        link.download =
-            filename +
-            '-' +
-            currentDesign +
-            '.jpg';
-
-        link.href =
-            socialCanvas
-            .toDataURL(
-                'image/jpeg',
-                .95
-            );
-
-        link.click();
-
-    }
-);
-
-
-/* =========================================================
-   COPY WHATSAPP
-========================================================= */
-
-$('copyWA')
-.addEventListener(
-    'click',
-    async ()=>{
-
-        const text =
-            $('whatsappText')
-            .textContent;
-
-        try{
-
-            await navigator
-                .clipboard
-                .writeText(text);
-
-            $('notice')
-            .textContent =
-                '✓ WhatsApp text copied!';
-
-            $('notice')
-            .style
-            .display='block';
-
-            setTimeout(
-                ()=>{
-                    $('notice')
-                    .style
-                    .display='none';
-                },
-                2500
-            );
-
-        }catch(e){
-
-            alert(
-                'Copy failed. Please select and copy the text manually.'
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SHARE WHATSAPP
-========================================================= */
-
-$('shareWA')
-.addEventListener(
-    'click',
-    async ()=>{
-
-        const text =
-            $('whatsappText')
-            .textContent;
-
-        if(
-            navigator.share
-        ){
-
-            try{
-
-                await navigator.share({
-
-                    title:
-                        getProperty()
-                        .title ||
-                        'Property',
-
-                    text:text
-
-                });
-
-            }catch(e){}
-
-        }else{
-
-            const url =
-                'https://wa.me/?text=' +
-                encodeURIComponent(
-                    text
-                );
-
-            window.open(
-                url,
-                '_blank'
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   OPEN CANVA
-========================================================= */
-
-$('openCanva')
-.addEventListener(
-    'click',
-    ()=>{
-
-        /*
-          Canva link opens in a new tab.
-          User can upload the downloaded PNG
-          and continue editing it in Canva.
-        */
-
-        window.open(
-            'https://www.canva.com/create/',
-            '_blank'
+/* =====================================================
+   DOWNLOAD CANVAS
+===================================================== */
+
+function downloadCanvas(
+    canvas,
+    filename,
+    type
+){
+
+    if(!canvas){
+
+        showMessage(
+            "Design is not ready."
         );
 
+        return;
+
     }
-);
 
 
-/* =========================================================
-   RESET
-========================================================= */
+    const link =
+        document.createElement(
+            "a"
+        );
 
-if($('resetBtn')){
 
-    $('resetBtn')
-    .addEventListener(
-        'click',
-        ()=>{
+    link.download =
+        filename;
 
-            propertyImages=[];
 
-            renderGallery();
+    link.href =
+        canvas.toDataURL(
+            type,
+            0.95
+        );
 
-            updatePreview();
 
-            updateCanvaPreview();
+    document.body.appendChild(
+        link
+    );
 
-            $('aiDescription')
-            .textContent='—';
 
-            $('whatsappText')
-            .textContent='—';
+    link.click();
 
-            $('websiteText')
-            .textContent='—';
 
-            $('instagramText')
-            .textContent='—';
+    link.remove();
 
-        }
+
+    showMessage(
+        "Download started."
     );
 
 }
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* =====================================================
+   OPEN CANVA
+===================================================== */
+
+function openCanva(){
+
+    window.open(
+        "https://www.canva.com/",
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    message
+){
+
+    const box =
+        $("systemMessage");
+
+
+    if(!box)
+        return;
+
+
+    box.textContent =
+        message;
+
+
+    box.style.display =
+        "block";
+
+
+    clearTimeout(
+        window.messageTimer
+    );
+
+
+    window.messageTimer =
+        setTimeout(
+            () => {
+
+                box.style.display =
+                    "none";
+
+            },
+            2500
+        );
+
+}
+
+
+/* =====================================================
+   RESET FORM
+===================================================== */
+
+function resetForm(){
+
+    document
+        .querySelectorAll(
+            "input, textarea"
+        )
+        .forEach(
+            element => {
+
+                if(
+                    element.type ===
+                    "file"
+                ){
+
+                    element.value =
+                        "";
+
+                }
+
+                else{
+
+                    element.value =
+                        "";
+
+                }
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "select"
+        )
+        .forEach(
+            element => {
+
+                element.selectedIndex =
+                    0;
+
+            }
+        );
+
+
+    uploadedImages =
+        [];
+
+
+    renderPhotoGallery();
+
+
+    setText(
+        "aiDescription",
+        "—"
+    );
+
+
+    setText(
+        "whatsappOutput",
+        "—"
+    );
+
+
+    setText(
+        "websiteOutput",
+        "—"
+    );
+
+
+    setText(
+        "instagramOutput",
+        "—"
+    );
+
+
+    setText(
+        "pvTitle",
+        "Residential Property"
+    );
+
+
+    setText(
+        "pvLocation",
+        "📍 Location not specified"
+    );
+
+
+    setText(
+        "pvPrice",
+        "Price on request"
+    );
+
+
+    setText(
+        "pvDescription",
+        "Property description will appear here after you generate the content."
+    );
+
+
+    const pills =
+        $("previewPills");
+
+
+    if(pills){
+
+        pills.innerHTML =
+            "";
+
+    }
+
+
+    showMessage(
+        "Form reset successfully."
+    );
+
+}
+
+
+/* =====================================================
+   DOM READY
+===================================================== */
 
 document.addEventListener(
-    'DOMContentLoaded',
-    ()=>{
+    "DOMContentLoaded",
+    () => {
 
-        updatePreview();
 
-        updateBranding();
+        /* GENERATE */
 
-        updateCanvaPreview();
+        $("generateBtn")
+            .addEventListener(
+                "click",
+                generateContent
+            );
+
+
+        /* RESET */
+
+        $("resetBtn")
+            .addEventListener(
+                "click",
+                resetForm
+            );
+
+
+        /* WHATSAPP COPY */
+
+        $("copyWhatsappBtn")
+            .addEventListener(
+                "click",
+                copyWhatsApp
+            );
+
+
+        /* WHATSAPP SHARE */
+
+        $("shareWhatsappBtn")
+            .addEventListener(
+                "click",
+                shareWhatsApp
+            );
+
+
+        /* SOCIAL BUTTONS */
+
+        $("whatsappDesignBtn")
+            .addEventListener(
+                "click",
+                () =>
+                    openDesign(
+                        "whatsapp"
+                    )
+            );
+
+
+        $("facebookDesignBtn")
+            .addEventListener(
+                "click",
+                () =>
+                    openDesign(
+                        "facebook"
+                    )
+            );
+
+
+        $("instagramDesignBtn")
+            .addEventListener(
+                "click",
+                () =>
+                    openDesign(
+                        "instagram"
+                    )
+            );
+
+
+        /* CLOSE MODAL */
+
+        $("closeModalBtn")
+            .addEventListener(
+                "click",
+                closeDesign
+            );
+
+
+        /* DOWNLOAD MAIN PNG */
+
+        $("downloadMainPng")
+            .addEventListener(
+                "click",
+                () =>
+                    downloadCanvas(
+                        $("mainCanvas"),
+                        "PropDeck-Property.png",
+                        "image/png"
+                    )
+            );
+
+
+        /* DOWNLOAD SOCIAL PNG */
+
+        $("downloadDesignPng")
+            .addEventListener(
+                "click",
+                () =>
+                    downloadCanvas(
+                        $("socialCanvas"),
+                        "PropDeck-" +
+                        currentDesign +
+                        ".png",
+                        "image/png"
+                    )
+            );
+
+
+        /* DOWNLOAD SOCIAL JPG */
+
+        $("downloadDesignJpg")
+            .addEventListener(
+                "click",
+                () =>
+                    downloadCanvas(
+                        $("socialCanvas"),
+                        "PropDeck-" +
+                        currentDesign +
+                        ".jpg",
+                        "image/jpeg"
+                    )
+            );
+
+
+        /* CANVA MAIN */
+
+        $("openCanvaBtn")
+            .addEventListener(
+                "click",
+                openCanva
+            );
+
+
+        /* CANVA MODAL */
+
+        $("modalCanvaBtn")
+            .addEventListener(
+                "click",
+                openCanva
+            );
+
+
+        /* PROPERTY PHOTO UPLOAD */
+
+        $("propertyPhotos")
+            .addEventListener(
+                "change",
+                loadUploadedPhotos
+            );
+
+
+        /* COMPANY LOGO */
+
+        $("companyLogo")
+            .addEventListener(
+                "change",
+                event => {
+
+                    const file =
+                        event.target.files[0];
+
+
+                    if(!file)
+                        return;
+
+
+                    const url =
+                        URL.createObjectURL(
+                            file
+                        );
+
+
+                    $("brandingLogoPreview")
+                        .src =
+                        url;
+
+
+                    $("headerLogo")
+                        .src =
+                        url;
+
+                }
+            );
+
+
+        /* PHOTO DELETE */
+
+        $("photoGallery")
+            .addEventListener(
+                "click",
+                event => {
+
+                    if(
+                        !event.target
+                            .classList
+                            .contains(
+                                "photo-remove"
+                            )
+                    ){
+
+                        return;
+
+                    }
+
+
+                    const index =
+                        Number(
+                            event.target
+                                .dataset
+                                .index
+                        );
+
+
+                    uploadedImages
+                        .splice(
+                            index,
+                            1
+                        );
+
+
+                    renderPhotoGallery();
+
+                }
+            );
+
+
+        /* MODAL BACKGROUND CLOSE */
+
+        $("designModal")
+            .addEventListener(
+                "click",
+                event => {
+
+                    if(
+                        event.target ===
+                        $("designModal")
+                    ){
+
+                        closeDesign();
+
+                    }
+
+                }
+            );
+
+
+        /* ESC CLOSE */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if(
+                    event.key ===
+                    "Escape"
+                ){
+
+                    closeDesign();
+
+                }
+
+            }
+        );
+
+
+        /* LIVE PREVIEW */
+
+        document.addEventListener(
+            "input",
+            () => {
+
+                const d =
+                    getPropertyData();
+
+
+                updatePreview(
+                    d,
+                    createDescription(d)
+                );
+
+            }
+        );
+
 
     }
 );
 
 </script>
-<!-- =====================================================
-     PART 4 — SOCIAL MEDIA DESIGN SECTION
+ <!-- =====================================================
+     FINAL JAVASCRIPT SAFETY + LIVE PREVIEW
 ===================================================== -->
 
-<section class="social-design-section">
+<script>
 
-    <div class="section-heading">
-        <div>
-            <h2>7. Social Media Designs</h2>
-            <p>
-                Create ready-to-use property posts for
-                WhatsApp, Facebook and Instagram.
-            </p>
-        </div>
-    </div>
+/* =====================================================
+   SAFE BUTTON CHECK
+===================================================== */
 
+function safeClick(
+    id,
+    callback
+){
 
-    <!-- SOCIAL BUTTONS -->
+    const element =
+        document.getElementById(id);
 
-    <div class="social-buttons">
+    if(!element)
+        return;
 
-        <button
-            type="button"
-            id="makeWhatsAppDesign"
-            class="social-btn whatsapp-btn">
+    element.addEventListener(
+        "click",
+        callback
+    );
 
-            <span class="social-icon">💬</span>
-
-            <span>
-                <strong>WhatsApp</strong>
-                <small>1080 × 1350</small>
-            </span>
-
-        </button>
-
-
-        <button
-            type="button"
-            id="makeFacebookDesign"
-            class="social-btn facebook-btn">
-
-            <span class="social-icon">f</span>
-
-            <span>
-                <strong>Facebook</strong>
-                <small>1200 × 1500</small>
-            </span>
-
-        </button>
-
-
-        <button
-            type="button"
-            id="makeInstagramDesign"
-            class="social-btn instagram-btn">
-
-            <span class="social-icon">◎</span>
-
-            <span>
-                <strong>Instagram</strong>
-                <small>1080 × 1350</small>
-            </span>
-
-        </button>
-
-    </div>
-
-
-    <!-- DESIGN INFORMATION -->
-
-    <div class="design-info-box">
-
-        <div class="info-item">
-            <span>✓</span>
-            <div>
-                <strong>Automatic Property Details</strong>
-                <p>
-                    Your property information will
-                    automatically appear in the design.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="info-item">
-            <span>✓</span>
-            <div>
-                <strong>Your Company Branding</strong>
-                <p>
-                    Company logo, contact number,
-                    website and email can be displayed.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="info-item">
-            <span>✓</span>
-            <div>
-                <strong>High Quality PNG</strong>
-                <p>
-                    Download the generated post as
-                    a high-quality image.
-                </p>
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     DESIGN MODAL
-===================================================== -->
-
-<div
-    id="designModal"
-    class="design-modal"
-    style="display:none;"
->
-
-    <div class="design-modal-box">
-
-
-        <!-- MODAL HEADER -->
-
-        <div class="design-modal-header">
-
-            <div>
-
-                <h2 id="modalTitle">
-                    Property Social Media Design
-                </h2>
-
-                <p id="modalSize">
-                    1080 × 1350
-                </p>
-
-            </div>
-
-
-            <button
-                type="button"
-                id="closeModal"
-                class="close-modal"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-
-        <!-- CANVAS PREVIEW -->
-
-        <div class="canvas-preview-wrapper">
-
-            <canvas
-                id="socialCanvas"
-                width="1080"
-                height="1350"
-            ></canvas>
-
-        </div>
-
-
-
-        <!-- DOWNLOAD BUTTONS -->
-
-        <div class="design-actions">
-
-            <button
-                type="button"
-                id="downloadSocial"
-                class="action-primary"
-            >
-                ⬇ Download PNG
-            </button>
-
-
-            <button
-                type="button"
-                id="downloadJpg"
-                class="action-secondary"
-            >
-                🖼 Download JPG
-            </button>
-
-
-            <button
-                type="button"
-                id="openCanva"
-                class="action-canva"
-            >
-                🎨 Open Canva
-            </button>
-
-        </div>
-
-
-        <p class="design-note">
-            Download the image and upload it to Canva
-            if you want to make further edits.
-        </p>
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     EXTRA DESIGN CSS
-===================================================== -->
-
-<style>
-
-.social-design-section{
-    background:#ffffff;
-    border:1px solid #e5e7eb;
-    border-radius:18px;
-    padding:24px;
-    margin-top:24px;
-    box-shadow:0 8px 30px rgba(15,23,42,.05);
 }
-
-.section-heading{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:22px;
-}
-
-.section-heading h2{
-    margin:0 0 7px;
-    color:#101828;
-    font-size:22px;
-}
-
-.section-heading p{
-    margin:0;
-    color:#667085;
-    font-size:14px;
-}
-
-
-
-.social-buttons{
-    display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
-    gap:14px;
-}
-
-
-.social-btn{
-    border:1px solid #e4e7ec;
-    border-radius:14px;
-    background:#fff;
-    min-height:72px;
-    padding:12px 16px;
-    display:flex;
-    align-items:center;
-    gap:13px;
-    cursor:pointer;
-    transition:.2s ease;
-    text-align:left;
-}
-
-
-.social-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:
-        0 8px 20px
-        rgba(16,24,40,.10);
-}
-
-
-.social-icon{
-    width:42px;
-    height:42px;
-    border-radius:11px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-weight:800;
-    background:#f2f4f7;
-}
-
-
-.social-btn strong{
-    display:block;
-    color:#101828;
-    font-size:15px;
-}
-
-
-.social-btn small{
-    display:block;
-    margin-top:4px;
-    color:#667085;
-    font-size:12px;
-}
-
-
-.whatsapp-btn .social-icon{
-    background:#e9f9ef;
-    color:#128c48;
-}
-
-
-.facebook-btn .social-icon{
-    background:#e9f1ff;
-    color:#1877f2;
-}
-
-
-.instagram-btn .social-icon{
-    background:#f7eafa;
-    color:#c13584;
-}
-
-
-
-.design-info-box{
-    display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
-    gap:12px;
-    margin-top:18px;
-}
-
-
-.info-item{
-    display:flex;
-    gap:10px;
-    background:#f8fafc;
-    border-radius:12px;
-    padding:14px;
-}
-
-
-.info-item > span{
-    width:25px;
-    height:25px;
-    flex:none;
-    border-radius:50%;
-    background:#e8f7ee;
-    color:#12b76a;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-}
-
-
-.info-item strong{
-    color:#101828;
-    font-size:13px;
-}
-
-
-.info-item p{
-    margin:5px 0 0;
-    color:#667085;
-    font-size:12px;
-    line-height:1.45;
-}
-
 
 
 /* =====================================================
-   MODAL
+   LIVE PROPERTY PREVIEW
 ===================================================== */
 
-.design-modal{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    background:
-        rgba(15,23,42,.78);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    overflow:auto;
+function liveUpdate(){
+
+    const d =
+        getPropertyData();
+
+
+    const description =
+        createDescription(d);
+
+
+    updatePreview(
+        d,
+        description
+    );
+
 }
-
-
-.design-modal-box{
-    width:min(100%,850px);
-    max-height:95vh;
-    overflow:auto;
-    background:#ffffff;
-    border-radius:20px;
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.35);
-}
-
-
-.design-modal-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px 22px;
-    border-bottom:1px solid #eaecf0;
-    position:sticky;
-    top:0;
-    background:#fff;
-    z-index:2;
-}
-
-
-.design-modal-header h2{
-    margin:0;
-    font-size:18px;
-    color:#101828;
-}
-
-
-.design-modal-header p{
-    margin:4px 0 0;
-    color:#667085;
-    font-size:12px;
-}
-
-
-.close-modal{
-    border:0;
-    background:#f2f4f7;
-    color:#344054;
-    width:38px;
-    height:38px;
-    border-radius:10px;
-    font-size:26px;
-    cursor:pointer;
-    line-height:1;
-}
-
-
-.canvas-preview-wrapper{
-    padding:20px;
-    background:#f2f4f7;
-    display:flex;
-    justify-content:center;
-}
-
-
-#socialCanvas{
-    display:block;
-    width:min(100%,560px);
-    height:auto;
-    background:#fff;
-    box-shadow:
-        0 10px 30px
-        rgba(16,24,40,.15);
-}
-
-
-.design-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    padding:18px 22px 8px;
-}
-
-
-.design-actions button{
-    border:0;
-    border-radius:10px;
-    min-height:44px;
-    padding:0 17px;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-
-.action-primary{
-    background:#101828;
-    color:#fff;
-}
-
-
-.action-secondary{
-    background:#eef2f6;
-    color:#101828;
-}
-
-
-.action-canva{
-    background:#7c3aed;
-    color:#fff;
-}
-
-
-.design-note{
-    padding:0 22px 20px;
-    margin:7px 0 0;
-    color:#667085;
-    font-size:12px;
-}
-
 
 
 /* =====================================================
-   MOBILE
+   LIVE INPUT EVENTS
 ===================================================== */
 
-@media(max-width:800px){
+[
+    "title",
+    "location",
+    "price",
+    "area",
+    "beds",
+    "baths",
+    "floor",
+    "facing",
+    "parking",
+    "amenities",
+    "nearby",
+    "moreInfo",
+    "company",
+    "contact",
+    "email",
+    "website"
+].forEach(
+    id => {
 
-    .social-buttons{
-        grid-template-columns:1fr;
+        const element =
+            $(id);
+
+        if(element){
+
+            element.addEventListener(
+                "input",
+                liveUpdate
+            );
+
+        }
+
     }
-
-    .design-info-box{
-        grid-template-columns:1fr;
-    }
-
-    .social-design-section{
-        padding:16px;
-    }
-
-    .design-modal{
-        padding:8px;
-        align-items:flex-start;
-    }
-
-    .design-modal-box{
-        margin-top:10px;
-        max-height:96vh;
-        border-radius:16px;
-    }
-
-    .design-modal-header{
-        padding:14px 16px;
-    }
-
-    .canvas-preview-wrapper{
-        padding:10px;
-    }
-
-    .design-actions{
-        padding:14px 16px 5px;
-        flex-direction:column;
-    }
-
-    .design-actions button{
-        width:100%;
-    }
-
-}
-
+);
 
 
 /* =====================================================
-   EXTRA MOBILE FIX
+   LIVE SELECT EVENTS
 ===================================================== */
 
-@media(max-width:500px){
+[
+    "propertyType",
+    "purpose",
+    "ownership",
+    "furnished",
+    "descriptionStyle",
+    "language"
+].forEach(
+    id => {
 
-    .section-heading h2{
-        font-size:19px;
-    }
+        const element =
+            $(id);
 
-    .social-btn{
-        min-height:66px;
-    }
+        if(element){
 
-    .social-icon{
-        width:38px;
-        height:38px;
+            element.addEventListener(
+                "change",
+                liveUpdate
+            );
+
+        }
+
     }
+);
+
+
+/* =====================================================
+   CLOSE MODAL WITH ESCAPE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeDesign();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLICK OUTSIDE MODAL
+===================================================== */
+
+const designModal =
+    $("designModal");
+
+
+if(designModal){
+
+    designModal.addEventListener(
+        "click",
+        event => {
+
+            if(
+                event.target ===
+                designModal
+            ){
+
+                closeDesign();
+
+            }
+
+        }
+    );
 
 }
 
-</style>
+
+/* =====================================================
+   INITIAL PREVIEW
+===================================================== */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        const d =
+            getPropertyData();
 
 
-<!-- =====================================================
-     END OF PAGE
-===================================================== -->
+        updatePreview(
+            d,
+            createDescription(d)
+        );
+
+
+        drawMainCanvas(
+            d
+        );
+
+    }
+);
+
+
+/* =====================================================
+   GLOBAL ERROR HANDLER
+===================================================== */
+
+window.addEventListener(
+    "error",
+    event => {
+
+        console.error(
+            "PropDeck Error:",
+            event.error
+        );
+
+    }
+);
+
+
+/* =====================================================
+   FINISH
+===================================================== */
+
+console.log(
+    "PropDeck AI loaded successfully."
+);
+
+</script>
 
 </body>
 </html>
