@@ -1,1272 +1,1522 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>PropDeck AI - Property Marketing</title>
 
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
 
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f6f9;
-color:#101828
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
 }
 
-button,input,select,textarea{
-font-family:inherit
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f6f9;
+    color:#101828;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
 }
 
 button{
-cursor:pointer;
-border:0
+    cursor:pointer;
 }
 
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 header{
-height:82px;
-background:#fff;
-border-bottom:1px solid #e4e7ec;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 28px;
-position:sticky;
-top:0;
-z-index:1000
+    height:82px;
+    background:#ffffff;
+    border-bottom:1px solid #e4e7ec;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 28px;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
 .header-logo{
-height:56px;
-width:auto;
-max-width:220px;
-object-fit:contain
+    height:56px;
+    width:auto;
+    max-width:220px;
+
+    display:block;
+
+    object-fit:contain;
+    object-position:left center;
 }
 
 .header-badge{
-border:1px solid #9fc3e8;
-color:#075a9c;
-background:#eef7ff;
-padding:9px 14px;
-border-radius:9px;
-font-size:13px;
-font-weight:600
+    border:1px solid #9fc3e8;
+    color:#075a9c;
+    background:#eef7ff;
+
+    padding:9px 14px;
+
+    border-radius:9px;
+
+    font-size:13px;
+    font-weight:600;
 }
 
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
 .container{
-width:min(1500px,calc(100% - 40px));
-margin:28px auto 60px
+    width:min(
+        1500px,
+        calc(100% - 40px)
+    );
+
+    margin:28px auto 60px;
 }
 
 .page-heading{
-margin-bottom:20px
+    margin-bottom:20px;
 }
 
 .page-heading h1{
-margin:0 0 8px;
-font-size:clamp(25px,3vw,34px)
+    margin:0 0 8px;
+
+    font-size:
+        clamp(25px,3vw,34px);
+
+    color:#101828;
 }
 
 .page-heading p{
-margin:0;
-color:#667085;
-font-size:14px
+    margin:0;
+
+    color:#667085;
+
+    font-size:14px;
 }
 
+
+/* =====================================================
+   MAIN GRID
+===================================================== */
+
 .main-grid{
-display:grid;
-grid-template-columns:minmax(0,1fr) 380px;
-gap:20px;
-align-items:start
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        380px;
+
+    gap:20px;
+
+    align-items:start;
 }
 
 .left-column,
 .right-column{
-min-width:0
+    min-width:0;
 }
 
+
+/* =====================================================
+   CARD
+===================================================== */
+
 .card{
-background:#fff;
-border:1px solid #e4e7ec;
-border-radius:16px;
-padding:20px;
-margin-bottom:20px;
-box-shadow:0 3px 14px rgba(16,24,40,.04)
+    background:#ffffff;
+
+    border:1px solid #e4e7ec;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+        0 3px 14px
+        rgba(16,24,40,.04);
 }
 
 .card-title{
-margin:0 0 18px;
-font-size:18px;
-color:#101828
+    margin:0 0 18px;
+
+    font-size:18px;
+
+    color:#101828;
 }
 
 .card-subtitle{
-margin:-10px 0 18px;
-color:#667085;
-font-size:12px
+    margin:-10px 0 18px;
+
+    color:#667085;
+
+    font-size:12px;
 }
+
+
+/* =====================================================
+   FORM
+===================================================== */
 
 .form-grid{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:15px
-}
+    display:grid;
 
-.form-grid.three{
-grid-template-columns:repeat(3,minmax(0,1fr))
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:15px;
 }
 
 .field{
-min-width:0
+    min-width:0;
 }
 
 .field.full{
-grid-column:1/-1
+    grid-column:1/-1;
 }
 
 .field label{
-display:block;
-margin-bottom:7px;
-font-size:12px;
-font-weight:700;
-color:#344054
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#344054;
 }
 
 .field input,
 .field select,
 .field textarea{
-width:100%;
-border:1px solid #d0d5dd;
-border-radius:9px;
-background:#fff;
-color:#101828;
-outline:none;
-padding:11px 12px;
-font-size:13px
+    width:100%;
+
+    border:
+        1px solid #d0d5dd;
+
+    border-radius:9px;
+
+    background:#ffffff;
+
+    color:#101828;
+
+    outline:none;
+
+    padding:11px 12px;
+
+    font-size:13px;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s;
 }
 
 .field input:focus,
 .field select:focus,
 .field textarea:focus{
-border-color:#1769aa;
-box-shadow:0 0 0 3px rgba(23,105,170,.10)
+    border-color:#1769aa;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(23,105,170,.10);
 }
 
 .field textarea{
-min-height:105px;
-resize:vertical
+    min-height:105px;
+
+    resize:vertical;
 }
 
+
+/* =====================================================
+   PHOTO UPLOAD
+===================================================== */
+
 .photo-upload{
-border:1px dashed #b8c1cc;
-border-radius:12px;
-padding:16px;
-background:#fafbfc
+    border:
+        1px dashed #b8c1cc;
+
+    border-radius:12px;
+
+    padding:16px;
+
+    background:#fafbfc;
 }
 
 .photo-upload input{
-width:100%
+    width:100%;
 }
 
 .photo-gallery{
-display:grid;
-grid-template-columns:repeat(6,minmax(0,1fr));
-gap:10px;
-margin-top:14px
+    display:grid;
+
+    grid-template-columns:
+        repeat(6,minmax(0,1fr));
+
+    gap:10px;
+
+    margin-top:14px;
 }
 
 .photo-item{
-position:relative;
-aspect-ratio:1/1;
-overflow:hidden;
-border-radius:10px;
-background:#eef2f6;
-border:1px solid #e4e7ec
+    position:relative;
+
+    aspect-ratio:1/1;
+
+    overflow:hidden;
+
+    border-radius:10px;
+
+    background:#eef2f6;
+
+    border:
+        1px solid #e4e7ec;
 }
 
 .photo-item img{
-width:100%;
-height:100%;
-display:block;
-object-fit:cover
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
 }
 
 .photo-remove{
-position:absolute;
-top:5px;
-right:5px;
-width:24px;
-height:24px;
-border-radius:50%;
-background:#fff;
-color:#d92d20;
-font-weight:bold
+    position:absolute;
+
+    top:5px;
+    right:5px;
+
+    width:25px;
+    height:25px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#ffffff;
+
+    color:#d92d20;
+
+    font-weight:bold;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0,0,0,.15);
 }
 
+
+/* =====================================================
+   BRANDING
+===================================================== */
+
 .branding-box{
-display:grid;
-grid-template-columns:150px minmax(0,1fr);
-gap:18px;
-align-items:start
+    display:grid;
+
+    grid-template-columns:
+        150px
+        minmax(0,1fr);
+
+    gap:18px;
+
+    align-items:start;
 }
 
 .logo-preview{
-height:120px;
-border:1px solid #e4e7ec;
-border-radius:12px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:12px
+    height:120px;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius:12px;
+
+    background:#ffffff;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:12px;
+
+    overflow:hidden;
 }
 
 .logo-preview img{
-max-width:100%;
-max-height:100%;
-object-fit:contain
+    max-width:100%;
+    max-height:100%;
+
+    object-fit:contain;
 }
 
 .brand-fields{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:12px
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:12px;
 }
 
 .brand-fields .full{
-grid-column:1/-1
+    grid-column:1/-1;
 }
 
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
 .action-row{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:18px
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:18px;
 }
 
 .btn{
-border:0;
-border-radius:10px;
-padding:11px 17px;
-font-size:13px;
-font-weight:700;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-gap:7px;
-min-height:42px
+    border:0;
+
+    border-radius:10px;
+
+    padding:11px 17px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    min-height:42px;
+
+    transition:
+        transform .15s,
+        opacity .15s,
+        box-shadow .15s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn:active{
+    transform:scale(.98);
 }
 
 .btn-primary{
-background:#101828;
-color:#fff
+    background:#101828;
+    color:#ffffff;
 }
 
 .btn-secondary{
-background:#eef2f6;
-color:#101828
+    background:#eef2f6;
+    color:#101828;
 }
 
 .btn-canva{
-background:#7c3aed;
-color:#fff
+    background:#7c3aed;
+    color:#ffffff;
 }
 
+
+/* =====================================================
+   PROPERTY PREVIEW
+===================================================== */
+
 .property-preview{
-background:linear-gradient(145deg,#0b1735,#111d3d);
-color:#fff;
-border-radius:16px;
-padding:24px;
-min-height:420px
+    background:
+        linear-gradient(
+            145deg,
+            #0b1735,
+            #111d3d
+        );
+
+    color:#ffffff;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    min-height:420px;
+
+    overflow:hidden;
 }
 
 .preview-brand{
-font-size:10px;
-letter-spacing:3px;
-opacity:.7;
-margin-bottom:12px
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    opacity:.7;
+
+    margin-bottom:12px;
 }
 
 .preview-title{
-font-size:28px;
-font-weight:800;
-line-height:1.15;
-margin-bottom:9px
+    font-size:28px;
+
+    font-weight:800;
+
+    line-height:1.15;
+
+    margin-bottom:9px;
+
+    word-break:break-word;
 }
 
 .preview-location{
-font-size:14px;
-opacity:.9;
-margin-bottom:8px
+    font-size:14px;
+
+    opacity:.9;
+
+    margin-bottom:8px;
+
+    word-break:break-word;
 }
 
 .preview-price{
-font-size:30px;
-font-weight:800;
-margin-bottom:15px
+    font-size:30px;
+
+    font-weight:800;
+
+    margin-bottom:15px;
+
+    word-break:break-word;
 }
 
 .preview-pills{
-display:flex;
-flex-wrap:wrap;
-gap:6px;
-margin-bottom:18px
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-bottom:18px;
 }
 
 .preview-pills span{
-border:1px solid rgba(255,255,255,.35);
-border-radius:20px;
-padding:6px 9px;
-font-size:11px
+    border:
+        1px solid
+        rgba(255,255,255,.35);
+
+    border-radius:20px;
+
+    padding:6px 9px;
+
+    font-size:11px;
 }
 
 .preview-description{
-font-size:13px;
-line-height:1.6;
-color:#e5e7eb
+    font-size:13px;
+
+    line-height:1.6;
+
+    color:#e5e7eb;
+
+    word-break:break-word;
 }
 
+
+/* =====================================================
+   OUTPUT BOX
+===================================================== */
+
 .output-box{
-background:#f8fafc;
-border:1px solid #e4e7ec;
-border-radius:12px;
-padding:15px;
-margin-bottom:12px
+    background:#f8fafc;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:12px;
 }
 
 .output-box h3{
-margin:0 0 10px;
-font-size:14px
+    margin:0 0 10px;
+
+    font-size:14px;
 }
 
 .output-text{
-white-space:pre-wrap;
-font-size:13px;
-line-height:1.65;
-color:#344054;
-min-height:30px
+    white-space:pre-wrap;
+
+    font-size:13px;
+
+    line-height:1.65;
+
+    color:#344054;
+
+    min-height:30px;
+
+    word-break:break-word;
 }
 
 .output-actions{
-display:flex;
-gap:8px;
-margin-top:12px
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:12px;
 }
 
 .output-actions button{
-border-radius:9px;
-padding:9px 12px;
-background:#eef2f6;
-color:#101828;
-font-weight:700;
-font-size:12px
+    border:0;
+
+    border-radius:9px;
+
+    padding:9px 12px;
+
+    background:#eef2f6;
+
+    color:#101828;
+
+    font-weight:700;
+
+    font-size:12px;
 }
 
+
+/* =====================================================
+   SOCIAL SECTION
+===================================================== */
+
 .social-section{
-background:#fff;
-border:1px solid #e4e7ec;
-border-radius:16px;
-padding:20px;
-margin-bottom:20px
+    background:#ffffff;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    margin-bottom:20px;
 }
 
 .social-section h2{
-margin:0 0 5px;
-font-size:18px
+    margin:0 0 5px;
+
+    font-size:18px;
 }
 
-.social-section>p{
-margin:0 0 16px;
-color:#667085;
-font-size:12px
+.social-section > p{
+    margin:0 0 16px;
+
+    color:#667085;
+
+    font-size:12px;
 }
 
 .social-grid{
-display:grid;
-grid-template-columns:repeat(3,minmax(0,1fr));
-gap:12px
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:12px;
 }
 
 .social-card{
-border:0;
-border-radius:12px;
-padding:15px;
-min-height:75px;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-color:#fff;
-font-weight:800;
-font-size:14px
+    border:0;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    min-height:75px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    color:#ffffff;
+
+    font-weight:800;
+
+    font-size:14px;
+
+    transition:
+        transform .15s,
+        opacity .15s;
+}
+
+.social-card:hover{
+    transform:translateY(-2px);
+}
+
+.social-card:active{
+    transform:scale(.98);
 }
 
 .social-card span{
-font-size:20px
+    font-size:20px;
 }
 
 .social-whatsapp{
-background:#16c965
+    background:#16c965;
 }
 
 .social-facebook{
-background:#1877f2
+    background:#1877f2;
 }
 
 .social-instagram{
-background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af)
+    background:
+        linear-gradient(
+            45deg,
+            #f58529,
+            #dd2a7b,
+            #8134af
+        );
 }
 
+
+/* =====================================================
+   CANVA PREVIEW
+===================================================== */
+
 .canva-preview{
-background:#fff;
-border:1px solid #e4e7ec;
-border-radius:12px;
-padding:15px;
-overflow:hidden
+    background:#f4f6f9;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 }
 
 #mainCanvas{
-width:100%;
-height:auto;
-display:block;
-background:#fff;
-box-shadow:0 8px 30px rgba(15,23,42,.12)
+    width:100%;
+
+    max-width:900px;
+
+    height:auto;
+
+    display:block;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 8px 30px
+        rgba(16,24,40,.12);
 }
 
+
+/* =====================================================
+   MODAL
+===================================================== */
+
 .design-modal{
-position:fixed;
-inset:0;
-z-index:99999;
-background:rgba(15,23,42,.82);
-display:none;
-align-items:center;
-justify-content:center;
-padding:15px
+    position:fixed;
+
+    inset:0;
+
+    z-index:99999;
+
+    background:
+        rgba(15,23,42,.82);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:15px;
 }
 
 .design-modal.active{
-display:flex
+    display:flex;
 }
 
 .design-modal-box{
-width:min(900px,100%);
-max-height:96vh;
-overflow:auto;
-background:#fff;
-border-radius:18px;
-box-shadow:0 30px 90px rgba(0,0,0,.4)
+    width:min(900px,100%);
+
+    max-height:96vh;
+
+    overflow:auto;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.4);
 }
 
 .design-modal-header{
-position:sticky;
-top:0;
-z-index:5;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:15px 18px;
-border-bottom:1px solid #eaecf0
+    position:sticky;
+
+    top:0;
+
+    z-index:5;
+
+    background:#ffffff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:15px 18px;
+
+    border-bottom:
+        1px solid #eaecf0;
 }
 
 .design-modal-header h2{
-margin:0;
-font-size:17px
+    margin:0;
+
+    font-size:17px;
 }
 
 .design-modal-header p{
-margin:4px 0 0;
-color:#667085;
-font-size:11px
+    margin:4px 0 0;
+
+    color:#667085;
+
+    font-size:11px;
 }
 
 .close-modal{
-width:38px;
-height:38px;
-border-radius:9px;
-background:#f2f4f7;
-color:#344054;
-font-size:20px
+    width:38px;
+    height:38px;
+
+    border:0;
+
+    border-radius:9px;
+
+    background:#f2f4f7;
+
+    color:#344054;
+
+    font-size:20px;
 }
 
 .canvas-area{
-background:#eef2f6;
-padding:20px;
-display:flex;
-justify-content:center;
-align-items:center
+    background:#eef2f6;
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:auto;
 }
 
 #socialCanvas{
-display:block;
-width:min(100%,600px);
-height:auto;
-background:#fff;
-box-shadow:0 12px 35px rgba(16,24,40,.18)
+    display:block;
+
+    width:auto;
+
+    max-width:100%;
+
+    height:auto;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 12px 35px
+        rgba(16,24,40,.18);
 }
 
 .modal-actions{
-display:flex;
-flex-wrap:wrap;
-gap:9px;
-padding:15px 18px
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+
+    padding:15px 18px;
 }
 
 .modal-actions button{
-border:0;
-border-radius:9px;
-padding:11px 15px;
-font-size:12px;
-font-weight:800
+    border:0;
+
+    border-radius:9px;
+
+    padding:11px 15px;
+
+    font-size:12px;
+
+    font-weight:800;
 }
 
 .download-png{
-background:#101828;
-color:#fff
+    background:#101828;
+    color:#ffffff;
 }
 
 .download-jpg{
-background:#eef2f6;
-color:#101828
+    background:#eef2f6;
+    color:#101828;
 }
 
 .modal-canva{
-background:#7c3aed;
-color:#fff
+    background:#7c3aed;
+    color:#ffffff;
 }
+
+
+/* =====================================================
+   SYSTEM MESSAGE
+===================================================== */
 
 #systemMessage{
-position:fixed;
-bottom:25px;
-left:50%;
-transform:translateX(-50%);
-background:#0b1735;
-color:#fff;
-padding:14px 22px;
-border-radius:10px;
-z-index:999999;
-box-shadow:0 8px 30px rgba(0,0,0,.25);
-display:none
+    position:fixed;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:translateX(-50%);
+
+    z-index:100000;
+
+    display:none;
+
+    max-width:
+        calc(100% - 30px);
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    background:#101828;
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.25);
+
+    text-align:center;
 }
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media(max-width:1100px){
-.main-grid{grid-template-columns:1fr}
-.right-column{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:20px
+
+    .main-grid{
+        grid-template-columns:1fr;
+    }
+
+    .right-column{
+        display:grid;
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:20px;
+    }
+
+    .right-column .card{
+        margin-bottom:0;
+    }
+
 }
-.right-column .card{margin-bottom:0}
-}
+
 
 @media(max-width:750px){
-header{height:70px;padding:0 15px}
-.header-logo{height:45px}
-.container{
-width:calc(100% - 20px);
-margin-top:18px
-}
-.form-grid,.form-grid.three{grid-template-columns:1fr}
-.field.full{grid-column:auto}
-.photo-gallery{grid-template-columns:repeat(3,1fr)}
-.branding-box{grid-template-columns:1fr}
-.brand-fields{grid-template-columns:1fr}
-.brand-fields .full{grid-column:auto}
-.right-column{display:block}
-.social-grid{grid-template-columns:1fr}
-.action-row{flex-direction:column}
-.action-row .btn{width:100%}
+
+    header{
+        height:70px;
+
+        padding:0 15px;
+    }
+
+    .header-logo{
+        height:45px;
+
+        max-width:170px;
+    }
+
+    .container{
+        width:
+            calc(100% - 20px);
+
+        margin-top:18px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .photo-gallery{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .branding-box{
+        grid-template-columns:1fr;
+    }
+
+    .brand-fields{
+        grid-template-columns:1fr;
+    }
+
+    .brand-fields .full{
+        grid-column:auto;
+    }
+
+    .right-column{
+        display:block;
+    }
+
+    .social-grid{
+        grid-template-columns:1fr;
+    }
+
+    .action-row{
+        flex-direction:column;
+    }
+
+    .action-row .btn{
+        width:100%;
+    }
+
 }
 
+
 @media(max-width:450px){
-.card{padding:15px}
-.page-heading h1{font-size:23px}
-.photo-gallery{grid-template-columns:repeat(2,1fr)}
+
+    .card{
+        padding:15px;
+    }
+
+    .page-heading h1{
+        font-size:23px;
+    }
+
+    .photo-gallery{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .header-badge{
+        display:none;
+    }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
-<header>
-<img
-id="headerLogo"
-class="header-logo"
-src="./file_00000000bc188211a200a0ccdbc1cecd.png"
-alt="PropDeck"
->
 
-<div class="header-badge">
-Real Estate Marketing
-</div>
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <img
+        id="headerLogo"
+        class="header-logo"
+        src="./file_00000000bc188211a200a0ccdbc1cecd.png"
+        alt="PropDeck"
+    >
+
+    <div class="header-badge">
+        Real Estate Marketing
+    </div>
+
 </header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main class="container">
 
+
 <div class="page-heading">
-<h1>Turn property details into marketing content.</h1>
-<p>
-Enter the property information, upload photos
-and generate a complete marketing pack.
-</p>
+
+    <h1>
+        Turn property details into marketing content.
+    </h1>
+
+    <p>
+        Enter the property information, upload photos
+        and generate a complete marketing pack.
+    </p>
+
 </div>
+
 
 <div class="main-grid">
 
+
+<!-- =====================================================
+     LEFT COLUMN
+===================================================== -->
+
 <div class="left-column">
 
-<section class="card">
 
-<h2 class="card-title">
-1. Property Details
-</h2>
-
-<div class="form-grid">
-
-<div class="field">
-<label>Property Type *</label>
-
-<select id="propertyType">
-<option>Residential</option>
-<option>Commercial</option>
-<option>Plot</option>
-<option>Villa</option>
-<option>Apartment</option>
-<option>Office</option>
-</select>
-</div>
-
-<div class="field">
-<label>Purpose *</label>
-
-<select id="purpose">
-<option>For Sale</option>
-<option>For Rent</option>
-<option>For Lease</option>
-</select>
-</div>
-
-<div class="field">
-<label>Property Title</label>
-
-<input
-id="title"
-type="text"
-placeholder="Premium 4 BHK House"
->
-</div>
-
-<div class="field">
-<label>Location *</label>
-
-<input
-id="location"
-type="text"
-placeholder="Dwarka, New Delhi"
->
-</div>
-
-<div class="field">
-<label>Price *</label>
-
-<input
-id="price"
-type="text"
-placeholder="₹ 4 Cr"
->
-</div>
-
-<div class="field">
-<label>Area</label>
-
-<input
-id="area"
-type="text"
-placeholder="2000 Sq.Ft."
->
-</div>
-
-<div class="field">
-<label>Ownership</label>
-
-<select id="ownership">
-<option value="">Not specified</option>
-<option>Freehold</option>
-<option>Leasehold</option>
-</select>
-</div>
-
-</div>
-</section>
+<!-- PROPERTY DETAILS -->
 
 <section class="card">
 
-<h2 class="card-title">
-2. Specifications
-</h2>
+    <h2 class="card-title">
+        1. Property Details
+    </h2>
 
-<div class="form-grid">
 
-<div class="field">
-<label>Bedrooms</label>
-<input
-id="beds"
-type="text"
-placeholder="4"
->
-</div>
+    <div class="form-grid">
 
-<div class="field">
-<label>Bathrooms</label>
-<input
-id="baths"
-type="text"
-placeholder="4"
->
-</div>
+        <div class="field">
 
-<div class="field">
-<label>Floor</label>
-<input
-id="floor"
-type="text"
-placeholder="2nd Floor"
->
-</div>
+            <label>
+                Property Type *
+            </label>
 
-<div class="field">
-<label>Facing</label>
-<input
-id="facing"
-type="text"
-placeholder="North-East"
->
-</div>
+            <select id="propertyType">
 
-<div class="field">
-<label>Parking</label>
-<input
-id="parking"
-type="text"
-placeholder="2 Covered"
->
-</div>
+                <option value="Residential">
+                    Residential
+                </option>
 
-<div class="field">
-<label>Furnished</label>
+                <option value="Commercial">
+                    Commercial
+                </option>
 
-<select id="furnished">
-<option value="">Not specified</option>
-<option>Furnished</option>
-<option>Semi-Furnished</option>
-<option>Unfurnished</option>
-</select>
-</div>
+                <option value="Plot">
+                    Plot
+                </option>
 
-<div class="field full">
-<label>Amenities</label>
+                <option value="Villa">
+                    Villa
+                </option>
 
-<input
-id="amenities"
-type="text"
-placeholder="Lift, Security, Gym, Garden"
->
-</div>
+                <option value="Apartment">
+                    Apartment
+                </option>
 
-<div class="field full">
-<label>Nearby / Location Highlights</label>
+                <option value="Office">
+                    Office
+                </option>
 
-<textarea
-id="nearby"
-placeholder="Metro, school, hospital, market, highway..."
-></textarea>
-</div>
+            </select>
 
-</div>
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Purpose *
+            </label>
+
+            <select id="purpose">
+
+                <option value="For Sale">
+                    For Sale
+                </option>
+
+                <option value="For Rent">
+                    For Rent
+                </option>
+
+                <option value="For Lease">
+                    For Lease
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Property Title
+            </label>
+
+            <input
+                id="title"
+                type="text"
+                placeholder="Premium 4 BHK House"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Location *
+            </label>
+
+            <input
+                id="location"
+                type="text"
+                placeholder="Dwarka, New Delhi"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Price *
+            </label>
+
+            <input
+                id="price"
+                type="text"
+                placeholder="₹ 4 Cr"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Area
+            </label>
+
+            <input
+                id="area"
+                type="text"
+                placeholder="2000 Sq.Ft."
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Ownership
+            </label>
+
+            <select id="ownership">
+
+                <option value="">
+                    Not specified
+                </option>
+
+                <option value="Freehold">
+                    Freehold
+                </option>
+
+                <option value="Leasehold">
+                    Leasehold
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
 </section>
+
+
+<!-- SPECIFICATIONS -->
 
 <section class="card">
 
-<h2 class="card-title">
-3. Photos & Additional Information
-</h2>
+    <h2 class="card-title">
+        2. Specifications
+    </h2>
 
-<div class="photo-upload">
 
-<div class="field">
-<label>Property Photos</label>
+    <div class="form-grid">
 
-<input
-id="propertyPhotos"
-type="file"
-accept="image/*"
-multiple
->
-</div>
+        <div class="field">
 
-<div
-id="photoGallery"
-class="photo-gallery"
-></div>
+            <label>
+                Bedrooms
+            </label>
 
-</div>
+            <input
+                id="beds"
+                type="text"
+                placeholder="4"
+            >
 
-<br>
+        </div>
 
-<div class="field">
-<label>Tell us more</label>
 
-<textarea
-id="moreInfo"
-placeholder="Write anything you know about the property."
-></textarea>
-</div>
+        <div class="field">
 
-<br>
+            <label>
+                Bathrooms
+            </label>
 
-<div class="form-grid">
-
-<div class="field">
-<label>Description Style</label>
-
-<select id="descriptionStyle">
-<option>Professional</option>
-<option>Luxury</option>
-<option>Modern</option>
-<option>Simple</option>
-</select>
-</div>
-
-<div class="field">
-<label>Language</label>
+            <input
+                id="baths"
+                type="text"
+                placeholder="4"
+            >
 
-<select id="language">
-<option>English</option>
-<option>Hindi</option>
-<option>Hinglish</option>
-</select>
-</div>
-
-</div>
-
-<div class="action-row">
-
-<button
-type="button"
-id="generateBtn"
-class="btn btn-primary"
->
-✨ Generate Content
-</button>
+        </div>
 
-<button
-type="button"
-id="resetBtn"
-class="btn btn-secondary"
->
-Reset
-</button>
 
-</div>
+        <div class="field">
 
-</section>
+            <label>
+                Floor
+            </label>
 
-<section class="card">
+            <input
+                id="floor"
+                type="text"
+                placeholder="2nd Floor"
+            >
 
-<h2 class="card-title">
-4. Company Branding
-</h2>
-
-<p class="card-subtitle">
-Add your company's logo, email and website.
-These details will appear in social designs.
-</p>
-
-<div class="branding-box">
-
-<div class="logo-preview">
-
-<img
-id="brandingLogoPreview"
-src="./file_00000000bc188211a200a0ccdbc1cecd.png"
-alt="Company Logo"
->
-
-</div>
-
-<div class="brand-fields">
-
-<div class="field">
-<label>Company / Brand Name</label>
-
-<input
-id="company"
-type="text"
-placeholder="Arzu Estates"
->
-</div>
-
-<div class="field">
-<label>Contact Number</label>
-
-<input
-id="contact"
-type="text"
-placeholder="+91 XXXXX XXXXX"
->
-</div>
-
-<div class="field">
-<label>Email ID</label>
-
-<input
-id="email"
-type="email"
-placeholder="hello@example.com"
->
-</div>
-
-<div class="field">
-<label>Website</label>
-
-<input
-id="website"
-type="text"
-placeholder="www.example.com"
->
-</div>
-
-<div class="field full">
-<label>Company Logo</label>
-
-<input
-id="companyLogo"
-type="file"
-accept="image/*"
->
-</div>
-
-</div>
-</div>
-
-</section>
-
-</div>
-
-<div class="right-column">
-
-<section class="card">
-
-<h2 class="card-title">
-5. Property Preview
-</h2>
-
-<div
-id="propertyPreview"
-class="property-preview"
->
-
-<div class="preview-brand">
-PROPERTY PRESENTATION
-</div>
-
-<div
-id="pvTitle"
-class="preview-title"
->
-Residential Property
-</div>
-
-<div
-id="pvLocation"
-class="preview-location"
->
-📍 Location not specified
-</div>
-
-<div
-id="pvPrice"
-class="preview-price"
->
-Price on request
-</div>
-
-<div
-id="previewPills"
-class="preview-pills"
-></div>
-
-<div
-id="pvDescription"
-class="preview-description"
->
-Property description will appear here
-after you generate the content.
-</div>
+        </div>
 
-</div>
 
-</section>
+        <div class="field">
 
-<section class="card">
+            <label>
+                Facing
+            </label>
 
-<h2 class="card-title">
-6. Marketing Outputs
-</h2>
+            <input
+                id="facing"
+                type="text"
+                placeholder="North-East"
+            >
 
-<div class="output-box">
+        </div>
 
-<h3>
-AI Description
-</h3>
 
-<div
-id="aiDescription"
-class="output-text"
->
-—
-</div>
-
-</div>
-
-<div class="output-box">
-
-<h3>
-WhatsApp
-</h3>
-
-<div
-id="whatsappOutput"
-class="output-text"
->
-—
-</div>
-
-<div class="output-actions">
-
-<button
-type="button"
-id="copyWhatsappBtn"
->
-📋 Copy WhatsApp
-</button>
-
-<button
-type="button"
-id="shareWhatsappBtn"
->
-💬 Share
-</button>
-
-</div>
-
-</div>
-
-<div class="output-box">
+        <div class="field">
 
-<h3>
-Website Listing
-</h3>
-
-<div
-id="websiteOutput"
-class="output-text"
->
-—
-</div>
-
-</div>
-
-<div class="output-box">
-
-<h3>
-Instagram Caption
-</h3>
-
-<div
-id="instagramOutput"
-class="output-text"
->
-—
-</div>
-
-</div>
-
-</section>
-
-</div>
-
-</div>
-
-<section class="social-section">
-
-<h2>
-🎨 Social Media Designs
-</h2>
-
-<p>
-Choose a platform to create a ready-to-download property post.
-</p>
-
-<div class="social-grid">
-
-<button
-type="button"
-class="social-card social-whatsapp"
-id="whatsappDesignBtn"
->
-<span>🟢</span>
-WhatsApp Post
-</button>
-
-<button
-type="button"
-class="social-card social-facebook"
-id="facebookDesignBtn"
->
-<span>🔵</span>
-Facebook Post
-</button>
-
-<button
-type="button"
-class="social-card social-instagram"
-id="instagramDesignBtn"
->
-<span>🟣</span>
-Instagram Post
-</button>
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2 class="card-title">
-7. Canva-ready Design
-</h2>
-
-<p class="card-subtitle">
-Generate the design, download it and continue editing in Canva.
-</p>
-
-<div class="canva-preview">
-
-<canvas
-id="mainCanvas"
-width="1080"
-height="1080"
-></canvas>
-
-</div>
-
-<div class="action-row">
-
-<button
-type="button"
-id="downloadMainPng"
-class="btn btn-primary"
->
-⬇ Download PNG
-</button>
-
-<button
-type="button"
-id="openCanvaBtn"
-class="btn btn-canva"
->
-🎨 Open Canva
-</button>
-
-</div>
-
-</section>
-<!-- =====================================================
+            <label>
+                Parking
+            </label>
+
+            <input
+                id="parking"
+                type="text"
+                placeholder="2 Covered"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Furnished
+            </label>
+
+            <select id="furnished">
+
+                <option value="">
+                    Not specified
+                </option>
+
+                <option value="Furnished">
+                    Furnished
+                </option>
+
+                <option value="Semi-Furnished">
+                    Semi-Furnished
+                </option>
+
+                <option value="Unfurnished">
+                    Unfurnished
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field full">
+
+            <label>
+                Amenities
+            </label>
+
+            <input
+                id="amenities"
+                type="text"
+                placeholder="Lift, Security, Gym, Garden"
+            >
+
+        </div>
+
+
+        <div class="field full">
+
+            <label>
+                Nearby / Location Highlights
+            </label>
+
+            <textarea
+                id="nearby"
+                placeholder="Metro, school, hospital, market
+                <!-- =====================================================
      SOCIAL DESIGN MODAL
 ===================================================== -->
 
 <div
-id="designModal"
-class="design-modal"
+    id="designModal"
+    class="design-modal"
 >
 
-<div class="design-modal-box">
+    <div class="design-modal-box">
 
-<div class="design-modal-header">
+        <div class="design-modal-header">
 
-<div>
+            <div>
 
-<h2
-id="modalTitle"
->
-Social Media Post
-</h2>
+                <h2 id="modalTitle">
+                    Social Media Post
+                </h2>
 
-<p
-id="modalSize"
->
-1080 × 1350
-</p>
+                <p id="modalSize">
+                    1080 × 1350
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="close-modal"
+                id="closeModalBtn"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="canvas-area">
+
+            <canvas
+                id="socialCanvas"
+                width="1080"
+                height="1350"
+            ></canvas>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="download-png"
+                id="downloadDesignPng"
+            >
+                ⬇ Download PNG
+            </button>
+
+
+            <button
+                type="button"
+                class="download-jpg"
+                id="downloadDesignJpg"
+            >
+                🖼 Download JPG
+            </button>
+
+
+            <button
+                type="button"
+                class="modal-canva"
+                id="modalCanvaBtn"
+            >
+                🎨 Open Canva
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-<button
-type="button"
-class="close-modal"
-id="closeModalBtn"
->
-×
-</button>
 
-</div>
-
-
-<div class="canvas-area">
-
-<canvas
-id="socialCanvas"
-width="1080"
-height="1350"
-></canvas>
-
-</div>
-
-
-<div class="modal-actions">
-
-<button
-type="button"
-class="download-png"
-id="downloadDesignPng"
->
-⬇ Download PNG
-</button>
-
-<button
-type="button"
-class="download-jpg"
-id="downloadDesignJpg"
->
-🖼 Download JPG
-</button>
-
-<button
-type="button"
-class="modal-canva"
-id="modalCanvaBtn"
->
-🎨 Open Canva
-</button>
-
-</div>
-
-</div>
-
-</div>
-
+<!-- =====================================================
+     SYSTEM MESSAGE
+===================================================== -->
 
 <div id="systemMessage"></div>
 
@@ -1277,29 +1527,45 @@ id="modalCanvaBtn"
 
 <script>
 
-const $ = id =>
-    document.getElementById(id);
+"use strict";
 
 
-function value(
+/* =====================================================
+   BASIC HELPERS
+===================================================== */
+
+function $(id){
+
+    return document.getElementById(id);
+
+}
+
+
+function getValue(
     id,
     fallback = ""
 ){
 
-    const el = $(id);
+    const element =
+        $(id);
 
-    if(!el)
+    if(!element){
+
         return fallback;
 
-    const result =
-        el.value !== undefined
-            ? el.value
-            : el.textContent;
+    }
 
-    return (
-        result.trim() ||
-        fallback
-    );
+
+    const result =
+        element.value !== undefined
+            ? element.value
+            : element.textContent;
+
+
+    return String(
+        result || ""
+    ).trim() || fallback;
+
 }
 
 
@@ -1308,10 +1574,16 @@ function setText(
     text
 ){
 
-    const el = $(id);
+    const element =
+        $(id);
 
-    if(el)
-        el.textContent = text;
+
+    if(element){
+
+        element.textContent =
+            text;
+
+    }
 
 }
 
@@ -1325,133 +1597,133 @@ function getPropertyData(){
     return {
 
         type:
-            value(
+            getValue(
                 "propertyType",
                 "Residential"
             ),
 
         purpose:
-            value(
+            getValue(
                 "purpose",
                 "For Sale"
             ),
 
         title:
-            value(
+            getValue(
                 "title",
                 "Premium Residential Property"
             ),
 
         location:
-            value(
+            getValue(
                 "location",
                 "Location not specified"
             ),
 
         price:
-            value(
+            getValue(
                 "price",
                 "Price on request"
             ),
 
         area:
-            value(
+            getValue(
                 "area",
                 "—"
             ),
 
         ownership:
-            value(
+            getValue(
                 "ownership",
                 "—"
             ),
 
         bedrooms:
-            value(
+            getValue(
                 "beds",
                 "—"
             ),
 
         bathrooms:
-            value(
+            getValue(
                 "baths",
                 "—"
             ),
 
         floor:
-            value(
+            getValue(
                 "floor",
                 "—"
             ),
 
         facing:
-            value(
+            getValue(
                 "facing",
                 "—"
             ),
 
         parking:
-            value(
+            getValue(
                 "parking",
                 "—"
             ),
 
         furnished:
-            value(
+            getValue(
                 "furnished",
                 "—"
             ),
 
         amenities:
-            value(
+            getValue(
                 "amenities",
                 "—"
             ),
 
         nearby:
-            value(
+            getValue(
                 "nearby",
                 "—"
             ),
 
         extra:
-            value(
+            getValue(
                 "moreInfo",
                 ""
             ),
 
-        contact:
-            value(
-                "contact",
-                "Contact details not provided"
-            ),
-
         company:
-            value(
+            getValue(
                 "company",
                 ""
             ),
 
+        contact:
+            getValue(
+                "contact",
+                ""
+            ),
+
         email:
-            value(
+            getValue(
                 "email",
                 ""
             ),
 
         website:
-            value(
+            getValue(
                 "website",
                 ""
             ),
 
         descriptionStyle:
-            value(
+            getValue(
                 "descriptionStyle",
                 "Professional"
             ),
 
         language:
-            value(
+            getValue(
                 "language",
                 "English"
             )
@@ -1462,46 +1734,58 @@ function getPropertyData(){
 
 
 /* =====================================================
-   PHOTO SYSTEM
+   PHOTO VARIABLES
 ===================================================== */
 
 let uploadedImages = [];
 
 
-function loadUploadedPhotos(){
+/* =====================================================
+   PHOTO UPLOAD
+===================================================== */
+
+function handlePhotoUpload(){
 
     const input =
         $("propertyPhotos");
 
-    uploadedImages = [];
 
-    if(
-        !input ||
-        !input.files
-    ){
+    if(!input){
+
         return;
+
     }
 
 
+    uploadedImages =
+        [];
+
+
     Array
-        .from(input.files)
+        .from(input.files || [])
         .slice(0,12)
         .forEach(
             file => {
 
                 if(
                     !file.type
-                    .startsWith(
-                        "image/"
-                    )
+                        .toLowerCase()
+                        .startsWith("image/")
                 ){
+
                     return;
+
                 }
 
-                uploadedImages.push(
+
+                const url =
                     URL.createObjectURL(
                         file
-                    )
+                    );
+
+
+                uploadedImages.push(
+                    url
                 );
 
             }
@@ -1513,21 +1797,30 @@ function loadUploadedPhotos(){
 }
 
 
+/* =====================================================
+   PHOTO GALLERY
+===================================================== */
+
 function renderPhotoGallery(){
 
     const gallery =
         $("photoGallery");
 
-    if(!gallery)
+
+    if(!gallery){
+
         return;
 
+    }
 
-    gallery.innerHTML = "";
+
+    gallery.innerHTML =
+        "";
 
 
     uploadedImages.forEach(
         (
-            src,
+            source,
             index
         ) => {
 
@@ -1536,26 +1829,56 @@ function renderPhotoGallery(){
                     "div"
                 );
 
+
             item.className =
                 "photo-item";
 
 
-            item.innerHTML = `
+            const image =
+                document.createElement(
+                    "img"
+                );
 
-                <img
-                    src="${src}"
-                    alt="Property photo ${index + 1}"
-                >
 
-                <button
-                    type="button"
-                    class="photo-remove"
-                    data-index="${index}"
-                >
-                    ×
-                </button>
+            image.src =
+                source;
 
-            `;
+
+            image.alt =
+                "Property photo " +
+                (index + 1);
+
+
+            const remove =
+                document.createElement(
+                    "button"
+                );
+
+
+            remove.type =
+                "button";
+
+
+            remove.className =
+                "photo-remove";
+
+
+            remove.textContent =
+                "×";
+
+
+            remove.dataset.index =
+                index;
+
+
+            item.appendChild(
+                image
+            );
+
+
+            item.appendChild(
+                remove
+            );
 
 
             gallery.appendChild(
@@ -1569,101 +1892,126 @@ function renderPhotoGallery(){
 
 
 /* =====================================================
+   REMOVE PHOTO
+===================================================== */
+
+function removePhoto(index){
+
+    if(
+        index < 0 ||
+        index >= uploadedImages.length
+    ){
+
+        return;
+
+    }
+
+
+    const oldUrl =
+        uploadedImages[index];
+
+
+    if(
+        oldUrl &&
+        oldUrl.startsWith("blob:")
+    ){
+
+        URL.revokeObjectURL(
+            oldUrl
+        );
+
+    }
+
+
+    uploadedImages.splice(
+        index,
+        1
+    );
+
+
+    renderPhotoGallery();
+
+}
+
+
+/* =====================================================
    DESCRIPTION GENERATOR
 ===================================================== */
 
 function createDescription(d){
 
     let text =
-        `${d.title} is available ${d.purpose.toLowerCase()} in ${d.location}. `;
+        `${d.title} is available ${d.purpose.toLowerCase()} in ${d.location}.`;
 
 
-    if(
-        d.area !== "—"
-    ){
+    if(d.area !== "—"){
 
         text +=
-            `The property offers ${d.area} of space. `;
+            ` The property offers ${d.area} of space.`;
 
     }
 
 
-    if(
-        d.bedrooms !== "—"
-    ){
+    if(d.bedrooms !== "—"){
 
         text +=
-            `It features ${d.bedrooms} bedrooms `;
+            ` It features ${d.bedrooms} bedrooms.`;
 
     }
 
 
-    if(
-        d.bathrooms !== "—"
-    ){
+    if(d.bathrooms !== "—"){
 
         text +=
-            `and ${d.bathrooms} bathrooms. `;
+            ` There are ${d.bathrooms} bathrooms.`;
 
     }
 
 
-    if(
-        d.floor !== "—"
-    ){
+    if(d.floor !== "—"){
 
         text +=
-            `The property is located on ${d.floor}. `;
+            ` The property is on ${d.floor}.`;
 
     }
 
 
-    if(
-        d.facing !== "—"
-    ){
+    if(d.facing !== "—"){
 
         text +=
-            `Facing: ${d.facing}. `;
+            ` Facing: ${d.facing}.`;
 
     }
 
 
-    if(
-        d.parking !== "—"
-    ){
+    if(d.parking !== "—"){
 
         text +=
-            `Parking: ${d.parking}. `;
+            ` Parking: ${d.parking}.`;
 
     }
 
 
-    if(
-        d.furnished !== "—"
-    ){
+    if(d.furnished !== "—"){
 
         text +=
-            `Furnished status: ${d.furnished}. `;
+            ` Furnishing: ${d.furnished}.`;
 
     }
 
 
-    if(
-        d.amenities !== "—"
-    ){
+    if(d.amenities !== "—"){
 
         text +=
-            `Amenities include ${d.amenities}. `;
+            ` Amenities include ${d.amenities}.`;
 
     }
 
 
-    if(
-        d.nearby !== "—"
-    ){
+    if(d.nearby !== "—"){
 
         text +=
-            `Nearby: ${d.nearby}. `;
+            ` Nearby: ${d.nearby}.`;
 
     }
 
@@ -1671,7 +2019,7 @@ function createDescription(d){
     if(d.extra){
 
         text +=
-            `${d.extra} `;
+            ` ${d.extra}`;
 
     }
 
@@ -1682,7 +2030,7 @@ function createDescription(d){
     ){
 
         text +=
-            `The asking price is ${d.price}.`;
+            ` Asking price: ${d.price}.`;
 
     }
 
@@ -1693,7 +2041,7 @@ function createDescription(d){
 
 
 /* =====================================================
-   WHATSAPP CONTENT
+   WHATSAPP TEXT
 ===================================================== */
 
 function createWhatsApp(
@@ -1718,14 +2066,15 @@ ${description}
 ✨ Amenities:
 ${d.amenities}
 
-📞 ${d.contact}
-${d.website ? `🌐 ${d.website}` : ""}`.trim();
+📞 ${d.contact || "Contact us"}
+
+${d.website ? "🌐 " + d.website : ""}`.trim();
 
 }
 
 
 /* =====================================================
-   INSTAGRAM CONTENT
+   INSTAGRAM TEXT
 ===================================================== */
 
 function createInstagram(
@@ -1748,13 +2097,15 @@ ${description}
 
 ✨ ${d.amenities}
 
-📞 ${d.contact}
+📞 ${d.contact || "Contact us"}
+
+${d.website ? "🌐 " + d.website : ""}
 
 #RealEstate
-#PropertyForSale
 #PropertyListing
-#DreamHome
-#RealEstateIndia`;
+#PropertyForSale
+#RealEstateIndia
+#DreamHome`;
 
 }
 
@@ -1772,8 +2123,10 @@ function createWebsiteListing(
 
 ${description}
 
-KEY DETAILS
+PROPERTY DETAILS
 
+Property Type: ${d.type}
+Purpose: ${d.purpose}
 Area: ${d.area}
 Ownership: ${d.ownership}
 Bedrooms: ${d.bedrooms}
@@ -1783,61 +2136,25 @@ Facing: ${d.facing}
 Parking: ${d.parking}
 Furnished: ${d.furnished}
 
-Amenities:
+AMENITIES
+
 ${d.amenities}
 
-Location Highlights:
+LOCATION HIGHLIGHTS
+
 ${d.nearby}
 
 CONTACT
 
-${d.contact}
-${d.email ? `Email: ${d.email}` : ""}
-${d.website ? `Website: ${d.website}` : ""}`.trim();
+${d.contact || "Contact us"}
+${d.email ? "Email: " + d.email : ""}
+${d.website ? "Website: " + d.website : ""}`.trim();
 
 }
 
 
 /* =====================================================
-   HTML ESCAPE
-===================================================== */
-
-function escapeHTML(
-    text
-){
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =====================================================
-   PROPERTY PREVIEW
+   UPDATE PROPERTY PREVIEW
 ===================================================== */
 
 function updatePreview(
@@ -1853,7 +2170,8 @@ function updatePreview(
 
     setText(
         "pvLocation",
-        "📍 " + d.location
+        "📍 " +
+        d.location
     );
 
 
@@ -1873,11 +2191,18 @@ function updatePreview(
         $("previewPills");
 
 
-    if(!pills)
+    if(!pills){
+
         return;
 
+    }
 
-    const items = [
+
+    pills.innerHTML =
+        "";
+
+
+    const values = [
 
         d.area !== "—"
             ? "Area: " + d.area
@@ -1906,51 +2231,62 @@ function updatePreview(
     ].filter(Boolean);
 
 
-    pills.innerHTML =
-        items
-            .map(
-                item =>
-                    `<span>${escapeHTML(item)}</span>`
-            )
-            .join("");
+    values.forEach(
+        item => {
+
+            const span =
+                document.createElement(
+                    "span"
+                );
+
+
+            span.textContent =
+                item;
+
+
+            pills.appendChild(
+                span
+            );
+
+        }
+    );
 
 }
 
 
 /* =====================================================
-   GENERATE CONTENT
+   GENERATE ALL CONTENT
 ===================================================== */
 
 function generateContent(){
 
-    loadUploadedPhotos();
-
-
-    const d =
+    const data =
         getPropertyData();
 
 
     const description =
-        createDescription(d);
+        createDescription(
+            data
+        );
 
 
     const whatsapp =
         createWhatsApp(
-            d,
-            description
-        );
-
-
-    const website =
-        createWebsiteListing(
-            d,
+            data,
             description
         );
 
 
     const instagram =
         createInstagram(
-            d,
+            data,
+            description
+        );
+
+
+    const website =
+        createWebsiteListing(
+            data,
             description
         );
 
@@ -1968,25 +2304,25 @@ function generateContent(){
 
 
     setText(
-        "websiteOutput",
-        website
-    );
-
-
-    setText(
         "instagramOutput",
         instagram
     );
 
 
+    setText(
+        "websiteOutput",
+        website
+    );
+
+
     updatePreview(
-        d,
+        data,
         description
     );
 
 
-    drawMainCanvas(
-        d
+    drawMainDesign(
+        data
     );
 
 
@@ -1994,120 +2330,9 @@ function generateContent(){
         "Content generated successfully."
     );
 
-}
-
-
-/* =====================================================
-   COPY WHATSAPP
-===================================================== */
-
-async function copyWhatsApp(){
-
-    const text =
-        value(
-            "whatsappOutput",
-            ""
-        );
-
-
-    if(
-        !text ||
-        text === "—"
-    ){
-
-        showMessage(
-            "Please generate content first."
-        );
-
-        return;
-
-    }
-
-
-    try{
-
-        await navigator.clipboard.writeText(
-            text
-        );
-
-    }
-
-    catch(error){
-
-        const textarea =
-            document.createElement(
-                "textarea"
-            );
-
-        textarea.value =
-            text;
-
-        document.body.appendChild(
-            textarea
-        );
-
-        textarea.select();
-
-        document.execCommand(
-            "copy"
-        );
-
-        textarea.remove();
-
-    }
-
-
-    showMessage(
-        "WhatsApp message copied!"
-    );
-
-}
-
-
-/* =====================================================
-   WHATSAPP SHARE
-===================================================== */
-
-function shareWhatsApp(){
-
-    const text =
-        value(
-            "whatsappOutput",
-            ""
-        );
-
-
-    if(
-        !text ||
-        text === "—"
-    ){
-
-        showMessage(
-            "Please generate content first."
-        );
-
-        return;
-
-    }
-
-
-    const url =
-        "https://wa.me/?text=" +
-        encodeURIComponent(
-            text
-        );
-
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-
-/* =====================================================
-   CANVAS HELPERS
+} 
+<!-- =====================================================
+     CANVAS HELPERS
 ===================================================== */
 
 function roundRect(
@@ -2163,9 +2388,28 @@ function roundRect(
 }
 
 
-/* =====================================================
-   IMAGE COVER
-===================================================== */
+function loadImage(src){
+
+    return new Promise(
+        resolve => {
+
+            const img =
+                new Image();
+
+            img.onload =
+                () => resolve(img);
+
+            img.onerror =
+                () => resolve(null);
+
+            img.src =
+                src;
+
+        }
+    );
+
+}
+
 
 function drawImageCover(
     ctx,
@@ -2176,7 +2420,14 @@ function drawImageCover(
     height
 ){
 
-    const ratio =
+    if(!img){
+
+        return;
+
+    }
+
+
+    const scale =
         Math.max(
             width / img.width,
             height / img.height
@@ -2184,27 +2435,21 @@ function drawImageCover(
 
 
     const newWidth =
-        img.width * ratio;
+        img.width * scale;
 
 
     const newHeight =
-        img.height * ratio;
+        img.height * scale;
 
 
     const dx =
         x +
-        (
-            width -
-            newWidth
-        ) / 2;
+        (width - newWidth) / 2;
 
 
     const dy =
         y +
-        (
-            height -
-            newHeight
-        ) / 2;
+        (height - newHeight) / 2;
 
 
     ctx.save();
@@ -2237,39 +2482,7 @@ function drawImageCover(
 
 
 /* =====================================================
-   IMAGE LOADER
-===================================================== */
-
-function loadImage(
-    src
-){
-
-    return new Promise(
-        resolve => {
-
-            const img =
-                new Image();
-
-
-            img.onload =
-                () => resolve(img);
-
-
-            img.onerror =
-                () => resolve(null);
-
-
-            img.src =
-                src;
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   LOGO
+   LOGO DRAWING
 ===================================================== */
 
 async function drawLogo(
@@ -2287,16 +2500,42 @@ async function drawLogo(
     if(
         logo &&
         logo.complete &&
-        logo.naturalWidth
+        logo.naturalWidth > 0
     ){
+
+        const ratio =
+            Math.min(
+                width / logo.naturalWidth,
+                height / logo.naturalHeight
+            );
+
+
+        const finalWidth =
+            logo.naturalWidth * ratio;
+
+
+        const finalHeight =
+            logo.naturalHeight * ratio;
+
+
+        const finalX =
+            x +
+            (width - finalWidth) / 2;
+
+
+        const finalY =
+            y +
+            (height - finalHeight) / 2;
+
 
         ctx.drawImage(
             logo,
-            x,
-            y,
-            width,
-            height
+            finalX,
+            finalY,
+            finalWidth,
+            finalHeight
         );
+
 
         return;
 
@@ -2314,17 +2553,17 @@ async function drawLogo(
     ctx.fillText(
         "PropDeck",
         x,
-        y + 48
+        y + 45
     );
 
 }
 
 
 /* =====================================================
-   MAIN CANVAS
+   MAIN DESIGN
 ===================================================== */
 
-async function drawMainCanvas(
+async function drawMainDesign(
     d
 ){
 
@@ -2332,8 +2571,11 @@ async function drawMainCanvas(
         $("mainCanvas");
 
 
-    if(!canvas)
+    if(!canvas){
+
         return;
+
+    }
 
 
     const ctx =
@@ -2348,6 +2590,16 @@ async function drawMainCanvas(
         canvas.height;
 
 
+    /* BACKGROUND */
+
+    ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
     ctx.fillStyle =
         "#ffffff";
 
@@ -2359,6 +2611,8 @@ async function drawMainCanvas(
         H
     );
 
+
+    /* HEADER */
 
     ctx.fillStyle =
         "#0b1735";
@@ -2374,49 +2628,62 @@ async function drawMainCanvas(
 
     await drawLogo(
         ctx,
-        45,
-        25,
-        210,
-        80
+        35,
+        15,
+        240,
+        100
     );
 
+
+    /* TITLE */
 
     ctx.fillStyle =
         "#0b1735";
 
 
     ctx.font =
-        "bold 50px Arial";
+        "bold 48px Arial";
+
+
+    const title =
+        d.title.length > 34
+            ? d.title.substring(0,34) + "..."
+            : d.title;
 
 
     ctx.fillText(
-        d.title,
+        title,
         45,
         205
     );
 
 
-    ctx.font =
-        "27px Arial";
-
+    /* LOCATION */
 
     ctx.fillStyle =
-        "#555";
+        "#475467";
+
+
+    ctx.font =
+        "26px Arial";
 
 
     ctx.fillText(
-        "📍 " + d.location,
+        "Location: " +
+        d.location,
         45,
         250
     );
 
+
+    /* PRICE */
 
     ctx.fillStyle =
         "#0b1735";
 
 
     ctx.font =
-        "bold 56px Arial";
+        "bold 55px Arial";
 
 
     ctx.fillText(
@@ -2426,25 +2693,43 @@ async function drawMainCanvas(
     );
 
 
+    /* PHOTO */
+
+    const photoX =
+        45;
+
+
+    const photoY =
+        370;
+
+
+    const photoW =
+        990;
+
+
+    const photoH =
+        430;
+
+
     if(
-        uploadedImages.length
+        uploadedImages.length > 0
     ){
 
-        const img =
+        const image =
             await loadImage(
                 uploadedImages[0]
             );
 
 
-        if(img){
+        if(image){
 
             drawImageCover(
                 ctx,
-                img,
-                45,
-                370,
-                990,
-                430
+                image,
+                photoX,
+                photoY,
+                photoW,
+                photoH
             );
 
         }
@@ -2459,11 +2744,11 @@ async function drawMainCanvas(
 
         roundRect(
             ctx,
-            45,
-            370,
-            990,
-            430,
-            25
+            photoX,
+            photoY,
+            photoW,
+            photoH,
+            22
         );
 
 
@@ -2471,20 +2756,35 @@ async function drawMainCanvas(
 
 
         ctx.fillStyle =
-            "#777";
+            "#667085";
 
 
         ctx.font =
-            "30px Arial";
+            "28px Arial";
+
+
+        ctx.textAlign =
+            "center";
 
 
         ctx.fillText(
             "Property Photo",
-            410,
-            590
+            W / 2,
+            photoY +
+            photoH / 2
         );
 
+
+        ctx.textAlign =
+            "left";
+
     }
+
+
+    /* DETAILS */
+
+    const detailsY =
+        825;
 
 
     ctx.fillStyle =
@@ -2494,10 +2794,10 @@ async function drawMainCanvas(
     roundRect(
         ctx,
         45,
-        825,
+        detailsY,
         990,
         125,
-        22
+        20
     );
 
 
@@ -2509,50 +2809,52 @@ async function drawMainCanvas(
 
 
     ctx.font =
-        "bold 22px Arial";
+        "bold 21px Arial";
 
 
     ctx.fillText(
         "Area: " + d.area,
-        75,
-        865
+        70,
+        detailsY + 40
     );
 
 
     ctx.fillText(
         "Bedrooms: " + d.bedrooms,
-        370,
-        865
+        360,
+        detailsY + 40
     );
 
 
     ctx.fillText(
         "Bathrooms: " + d.bathrooms,
-        700,
-        865
+        690,
+        detailsY + 40
     );
 
 
     ctx.fillText(
         "Parking: " + d.parking,
-        75,
-        910
+        70,
+        detailsY + 87
     );
 
 
     ctx.fillText(
         "Floor: " + d.floor,
-        370,
-        910
+        360,
+        detailsY + 87
     );
 
 
     ctx.fillText(
         "Facing: " + d.facing,
-        700,
-        910
+        690,
+        detailsY + 87
     );
 
+
+    /* FOOTER */
 
     ctx.fillStyle =
         "#0b1735";
@@ -2571,114 +2873,52 @@ async function drawMainCanvas(
 
 
     ctx.font =
-        "bold 24px Arial";
+        "bold 22px Arial";
+
+
+    const footerText =
+        d.company ||
+        d.contact ||
+        "PropDeck";
 
 
     ctx.fillText(
-        d.contact,
+        footerText,
         45,
-        1035
-    );
-
-}
-<script>
-
-/* =====================================================
-   SOCIAL MEDIA DESIGN
-===================================================== */
-
-let currentDesign = "whatsapp";
-
-
-async function openDesign(type){
-
-    currentDesign = type;
-
-    const modal =
-        $("designModal");
-
-
-    if(!modal)
-        return;
-
-
-    const title =
-        $("modalTitle");
-
-
-    const size =
-        $("modalSize");
-
-
-    if(type === "whatsapp"){
-
-        title.textContent =
-            "WhatsApp Property Post";
-
-        size.textContent =
-            "1080 × 1350";
-
-    }
-
-    else if(type === "facebook"){
-
-        title.textContent =
-            "Facebook Property Post";
-
-        size.textContent =
-            "1200 × 1500";
-
-    }
-
-    else{
-
-        title.textContent =
-            "Instagram Property Post";
-
-        size.textContent =
-            "1080 × 1350";
-
-    }
-
-
-    modal.classList.add(
-        "active"
+        1038
     );
 
 
-    await drawSocialDesign(
-        type
-    );
+    if(d.website){
 
-}
-
-
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
-
-function closeDesign(){
-
-    const modal =
-        $("designModal");
+        ctx.textAlign =
+            "right";
 
 
-    if(modal){
-
-        modal.classList.remove(
-            "active"
+        ctx.fillText(
+            d.website,
+            W - 45,
+            1038
         );
 
+
+        ctx.textAlign =
+            "left";
+
     }
 
 }
 
 
 /* =====================================================
-   SOCIAL MEDIA DESIGN
+   SOCIAL DESIGN SETTINGS
 ===================================================== */
 
-async function drawSocialDesign(
+let currentDesign =
+    "whatsapp";
+
+
+function setCanvasSize(
     type
 ){
 
@@ -2686,8 +2926,11 @@ async function drawSocialDesign(
         $("socialCanvas");
 
 
-    if(!canvas)
+    if(!canvas){
+
         return;
+
+    }
 
 
     if(type === "facebook"){
@@ -2710,6 +2953,118 @@ async function drawSocialDesign(
 
     }
 
+}
+
+
+/* =====================================================
+   SOCIAL MODAL
+===================================================== */
+
+async function openDesign(
+    type
+){
+
+    currentDesign =
+        type;
+
+
+    const modal =
+        $("designModal");
+
+
+    if(!modal){
+
+        showMessage(
+            "Design window not found."
+        );
+
+        return;
+
+    }
+
+
+    const title =
+        $("modalTitle");
+
+
+    const size =
+        $("modalSize");
+
+
+    setCanvasSize(
+        type
+    );
+
+
+    if(type === "whatsapp"){
+
+        title.textContent =
+            "WhatsApp Property Post";
+
+
+        size.textContent =
+            "1080 × 1350";
+
+    }
+
+    else if(type === "facebook"){
+
+        title.textContent =
+            "Facebook Property Post";
+
+
+        size.textContent =
+            "1200 × 1500";
+
+    }
+
+    else{
+
+        title.textContent =
+            "Instagram Property Post";
+
+
+        size.textContent =
+            "1080 × 1350";
+
+    }
+
+
+    modal.classList.add(
+        "active"
+    );
+
+
+    await drawSocialDesign(
+        type
+    );
+
+}
+
+
+/* =====================================================
+   SOCIAL DESIGN DRAW
+===================================================== */
+
+async function drawSocialDesign(
+    type
+){
+
+    const canvas =
+        $("socialCanvas");
+
+
+    if(!canvas){
+
+        return;
+
+    }
+
+
+    setCanvasSize(
+        type
+    );
+
 
     const ctx =
         canvas.getContext("2d");
@@ -2729,8 +3084,17 @@ async function drawSocialDesign(
 
     /* WHITE BACKGROUND */
 
+    ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
     ctx.fillStyle =
         "#ffffff";
+
 
     ctx.fillRect(
         0,
@@ -2747,44 +3111,39 @@ async function drawSocialDesign(
     ctx.fillStyle =
         "#0b1735";
 
+
     ctx.fillRect(
         0,
         0,
         W,
-        145
+        150
     );
 
-
-    /* LOGO */
 
     await drawLogo(
         ctx,
         45,
-        28,
-        230,
-        90
+        25,
+        250,
+        100
     );
 
 
     /* =================================================
-       PROPERTY TITLE
+       TITLE
     ================================================= */
 
     ctx.fillStyle =
         "#0b1735";
 
+
     ctx.font =
-        "bold 50px Arial";
+        "bold 48px Arial";
 
 
     let title =
         d.title;
 
-
-    /*
-       Prevent very long titles
-       from going outside canvas.
-    */
 
     if(title.length > 35){
 
@@ -2792,7 +3151,8 @@ async function drawSocialDesign(
             title.substring(
                 0,
                 35
-            ) + "...";
+            ) +
+            "...";
 
     }
 
@@ -2806,53 +3166,79 @@ async function drawSocialDesign(
 
     /* LOCATION */
 
-    ctx.font =
-        "26px Arial";
-
     ctx.fillStyle =
-        "#333333";
+        "#475467";
+
+
+    ctx.font =
+        "25px Arial";
+
+
+    let location =
+        d.location;
+
+
+    if(location.length > 48){
+
+        location =
+            location.substring(
+                0,
+                48
+            ) +
+            "...";
+
+    }
 
 
     ctx.fillText(
-        "📍 " + d.location,
+        "📍 " +
+        location,
         55,
-        275
+        270
     );
 
 
     /* =================================================
-       PROPERTY PHOTO
+       PHOTO
     ================================================= */
 
-    const photoTop =
-        310;
+    const photoX =
+        45;
 
 
-    const photoHeight =
+    const photoY =
+        305;
+
+
+    const photoW =
+        W - 90;
+
+
+    const photoH =
         type === "facebook"
-            ? 650
-            : 590;
+            ? 680
+            : 600;
 
 
     if(
-        uploadedImages.length
+        uploadedImages.length > 0
     ){
 
-        const img =
+        const image =
             await loadImage(
                 uploadedImages[0]
             );
 
 
-        if(img){
+        if(image){
 
             drawImageCover(
                 ctx,
-                img,
-                45,
-                photoTop,
-                W - 90,
-                photoHeight
+                image,
+                photoX,
+                photoY,
+                photoW,
+                photoH
             );
 
         }
@@ -2867,11 +3253,11 @@ async function drawSocialDesign(
 
         roundRect(
             ctx,
-            45,
-            photoTop,
-            W - 90,
-            photoHeight,
-            25
+            photoX,
+            photoY,
+            photoW,
+            photoH,
+            22
         );
 
 
@@ -2879,11 +3265,11 @@ async function drawSocialDesign(
 
 
         ctx.fillStyle =
-            "#777777";
+            "#667085";
 
 
         ctx.font =
-            "32px Arial";
+            "30px Arial";
 
 
         ctx.textAlign =
@@ -2893,8 +3279,8 @@ async function drawSocialDesign(
         ctx.fillText(
             "Property Photo",
             W / 2,
-            photoTop +
-            photoHeight / 2
+            photoY +
+            photoH / 2
         );
 
 
@@ -2909,9 +3295,9 @@ async function drawSocialDesign(
     ================================================= */
 
     const priceY =
-        photoTop +
-        photoHeight +
-        80;
+        photoY +
+        photoH +
+        75;
 
 
     ctx.fillStyle =
@@ -2919,7 +3305,7 @@ async function drawSocialDesign(
 
 
     ctx.font =
-        "bold 60px Arial";
+        "bold 55px Arial";
 
 
     ctx.fillText(
@@ -2937,8 +3323,12 @@ async function drawSocialDesign(
         priceY + 35;
 
 
+    const boxH =
+        150;
+
+
     ctx.fillStyle =
-        "#eef3f7";
+        "#eef2f7";
 
 
     roundRect(
@@ -2946,8 +3336,8 @@ async function drawSocialDesign(
         45,
         boxY,
         W - 90,
-        155,
-        25
+        boxH,
+        20
     );
 
 
@@ -2959,43 +3349,45 @@ async function drawSocialDesign(
 
 
     ctx.font =
-        "bold 24px Arial";
+        "bold 22px Arial";
 
 
     ctx.fillText(
         "Area: " + d.area,
-        75,
-        boxY + 48
+        70,
+        boxY + 45
     );
 
 
     ctx.fillText(
         "Bedrooms: " + d.bedrooms,
         W / 2,
-        boxY + 48
+        boxY + 45
     );
 
 
     ctx.fillText(
         "Bathrooms: " + d.bathrooms,
-        75,
-        boxY + 105
+        70,
+        boxY + 100
     );
 
 
     ctx.fillText(
         "Parking: " + d.parking,
         W / 2,
-        boxY + 105
+        boxY + 100
     );
 
 
     /* =================================================
-       COMPANY INFORMATION
+       COMPANY
     ================================================= */
 
     const companyY =
-        boxY + 190;
+        boxY +
+        boxH +
+        55;
 
 
     ctx.fillStyle =
@@ -3006,31 +3398,29 @@ async function drawSocialDesign(
         "bold 28px Arial";
 
 
-    if(d.company){
-
-        ctx.fillText(
-            d.company,
-            55,
-            companyY
-        );
-
-    }
-
-
-    ctx.font =
-        "20px Arial";
+    ctx.fillText(
+        d.company ||
+        "PropDeck",
+        55,
+        companyY
+    );
 
 
     ctx.fillStyle =
-        "#444444";
+        "#475467";
+
+
+    ctx.font =
+        "19px Arial";
 
 
     if(d.contact){
 
         ctx.fillText(
-            "📞 " + d.contact,
+            "☎ " +
+            d.contact,
             55,
-            companyY + 38
+            companyY + 35
         );
 
     }
@@ -3039,9 +3429,10 @@ async function drawSocialDesign(
     if(d.email){
 
         ctx.fillText(
-            "✉ " + d.email,
+            "✉ " +
+            d.email,
             55,
-            companyY + 70
+            companyY + 65
         );
 
     }
@@ -3050,9 +3441,10 @@ async function drawSocialDesign(
     if(d.website){
 
         ctx.fillText(
-            "🌐 " + d.website,
+            "🌐 " +
+            d.website,
             55,
-            companyY + 102
+            companyY + 95
         );
 
     }
@@ -3068,9 +3460,9 @@ async function drawSocialDesign(
 
     ctx.fillRect(
         0,
-        H - 100,
+        H - 90,
         W,
-        100
+        90
     );
 
 
@@ -3079,28 +3471,15 @@ async function drawSocialDesign(
 
 
     ctx.font =
-        "bold 23px Arial";
+        "bold 21px Arial";
 
 
-    if(d.company){
-
-        ctx.fillText(
-            d.company,
-            45,
-            H - 42
-        );
-
-    }
-
-    else{
-
-        ctx.fillText(
-            "PropDeck",
-            45,
-            H - 42
-        );
-
-    }
+    ctx.fillText(
+        d.company ||
+        "PropDeck",
+        45,
+        H - 35
+    );
 
 
     if(d.website){
@@ -3112,12 +3491,33 @@ async function drawSocialDesign(
         ctx.fillText(
             d.website,
             W - 45,
-            H - 42
+            H - 35
         );
 
 
         ctx.textAlign =
             "left";
+
+    }
+
+}
+
+
+/* =====================================================
+   CLOSE DESIGN
+===================================================== */
+
+function closeDesign(){
+
+    const modal =
+        $("designModal");
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "active"
+        );
 
     }
 
@@ -3131,13 +3531,13 @@ async function drawSocialDesign(
 function downloadCanvas(
     canvas,
     filename,
-    type
+    mimeType
 ){
 
     if(!canvas){
 
         showMessage(
-            "Design is not ready."
+            "Design is not available."
         );
 
         return;
@@ -3145,50 +3545,68 @@ function downloadCanvas(
     }
 
 
-    const link =
-        document.createElement(
-            "a"
+    try{
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.download =
+            filename;
+
+
+        link.href =
+            canvas.toDataURL(
+                mimeType,
+                0.95
+            );
+
+
+        document.body.appendChild(
+            link
         );
 
 
-    link.download =
-        filename;
+        link.click();
 
 
-    link.href =
-        canvas.toDataURL(
-            type,
-            0.95
+        link.remove();
+
+
+        showMessage(
+            "Download started."
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            error
         );
 
 
-    document.body.appendChild(
-        link
-    );
+        showMessage(
+            "Download failed."
+        );
 
-
-    link.click();
-
-
-    link.remove();
-
-
-    showMessage(
-        "Download started."
-    );
+    }
 
 }
 
 
 /* =====================================================
-   OPEN CANVA
+   CANVA
 ===================================================== */
 
 function openCanva(){
 
     window.open(
         "https://www.canva.com/",
-        "_blank"
+        "_blank",
+        "noopener,noreferrer"
     );
 
 }
@@ -3198,6 +3616,10 @@ function openCanva(){
    MESSAGE
 ===================================================== */
 
+let messageTimer =
+    null;
+
+
 function showMessage(
     message
 ){
@@ -3206,8 +3628,13 @@ function showMessage(
         $("systemMessage");
 
 
-    if(!box)
+    if(!box){
+
+        alert(message);
+
         return;
+
+    }
 
 
     box.textContent =
@@ -3219,11 +3646,11 @@ function showMessage(
 
 
     clearTimeout(
-        window.messageTimer
+        messageTimer
     );
 
 
-    window.messageTimer =
+    messageTimer =
         setTimeout(
             () => {
 
@@ -3234,55 +3661,138 @@ function showMessage(
             2500
         );
 
-}
-
-
+} 
 /* =====================================================
    RESET FORM
 ===================================================== */
 
 function resetForm(){
 
-    document
-        .querySelectorAll(
-            "input, textarea"
-        )
-        .forEach(
-            element => {
-
-                if(
-                    element.type ===
-                    "file"
-                ){
-
-                    element.value =
-                        "";
-
-                }
-
-                else{
-
-                    element.value =
-                        "";
-
-                }
-
-            }
+    const fields =
+        document.querySelectorAll(
+            "input, textarea, select"
         );
 
 
-    document
-        .querySelectorAll(
-            "select"
-        )
-        .forEach(
-            element => {
+    fields.forEach(
+        field => {
 
-                element.selectedIndex =
-                    0;
+            if(
+                field.type === "file"
+            ){
+
+                field.value =
+                    "";
 
             }
-        );
+
+        }
+    );
+
+
+    const textIds = [
+
+        "title",
+        "location",
+        "price",
+        "area",
+        "beds",
+        "baths",
+        "floor",
+        "facing",
+        "parking",
+        "amenities",
+        "nearby",
+        "moreInfo",
+        "company",
+        "contact",
+        "email",
+        "website"
+
+    ];
+
+
+    textIds.forEach(
+        id => {
+
+            const element =
+                $(id);
+
+            if(element){
+
+                element.value =
+                    "";
+
+            }
+
+        }
+    );
+
+
+    if($("propertyType")){
+
+        $("propertyType").value =
+            "Residential";
+
+    }
+
+
+    if($("purpose")){
+
+        $("purpose").value =
+            "For Sale";
+
+    }
+
+
+    if($("ownership")){
+
+        $("ownership").value =
+            "";
+
+    }
+
+
+    if($("furnished")){
+
+        $("furnished").value =
+            "";
+
+    }
+
+
+    if($("descriptionStyle")){
+
+        $("descriptionStyle").value =
+            "Professional";
+
+    }
+
+
+    if($("language")){
+
+        $("language").value =
+            "English";
+
+    }
+
+
+    uploadedImages.forEach(
+        url => {
+
+            if(
+                url &&
+                url.startsWith("blob:")
+            ){
+
+                URL.revokeObjectURL(
+                    url
+                );
+
+            }
+
+        }
+    );
 
 
     uploadedImages =
@@ -3290,6 +3800,18 @@ function resetForm(){
 
 
     renderPhotoGallery();
+
+
+    const logo =
+        $("brandingLogoPreview");
+
+
+    if(logo){
+
+        logo.src =
+            "./file_00000000bc188211a200a0ccdbc1cecd.png";
+
+    }
 
 
     setText(
@@ -3352,6 +3874,40 @@ function resetForm(){
     }
 
 
+    const canvas =
+        $("mainCanvas");
+
+
+    if(canvas){
+
+        const ctx =
+            canvas.getContext(
+                "2d"
+            );
+
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        ctx.fillStyle =
+            "#ffffff";
+
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+    }
+
+
     showMessage(
         "Form reset successfully."
     );
@@ -3360,7 +3916,219 @@ function resetForm(){
 
 
 /* =====================================================
-   DOM READY
+   COPY WHATSAPP
+===================================================== */
+
+async function copyWhatsApp(){
+
+    const text =
+        getValue(
+            "whatsappOutput",
+            ""
+        );
+
+
+    if(
+        !text ||
+        text === "—"
+    ){
+
+        showMessage(
+            "Please generate content first."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await navigator
+            .clipboard
+            .writeText(
+                text
+            );
+
+
+        showMessage(
+            "WhatsApp message copied!"
+        );
+
+    }
+
+    catch(error){
+
+        const textarea =
+            document.createElement(
+                "textarea"
+            );
+
+
+        textarea.value =
+            text;
+
+
+        textarea.style.position =
+            "fixed";
+
+
+        textarea.style.left =
+            "-9999px";
+
+
+        document.body.appendChild(
+            textarea
+        );
+
+
+        textarea.select();
+
+
+        try{
+
+            document.execCommand(
+                "copy"
+            );
+
+            showMessage(
+                "WhatsApp message copied!"
+            );
+
+        }
+
+        catch(copyError){
+
+            showMessage(
+                "Copy failed. Please copy manually."
+            );
+
+        }
+
+
+        textarea.remove();
+
+    }
+
+}
+
+
+/* =====================================================
+   SHARE WHATSAPP
+===================================================== */
+
+function shareWhatsApp(){
+
+    const text =
+        getValue(
+            "whatsappOutput",
+            ""
+        );
+
+
+    if(
+        !text ||
+        text === "—"
+    ){
+
+        showMessage(
+            "Please generate content first."
+        );
+
+        return;
+
+    }
+
+
+    const whatsappURL =
+        "https://wa.me/?text=" +
+        encodeURIComponent(
+            text
+        );
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   BRAND LOGO UPLOAD
+===================================================== */
+
+function handleLogoUpload(
+    event
+){
+
+    const file =
+        event.target.files &&
+        event.target.files[0];
+
+
+    if(!file){
+
+        return;
+
+    }
+
+
+    if(
+        !file.type
+            .toLowerCase()
+            .startsWith("image/")
+    ){
+
+        showMessage(
+            "Please select an image file."
+        );
+
+        return;
+
+    }
+
+
+    const url =
+        URL.createObjectURL(
+            file
+        );
+
+
+    const preview =
+        $("brandingLogoPreview");
+
+
+    const headerLogo =
+        $("headerLogo");
+
+
+    if(preview){
+
+        preview.src =
+            url;
+
+    }
+
+
+    if(headerLogo){
+
+        headerLogo.src =
+            url;
+
+    }
+
+
+    showMessage(
+        "Company logo updated."
+    );
+
+}
+
+
+/* =====================================================
+   EVENT LISTENERS
 ===================================================== */
 
 document.addEventListener(
@@ -3370,202 +4138,103 @@ document.addEventListener(
 
         /* GENERATE */
 
-        $("generateBtn")
-            .addEventListener(
+        const generateBtn =
+            $("generateBtn");
+
+
+        if(generateBtn){
+
+            generateBtn.addEventListener(
                 "click",
                 generateContent
             );
 
+        }
+
 
         /* RESET */
 
-        $("resetBtn")
-            .addEventListener(
+        const resetBtn =
+            $("resetBtn");
+
+
+        if(resetBtn){
+
+            resetBtn.addEventListener(
                 "click",
                 resetForm
             );
 
+        }
 
-        /* WHATSAPP COPY */
 
-        $("copyWhatsappBtn")
-            .addEventListener(
+        /* COPY WHATSAPP */
+
+        const copyBtn =
+            $("copyWhatsappBtn");
+
+
+        if(copyBtn){
+
+            copyBtn.addEventListener(
                 "click",
                 copyWhatsApp
             );
 
+        }
 
-        /* WHATSAPP SHARE */
 
-        $("shareWhatsappBtn")
-            .addEventListener(
+        /* SHARE WHATSAPP */
+
+        const shareBtn =
+            $("shareWhatsappBtn");
+
+
+        if(shareBtn){
+
+            shareBtn.addEventListener(
                 "click",
                 shareWhatsApp
             );
 
-
-        /* SOCIAL BUTTONS */
-
-        $("whatsappDesignBtn")
-            .addEventListener(
-                "click",
-                () =>
-                    openDesign(
-                        "whatsapp"
-                    )
-            );
+        }
 
 
-        $("facebookDesignBtn")
-            .addEventListener(
-                "click",
-                () =>
-                    openDesign(
-                        "facebook"
-                    )
-            );
+        /* PHOTO UPLOAD */
+
+        const photoInput =
+            $("propertyPhotos");
 
 
-        $("instagramDesignBtn")
-            .addEventListener(
-                "click",
-                () =>
-                    openDesign(
-                        "instagram"
-                    )
-            );
+        if(photoInput){
 
-
-        /* CLOSE MODAL */
-
-        $("closeModalBtn")
-            .addEventListener(
-                "click",
-                closeDesign
-            );
-
-
-        /* DOWNLOAD MAIN PNG */
-
-        $("downloadMainPng")
-            .addEventListener(
-                "click",
-                () =>
-                    downloadCanvas(
-                        $("mainCanvas"),
-                        "PropDeck-Property.png",
-                        "image/png"
-                    )
-            );
-
-
-        /* DOWNLOAD SOCIAL PNG */
-
-        $("downloadDesignPng")
-            .addEventListener(
-                "click",
-                () =>
-                    downloadCanvas(
-                        $("socialCanvas"),
-                        "PropDeck-" +
-                        currentDesign +
-                        ".png",
-                        "image/png"
-                    )
-            );
-
-
-        /* DOWNLOAD SOCIAL JPG */
-
-        $("downloadDesignJpg")
-            .addEventListener(
-                "click",
-                () =>
-                    downloadCanvas(
-                        $("socialCanvas"),
-                        "PropDeck-" +
-                        currentDesign +
-                        ".jpg",
-                        "image/jpeg"
-                    )
-            );
-
-
-        /* CANVA MAIN */
-
-        $("openCanvaBtn")
-            .addEventListener(
-                "click",
-                openCanva
-            );
-
-
-        /* CANVA MODAL */
-
-        $("modalCanvaBtn")
-            .addEventListener(
-                "click",
-                openCanva
-            );
-
-
-        /* PROPERTY PHOTO UPLOAD */
-
-        $("propertyPhotos")
-            .addEventListener(
+            photoInput.addEventListener(
                 "change",
-                loadUploadedPhotos
+                handlePhotoUpload
             );
 
+        }
 
-        /* COMPANY LOGO */
 
-        $("companyLogo")
-            .addEventListener(
-                "change",
+        /* PHOTO REMOVE */
+
+        const gallery =
+            $("photoGallery");
+
+
+        if(gallery){
+
+            gallery.addEventListener(
+                "click",
                 event => {
 
-                    const file =
-                        event.target.files[0];
-
-
-                    if(!file)
-                        return;
-
-
-                    const url =
-                        URL.createObjectURL(
-                            file
+                    const button =
+                        event.target.closest(
+                            ".photo-remove"
                         );
 
 
-                    $("brandingLogoPreview")
-                        .src =
-                        url;
-
-
-                    $("headerLogo")
-                        .src =
-                        url;
-
-                }
-            );
-
-
-        /* PHOTO DELETE */
-
-        $("photoGallery")
-            .addEventListener(
-                "click",
-                event => {
-
-                    if(
-                        !event.target
-                            .classList
-                            .contains(
-                                "photo-remove"
-                            )
-                    ){
+                    if(!button){
 
                         return;
 
@@ -3574,35 +4243,232 @@ document.addEventListener(
 
                     const index =
                         Number(
-                            event.target
-                                .dataset
-                                .index
+                            button.dataset.index
                         );
 
 
-                    uploadedImages
-                        .splice(
-                            index,
-                            1
-                        );
-
-
-                    renderPhotoGallery();
+                    removePhoto(
+                        index
+                    );
 
                 }
             );
 
+        }
 
-        /* MODAL BACKGROUND CLOSE */
 
-        $("designModal")
-            .addEventListener(
+        /* COMPANY LOGO */
+
+        const logoInput =
+            $("companyLogo");
+
+
+        if(logoInput){
+
+            logoInput.addEventListener(
+                "change",
+                handleLogoUpload
+            );
+
+        }
+
+
+        /* WHATSAPP DESIGN */
+
+        const whatsappBtn =
+            $("whatsappDesignBtn");
+
+
+        if(whatsappBtn){
+
+            whatsappBtn.addEventListener(
+                "click",
+                () =>
+                    openDesign(
+                        "whatsapp"
+                    )
+            );
+
+        }
+
+
+        /* FACEBOOK DESIGN */
+
+        const facebookBtn =
+            $("facebookDesignBtn");
+
+
+        if(facebookBtn){
+
+            facebookBtn.addEventListener(
+                "click",
+                () =>
+                    openDesign(
+                        "facebook"
+                    )
+            );
+
+        }
+
+
+        /* INSTAGRAM DESIGN */
+
+        const instagramBtn =
+            $("instagramDesignBtn");
+
+
+        if(instagramBtn){
+
+            instagramBtn.addEventListener(
+                "click",
+                () =>
+                    openDesign(
+                        "instagram"
+                    )
+            );
+
+        }
+
+
+        /* CLOSE MODAL */
+
+        const closeBtn =
+            $("closeModalBtn");
+
+
+        if(closeBtn){
+
+            closeBtn.addEventListener(
+                "click",
+                closeDesign
+            );
+
+        }
+
+
+        /* MAIN PNG */
+
+        const mainPng =
+            $("downloadMainPng");
+
+
+        if(mainPng){
+
+            mainPng.addEventListener(
+                "click",
+                () => {
+
+                    downloadCanvas(
+                        $("mainCanvas"),
+                        "PropDeck-Property.png",
+                        "image/png"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* SOCIAL PNG */
+
+        const socialPng =
+            $("downloadDesignPng");
+
+
+        if(socialPng){
+
+            socialPng.addEventListener(
+                "click",
+                () => {
+
+                    downloadCanvas(
+                        $("socialCanvas"),
+                        "PropDeck-" +
+                        currentDesign +
+                        ".png",
+                        "image/png"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* SOCIAL JPG */
+
+        const socialJpg =
+            $("downloadDesignJpg");
+
+
+        if(socialJpg){
+
+            socialJpg.addEventListener(
+                "click",
+                () => {
+
+                    downloadCanvas(
+                        $("socialCanvas"),
+                        "PropDeck-" +
+                        currentDesign +
+                        ".jpg",
+                        "image/jpeg"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* CANVA MAIN */
+
+        const canvaBtn =
+            $("openCanvaBtn");
+
+
+        if(canvaBtn){
+
+            canvaBtn.addEventListener(
+                "click",
+                openCanva
+            );
+
+        }
+
+
+        /* CANVA MODAL */
+
+        const modalCanva =
+            $("modalCanvaBtn");
+
+
+        if(modalCanva){
+
+            modalCanva.addEventListener(
+                "click",
+                openCanva
+            );
+
+        }
+
+
+        /* MODAL BACKGROUND */
+
+        const modal =
+            $("designModal");
+
+
+        if(modal){
+
+            modal.addEventListener(
                 "click",
                 event => {
 
                     if(
                         event.target ===
-                        $("designModal")
+                        modal
                     ){
 
                         closeDesign();
@@ -3612,8 +4478,62 @@ document.addEventListener(
                 }
             );
 
+        }
 
-        /* ESC CLOSE */
+
+        /* LIVE PREVIEW */
+
+        const liveFields =
+            document.querySelectorAll(
+                "input:not([type='file']), textarea, select"
+            );
+
+
+        liveFields.forEach(
+            field => {
+
+                field.addEventListener(
+                    "input",
+                    () => {
+
+                        const data =
+                            getPropertyData();
+
+
+                        updatePreview(
+                            data,
+                            createDescription(
+                                data
+                            )
+                        );
+
+                    }
+                );
+
+
+                field.addEventListener(
+                    "change",
+                    () => {
+
+                        const data =
+                            getPropertyData();
+
+
+                        updatePreview(
+                            data,
+                            createDescription(
+                                data
+                            )
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* ESCAPE */
 
         document.addEventListener(
             "keydown",
@@ -3632,220 +4552,27 @@ document.addEventListener(
         );
 
 
-        /* LIVE PREVIEW */
+        /* INITIAL DESIGN */
 
-        document.addEventListener(
-            "input",
-            () => {
-
-                const d =
-                    getPropertyData();
-
-
-                updatePreview(
-                    d,
-                    createDescription(d)
-                );
-
-            }
-        );
-
-
-    }
-);
-
-</script>
- <!-- =====================================================
-     FINAL JAVASCRIPT SAFETY + LIVE PREVIEW
-===================================================== -->
-
-<script>
-
-/* =====================================================
-   SAFE BUTTON CHECK
-===================================================== */
-
-function safeClick(
-    id,
-    callback
-){
-
-    const element =
-        document.getElementById(id);
-
-    if(!element)
-        return;
-
-    element.addEventListener(
-        "click",
-        callback
-    );
-
-}
-
-
-/* =====================================================
-   LIVE PROPERTY PREVIEW
-===================================================== */
-
-function liveUpdate(){
-
-    const d =
-        getPropertyData();
-
-
-    const description =
-        createDescription(d);
-
-
-    updatePreview(
-        d,
-        description
-    );
-
-}
-
-
-/* =====================================================
-   LIVE INPUT EVENTS
-===================================================== */
-
-[
-    "title",
-    "location",
-    "price",
-    "area",
-    "beds",
-    "baths",
-    "floor",
-    "facing",
-    "parking",
-    "amenities",
-    "nearby",
-    "moreInfo",
-    "company",
-    "contact",
-    "email",
-    "website"
-].forEach(
-    id => {
-
-        const element =
-            $(id);
-
-        if(element){
-
-            element.addEventListener(
-                "input",
-                liveUpdate
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   LIVE SELECT EVENTS
-===================================================== */
-
-[
-    "propertyType",
-    "purpose",
-    "ownership",
-    "furnished",
-    "descriptionStyle",
-    "language"
-].forEach(
-    id => {
-
-        const element =
-            $(id);
-
-        if(element){
-
-            element.addEventListener(
-                "change",
-                liveUpdate
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   CLOSE MODAL WITH ESCAPE
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(
-            event.key ===
-            "Escape"
-        ){
-
-            closeDesign();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   CLICK OUTSIDE MODAL
-===================================================== */
-
-const designModal =
-    $("designModal");
-
-
-if(designModal){
-
-    designModal.addEventListener(
-        "click",
-        event => {
-
-            if(
-                event.target ===
-                designModal
-            ){
-
-                closeDesign();
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   INITIAL PREVIEW
-===================================================== */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        const d =
+        const initialData =
             getPropertyData();
 
 
         updatePreview(
-            d,
-            createDescription(d)
+            initialData,
+            createDescription(
+                initialData
+            )
         );
 
 
-        drawMainCanvas(
-            d
+        drawMainDesign(
+            initialData
+        );
+
+
+        console.log(
+            "PropDeck AI is ready."
         );
 
     }
@@ -3853,7 +4580,7 @@ window.addEventListener(
 
 
 /* =====================================================
-   GLOBAL ERROR HANDLER
+   GLOBAL ERROR PROTECTION
 ===================================================== */
 
 window.addEventListener(
@@ -3868,16 +4595,8 @@ window.addEventListener(
     }
 );
 
-
-/* =====================================================
-   FINISH
-===================================================== */
-
-console.log(
-    "PropDeck AI loaded successfully."
-);
-
 </script>
 
+
 </body>
-</html>
+</html>                 
