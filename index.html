@@ -2,1028 +2,293 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PropDeck AI - Property Marketing</title>
 <style>
-*{box-sizing:border-box}
-:root{
-  --navy:#111827;
-  --blue:#0866ff;
-  --cyan:#18bde8;
-  --bg:#f4f6f9;
-  --card:#fff;
-  --muted:#667085;
-  --line:#e5e7eb;
-  --green:#16a34a;
-}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#111827}
-header{
-  height:82px;background:#fff;border-bottom:1px solid #e5e7eb;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 28px;position:sticky;top:0;z-index:20
-}
-.logo{height:58px;display:flex;align-items:center}
-.logo img{height:58px;width:auto;object-fit:contain}
-.badge{border:1px solid #8fc3ff;color:#0561c9;background:#eef7ff;border-radius:9px;padding:9px 13px;font-size:12px}
-main{max-width:1450px;margin:auto;padding:30px 28px 60px}
-.hero h1{margin:0;font-size:31px;color:#14213d}
-.hero p{margin:8px 0 25px;color:#667085}
-.layout{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:start}
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:13px;padding:16px;box-shadow:0 2px 8px rgba(16,24,40,.03)}
-.card h2{font-size:15px;margin:0 0 14px}
-.field{margin-bottom:12px}
-label{display:block;font-size:10px;font-weight:700;margin-bottom:5px;color:#344054}
-input,select,textarea{
-  width:100%;border:1px solid #d8dde6;border-radius:8px;
-  padding:10px 11px;background:#fff;font-size:12px;outline:none
-}
-input:focus,select:focus,textarea:focus{border-color:#5997ff;box-shadow:0 0 0 3px rgba(8,102,255,.08)}
-textarea{min-height:88px;resize:vertical}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.photos{grid-column:1 / 3}
-.previewCard{grid-column:3;grid-row:1 / span 2}
-.full{grid-column:1 / 3}
-.photoGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}
-.photoItem{position:relative;height:90px;border-radius:8px;overflow:hidden;background:#f2f4f7}
-.photoItem img{width:100%;height:100%;object-fit:cover}
-.removePhoto{
-  position:absolute;right:4px;top:4px;width:20px;height:20px;border:0;
-  border-radius:50%;background:#fff;color:#111;cursor:pointer;font-weight:700
-}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-button{
-  border:0;border-radius:9px;padding:10px 14px;font-size:12px;
-  font-weight:700;cursor:pointer
-}
-.primary{background:#111827;color:#fff}
-.secondary{background:#eef2f7;color:#111827}
-.blue{background:#0969ff;color:#fff}
-.green{background:#16a34a;color:#fff}
-.purple{background:#6d28d9;color:#fff}
-button:hover{filter:brightness(.97);transform:translateY(-1px)}
-.preview{
-  min-height:415px;background:#111827;color:#fff;border-radius:14px;padding:22px;
-  position:relative;overflow:hidden
-}
-.preview .eyebrow{font-size:9px;letter-spacing:2px;opacity:.75}
-.preview h3{font-size:24px;margin:8px 0}
-.preview .loc{font-size:13px;opacity:.9}
-.preview .price{font-size:27px;font-weight:800;margin:12px 0}
-.pills{display:flex;gap:7px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:14px}
-.pill{border:1px solid rgba(255,255,255,.6);border-radius:12px;padding:5px 8px;font-size:10px}
-.preview .desc{font-size:12px;line-height:1.55;margin-top:15px;opacity:.95}
-.output{background:#f8fafc;border:1px solid #edf0f4;border-radius:10px;padding:13px;margin-bottom:10px}
-.output h3{font-size:12px;margin:0 0 8px}
-.outputText{font-size:11px;line-height:1.5;white-space:pre-wrap}
-.canvaWrap{margin-top:8px;background:#fff;border:1px solid #dfe4ea;border-radius:10px;padding:12px}
-.canvaDesign{
-  background:#fff;border:1px solid #e3e6ea;border-radius:7px;overflow:hidden;
-  box-shadow:0 3px 12px rgba(0,0,0,.08)
-}
-.designHead{display:flex;align-items:center;justify-content:space-between;padding:14px 15px 10px}
-.designLogo{height:42px;max-width:170px;object-fit:contain}
-.designTitle{font-size:18px;font-weight:800;text-align:right}
-.designLoc{font-size:10px;color:#667085;text-align:right;margin-top:3px}
-.designPrice{background:#111827;color:#fff;padding:10px 13px;border-radius:5px;font-size:16px;font-weight:800}
-.designPhotos{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:100px 100px;gap:4px;padding:0 10px}
-.designPhotos img{width:100%;height:100%;object-fit:cover;border-radius:5px}
-.designPhotos img:first-child{grid-row:1/3}
-.designStats{display:grid;grid-template-columns:repeat(6,1fr);padding:12px 10px;border-bottom:1px solid #e5e7eb}
-.stat{text-align:center;font-size:9px;font-weight:700}
-.stat b{display:block;font-size:14px;margin-bottom:3px}
-.designBottom{padding:10px;font-size:9px;line-height:1.6}
-.designContact{background:#111827;color:#fff;text-align:center;padding:10px;font-size:11px;font-weight:800}
-.notice{display:none;margin-top:10px;background:#ecfdf3;border:1px solid #bbf7d0;color:#15803d;padding:10px;border-radius:8px;font-size:12px;font-weight:700}
-.small{font-size:10px;color:#667085;margin:0 0 10px}
-@media(max-width:1000px){
-  .layout{grid-template-columns:1fr 1fr}
-  .previewCard{grid-column:1 / 3;grid-row:auto}
-  .full{grid-column:1 / 3}
-}
-@media(max-width:650px){
-  header{padding:10px 14px}.logo img{height:48px}.badge{display:none}
-  main{padding:20px 12px}.hero h1{font-size:24px}
-  .layout{grid-template-columns:1fr}
-  .previewCard,.photos,.full{grid-column:auto}
-  .two{grid-template-columns:1fr}
-  .photoGrid{grid-template-columns:repeat(3,1fr)}
-  .designPhotos{grid-template-rows:80px 80px}
-  .designStats{grid-template-columns:repeat(3,1fr);gap:10px}
-}
-@media print{
-  header,.hero,.formOnly,.actions,.notice,.noPrint{display:none!important}
-  body{background:#fff}.card{border:0;box-shadow:none}
-  .layout{display:block}.previewCard{margin-top:0}.canvaWrap{border:0}
-}
+*{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:#101828;font-family:Arial,Helvetica,sans-serif}
+header{height:82px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:10px 28px;position:sticky;top:0;z-index:10}
+.logo img{height:60px;width:auto;max-width:210px;object-fit:contain}.badge{border:1px solid #8ab8e8;background:#eef7ff;color:#075da8;border-radius:8px;padding:9px 13px;font-size:12px}
+main{max-width:1450px;margin:auto;padding:30px 24px 60px}.hero h1{font-size:30px;margin:0 0 8px}.hero p{margin:0 0 24px;color:#667085}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}.card{background:#fff;border:1px solid #e4e7ec;border-radius:13px;padding:16px;box-shadow:0 2px 8px #10182808}.card h2{font-size:15px;margin:0 0 15px}
+.previewCard{grid-column:3;grid-row:1/3}.photos,.outputs,.canva{grid-column:1/3}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin-bottom:11px}label{display:block;font-size:10px;font-weight:700;margin-bottom:5px;color:#344054}
+input,select,textarea{width:100%;border:1px solid #d8dee8;border-radius:8px;padding:10px;font-size:12px;background:#fff;color:#101828;outline:0}textarea{min-height:90px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#1677ff;box-shadow:0 0 0 3px #1677ff12}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{border:0;border-radius:8px;padding:10px 14px;font-weight:700;font-size:12px;cursor:pointer}button:active{transform:scale(.98)}
+.primary{background:#111827;color:#fff}.secondary{background:#edf1f6;color:#111827}.blue{background:#0866ff;color:#fff}.purple{background:#6d28d9;color:#fff}.green{background:#159947;color:#fff}
+.preview{background:#111827;color:#fff;border-radius:14px;min-height:440px;padding:22px}.eyebrow{font-size:9px;letter-spacing:2px;color:#b8c0ce}.preview h3{font-size:24px;margin:8px 0}.loc{font-size:13px}.price{font-size:28px;font-weight:800;margin:12px 0}.pills{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid #ffffff35;padding-bottom:14px}.pill{border:1px solid #ffffff75;border-radius:13px;padding:5px 8px;font-size:10px}.desc{font-size:12px;line-height:1.55;margin-top:14px}
+.photoGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px}.photo{height:90px;border-radius:8px;overflow:hidden;position:relative;background:#eef1f5}.photo img{width:100%;height:100%;object-fit:cover}.remove{position:absolute;right:4px;top:4px;border-radius:50%;padding:0;width:20px;height:20px;background:#fff;color:#111}
+.output{background:#f8fafc;border:1px solid #edf0f4;border-radius:10px;padding:13px;margin-bottom:10px}.output h3{font-size:12px;margin:0 0 8px}.outtext{font-size:11px;line-height:1.55;white-space:pre-wrap}
+.canvaBox{background:#fff;border:1px solid #dfe4ea;border-radius:10px;padding:12px}.design{border:1px solid #e1e4e8;border-radius:7px;overflow:hidden}.designTop{display:grid;grid-template-columns:180px 1fr auto;align-items:center;gap:10px;padding:12px}.designLogo{width:160px;height:45px;object-fit:contain}.designTitle{font-size:19px;font-weight:800;text-align:center}.designLoc{text-align:center;font-size:10px;color:#667085;margin-top:3px}.designPrice{background:#111827;color:#fff;border-radius:6px;padding:10px 13px;font-weight:800;white-space:nowrap}
+.designPhotos{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:105px 105px;gap:4px;padding:0 10px}.designPhotos img{width:100%;height:100%;object-fit:cover;border-radius:5px}.placeholder{background:linear-gradient(135deg,#eef2f6,#dfe4eb);border-radius:5px}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:12px 10px}.stat{text-align:center;font-size:9px;font-weight:700}.stat b{display:block;font-size:14px;margin-bottom:3px}.designInfo{border-top:1px solid #e5e7eb;padding:10px;font-size:9px;line-height:1.7}.contact{background:#111827;color:#fff;text-align:center;padding:10px;font-size:11px;font-weight:800}
+.notice{display:none;background:#ecfdf3;border:1px solid #bbf7d0;color:#15803d;border-radius:8px;padding:10px;margin-top:10px;font-size:12px;font-weight:700}.muted{font-size:10px;color:#667085}
+@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}.previewCard{grid-column:1/3;grid-row:auto}.photos,.outputs,.canva{grid-column:1/3}}
+@media(max-width:650px){header{padding:8px 12px}.logo img{height:48px}.badge{display:none}main{padding:20px 12px}.grid{grid-template-columns:1fr}.previewCard,.photos,.outputs,.canva{grid-column:auto}.two{grid-template-columns:1fr}.photoGrid{grid-template-columns:repeat(3,1fr)}.designTop{grid-template-columns:1fr 1fr}.designLogo{width:130px}.designPrice{font-size:13px}.designTitle{font-size:15px}.stats{grid-template-columns:repeat(3,1fr);gap:10px}}
+@media print{header,.hero,.form,.actions,.notice{display:none!important}body{background:#fff}.grid{display:block}.card{border:0;box-shadow:none}.canvaBox{border:0}}
 </style>
 </head>
 <body>
-  <header>
-  <div class="logo">
-    <img src="./file_00000000bc188211a200a0ccdbc1cecd.png" alt="PropDeck">
-  </div>
+<header>
+  <div class="logo"><img src="./file_00000000bc188211a200a0ccdbc1cecd.png" alt="PropDeck"></div>
   <div class="badge">Real Estate Marketing</div>
 </header>
 
 <main>
-  <div class="hero">
-    <h1>Turn property details into marketing content.</h1>
-    <p>Enter the property information, upload photos and generate a complete marketing pack.</p>
-  </div>
-
-  <div class="layout">
-
-    <section class="card formOnly">
-      <h2>1. Property Details</h2>
-      <div class="field">
-        <label>Property Type *</label>
-        <select id="type">
-          <option>Residential</option>
-          <option>Commercial</option>
-          <option>Plot</option>
-          <option>Apartment</option>
-          <option>Villa</option>
-        </select>
-      </div>
-
-      <div class="two">
-        <div class="field">
-          <label>Purpose *</label>
-          <select id="purpose">
-            <option>For Sale</option>
-            <option>For Rent</option>
-            <option>For Lease</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Property Title</label>
-          <input id="title" placeholder="Premium 4 BHK House">
-        </div>
-      </div>
-
-      <div class="two">
-        <div class="field">
-          <label>Location *</label>
-          <input id="location" placeholder="Dwarka, New Delhi">
-        </div>
-        <div class="field">
-          <label>Price *</label>
-          <input id="price" placeholder="₹4 Cr">
-        </div>
-      </div>
-
-      <div class="two">
-        <div class="field">
-          <label>Area</label>
-          <input id="area" placeholder="2000 Sq.Ft.">
-        </div>
-        <div class="field">
-          <label>Ownership</label>
-          <select id="ownership">
-            <option>Freehold</option>
-            <option>Leasehold</option>
-            <option>Not specified</option>
-          </select>
-        </div>
-      </div>
-    </section>
-
-    <section class="card formOnly">
-      <h2>2. Specifications</h2>
-
-      <div class="two">
-        <div class="field">
-          <label>Bedrooms</label>
-          <input id="beds" placeholder="4">
-        </div>
-        <div class="field">
-          <label>Bathrooms</label>
-          <input id="baths" placeholder="4">
-        </div>
-      </div>
-
-      <div class="two">
-        <div class="field">
-          <label>Floor</label>
-          <input id="floor" placeholder="2nd Floor">
-        </div>
-        <div class="field">
-          <label>Facing</label>
-          <input id="facing" placeholder="North-East">
-        </div>
-      </div>
-
-      <div class="two">
-        <div class="field">
-          <label>Parking</label>
-          <input id="parking" placeholder="2 Covered">
-        </div>
-        <div class="field">
-          <label>Furnished</label>
-          <select id="furnished">
-            <option>Semi-Furnished</option>
-            <option>Fully Furnished</option>
-            <option>Unfurnished</option>
-            <option>Not specified</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Amenities</label>
-        <input id="amenities" placeholder="Lift, Security, Gym, Garden">
-      </div>
-
-      <div class="field">
-        <label>Nearby / Location Highlights</label>
-        <textarea id="nearby" placeholder="Metro, school, hospital, market, highway..."></textarea>
-      </div>
-    </section>
-
-    <section class="card previewCard">
-      <h2>4. Property Preview</h2>
-
-      <div class="preview">
-        <div class="eyebrow">PROPERTY PRESENTATION</div>
-
-        <h3 id="pvTitle">Your Property Title</h3>
-
-        <div class="loc" id="pvLoc">
-          Location
-        </div>
-
-        <div class="price" id="pvPrice">
-          Price
-        </div>
-
-        <div class="pills" id="pills"></div>
-
-        <div class="desc" id="pvDesc">
-          Your generated description will appear here.
-        </div>
-      </div>
-    </section>
-
-    <section class="card photos formOnly">
-      <h2>3. Photos &amp; Additional Information</h2>
-
-      <div class="field">
-        <label>Property Photos</label>
-
-        <input id="photos" type="file" accept="image/*" multiple>
-
-        <div class="photoGrid" id="gallery"></div>
-      </div>
-
-      <div class="field">
-        <label>Tell us more</label>
-        <textarea id="more" placeholder="Write anything you know about the property. The AI will use only the information provided."></textarea>
-      </div>
-
-      <div class="two">
-        <div class="field">
-          <label>Description Style</label>
-          <select id="style">
-            <option>Professional</option>
-            <option>Luxury</option>
-            <option>Friendly</option>
-            <option>Premium</option>
-            <option>Short & Direct</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Language</label>
-          <select id="language">
-            <option>English</option>
-            <option>Hindi</option>
-            <option>Hinglish</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Agent / Company / Contact</label>
-        <input id="contact" placeholder="Karan Estates • +91 XXXXX XXXXX">
-      </div>
-
-      <div class="actions">
-        <button class="primary" id="generateBtn">✨ Generate Content</button>
-        <button class="secondary" id="resetBtn">Reset</button>
-      </div>
-    </section>
-
-    <section class="card full">
-      <h2>5. Marketing Outputs</h2>
-
-      <div class="output">
-        <h3>AI Description</h3>
-        <div class="outputText" id="desc">—</div>
-      </div>
-
-      <div class="output">
-        <h3>WhatsApp</h3>
-        <div class="outputText" id="wa">—</div>
-
-        <div class="actions noPrint">
-          <button class="secondary" id="copyBtn">
-            📋 Copy WhatsApp
-          </button>
-
-          <button class="secondary" id="shareBtn">
-            💬 Share
-          </button>
-        </div>
-      </div>
-
-      <div class="output">
-        <h3>Website Listing</h3>
-        <div class="outputText" id="web">—</div>
-      </div>
-
-      <div class="output">
-        <h3>Instagram Caption</h3>
-        <div class="outputText" id="ig">—</div>
-      </div>
-    </section>
-        <section class="card full">
-      <h2>6. Canva-ready Design</h2>
-
-      <p class="small">
-        Generate the design here, then download the PNG and upload it into Canva for editing.
-      </p>
-
-      <div class="canvaWrap">
-
-        <div class="canvaDesign" id="canvaDesign">
-
-          <div class="designHead">
-
-            <img
-              class="designLogo"
-              src="./file_00000000bc188211a200a0ccdbc1cecd.png"
-              alt="PropDeck"
-            >
-
-            <div>
-              <div class="designTitle" id="canvaTitle">
-                PREMIUM PROPERTY
-              </div>
-
-              <div class="designLoc" id="canvaLocation">
-                📍 Location
-              </div>
-            </div>
-
-            <div class="designPrice" id="canvaPrice">
-              ₹ —
-            </div>
-
-          </div>
-
-          <div class="designPhotos" id="canvaPhotos"></div>
-
-          <div class="designStats" id="canvaStats">
-
-            <div class="stat">
-              <b id="cArea">—</b>
-              Sq.Ft.
-            </div>
-
-            <div class="stat">
-              <b id="cBeds">—</b>
-              Bedrooms
-            </div>
-
-            <div class="stat">
-              <b id="cBaths">—</b>
-              Bathrooms
-            </div>
-
-            <div class="stat">
-              <b id="cParking">—</b>
-              Parking
-            </div>
-
-            <div class="stat">
-              <b id="cFloor">—</b>
-              Floor
-            </div>
-
-            <div class="stat">
-              <b id="cFacing">—</b>
-              Facing
-            </div>
-
-          </div>
-
-          <div class="designBottom">
-            <b>Amenities:</b>
-            <span id="cAmenities">—</span>
-            <br>
-
-            <b>Near:</b>
-            <span id="cNearby">—</span>
-          </div>
-
-          <div class="designContact" id="canvaContact">
-            ☎ Contact details
-          </div>
-
-        </div>
-      </div>
-
-      <div class="actions noPrint">
-
-        <button class="blue" id="pngBtn">
-          ⬇ Canva-ready PNG
-        </button>
-
-        <button class="purple" id="canvaBtn">
-          ◉ Open Canva
-        </button>
-
-        <button class="primary" id="pdfBtn">
-          📄 Save / Print PDF
-        </button>
-
-      </div>
-
-      <div class="notice" id="notice"></div>
-
-    </section>
-
-  </div>
+<div class="hero">
+<h1>Turn property details into marketing content.</h1>
+<p>Enter the property information, upload photos and generate a complete marketing pack.</p>
+</div>
+
+<div class="grid">
+
+<section class="card form">
+<h2>1. Property Details</h2>
+<div class="field"><label>Property Type *</label><select id="type"><option>Residential</option><option>Commercial</option><option>Plot</option><option>Apartment</option><option>Villa</option></select></div>
+<div class="two">
+<div class="field"><label>Purpose *</label><select id="purpose"><option>For Sale</option><option>For Rent</option><option>For Lease</option></select></div>
+<div class="field"><label>Property Title</label><input id="title" placeholder="Premium 4 BHK House"></div>
+</div>
+<div class="two">
+<div class="field"><label>Location *</label><input id="location" placeholder="Dwarka, New Delhi"></div>
+<div class="field"><label>Price *</label><input id="price" placeholder="₹4 Cr"></div>
+</div>
+<div class="two">
+<div class="field"><label>Area</label><input id="area" placeholder="2000 Sq.Ft."></div>
+<div class="field"><label>Ownership</label><select id="ownership"><option>Freehold</option><option>Leasehold</option><option>Not specified</option></select></div>
+</div>
+</section>
+
+<section class="card form">
+<h2>2. Specifications</h2>
+<div class="two"><div class="field"><label>Bedrooms</label><input id="beds" placeholder="4"></div><div class="field"><label>Bathrooms</label><input id="baths" placeholder="4"></div></div>
+<div class="two"><div class="field"><label>Floor</label><input id="floor" placeholder="2nd Floor"></div><div class="field"><label>Facing</label><input id="facing" placeholder="North-East"></div></div>
+<div class="two"><div class="field"><label>Parking</label><input id="parking" placeholder="2 Covered"></div><div class="field"><label>Furnished</label><select id="furnished"><option>Semi-Furnished</option><option>Fully Furnished</option><option>Unfurnished</option><option>Not specified</option></select></div></div>
+<div class="field"><label>Amenities</label><input id="amenities" placeholder="Lift, Security, Gym, Garden"></div>
+<div class="field"><label>Nearby / Location Highlights</label><textarea id="nearby" placeholder="Metro, school, hospital, market, highway..."></textarea></div>
+</section>
+
+<section class="card previewCard">
+  <h2>4. Property Preview</h2>
+<div class="preview">
+<div class="eyebrow">PROPERTY PRESENTATION</div>
+<h3 id="pvTitle">Your Property Title</h3>
+<div class="loc" id="pvLoc">Location</div>
+<div class="price" id="pvPrice">Price</div>
+<div class="pills" id="pills"></div>
+<div class="desc" id="pvDesc">Your generated description will appear here.</div>
+</div>
+</section>
+
+<section class="card photos form">
+<h2>3. Photos &amp; Additional Information</h2>
+<div class="field"><label>Property Photos</label><input id="photos" type="file" accept="image/*" multiple><div class="photoGrid" id="gallery"></div></div>
+<div class="field"><label>Tell us more</label><textarea id="more" placeholder="Write anything you know about the property. The AI will use only the information provided."></textarea></div>
+<div class="two">
+<div class="field"><label>Description Style</label><select id="style"><option>Professional</option><option>Luxury</option><option>Friendly</option><option>Premium</option><option>Short & Direct</option></select></div>
+<div class="field"><label>Language</label><select id="language"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div>
+</div>
+<div class="field"><label>Agent / Company / Contact</label><input id="contact" placeholder="Karan Estates • +91 XXXXX XXXXX"></div>
+<div class="actions"><button class="primary" id="generateBtn">✨ Generate Content</button><button class="secondary" id="resetBtn">Reset</button></div>
+</section>
+
+<section class="card outputs">
+<h2>5. Marketing Outputs</h2>
+<div class="output"><h3>AI Description</h3><div class="outtext" id="desc">—</div></div>
+<div class="output"><h3>WhatsApp</h3><div class="outtext" id="wa">—</div><div class="actions"><button class="secondary" id="copyBtn">📋 Copy WhatsApp</button><button class="secondary" id="shareBtn">💬 Share</button></div></div>
+<div class="output"><h3>Website Listing</h3><div class="outtext" id="web">—</div></div>
+<div class="output"><h3>Instagram Caption</h3><div class="outtext" id="ig">—</div></div>
+</section>
+
+<section class="card canva">
+<h2>6. Canva-ready Design</h2>
+<p class="muted">Generate the design here. Download the PNG and upload it into Canva for editing.</p>
+<div class="canvaBox">
+<div class="design" id="design">
+<div class="designTop">
+<img class="designLogo" src="./file_00000000bc188211a200a0ccdbc1cecd.png" alt="PropDeck">
+<div><div class="designTitle" id="canvaTitle">PREMIUM PROPERTY</div><div class="designLoc" id="canvaLocation">📍 Location</div></div>
+<div class="designPrice" id="canvaPrice">₹ —</div>
+</div>
+<div class="designPhotos" id="canvaPhotos"></div>
+<div class="stats">
+<div class="stat"><b id="cArea">—</b>Sq.Ft.</div><div class="stat"><b id="cBeds">—</b>Bedrooms</div><div class="stat"><b id="cBaths">—</b>Bathrooms</div><div class="stat"><b id="cParking">—</b>Parking</div><div class="stat"><b id="cFloor">—</b>Floor</div><div class="stat"><b id="cFacing">—</b>Facing</div>
+</div>
+<div class="designInfo"><b>Amenities:</b> <span id="cAmenities">—</span><br><b>Near:</b> <span id="cNearby">—</span></div>
+<div class="contact" id="canvaContact">☎ Contact details</div>
+</div>
+</div>
+<div class="actions">
+<button class="primary" id="pdfBtn">📄 Save / Print PDF</button>
+<button class="purple" id="canvaBtn">◉ Open Canva</button>
+<button class="green" id="pngBtn">⬇ Canva-ready PNG</button>
+</div>
+<div class="notice" id="notice"></div>
+</section>
+
+</div>
 </main>
 
 <script>
+const $=id=>document.getElementById(id);
+const v=id=>$(id)?($(id).value||'').trim():'';
+let photos=[];
+let lastWA='';
 
-const $ = id => document.getElementById(id);
-
-const v = id =>
-  $(id) ? ($(id).value || '').trim() : '';
-
-let photoData = [];
-
-let lastWA = '';
-
-function esc(s){
-  return String(s).replace(
-    /[&<>"']/g,
-    m => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[m])
-  );
+function text(){
+let title=v('title')||(v('type')||'Residential')+' Property';
+let purpose=v('purpose')||'available';
+let loc=v('location');
+  let price=v('price');
+let d=title+' is available '+purpose.toLowerCase()+(loc?' in '+loc:'')+'.';
+let specs=[];
+if(v('area'))specs.push(v('area'));
+if(v('beds'))specs.push(v('beds')+' bedrooms');
+if(v('baths'))specs.push(v('baths')+' bathrooms');
+if(specs.length)d+=' The property offers '+specs.join(', ')+'.';
+if(price)d+=' The asking price is '+price+'.';
+let keys=[];
+if(v('ownership'))keys.push(v('ownership')+' ownership');
+if(v('floor'))keys.push('Floor '+v('floor'));
+if(v('facing'))keys.push(v('facing')+' facing');
+if(v('parking'))keys.push(v('parking')+' parking');
+if(v('furnished')&&v('furnished')!='Not specified')d+=' The property is '+v('furnished').toLowerCase()+'.';
+if(keys.length)d+=' Key details include '+keys.join(', ')+'.';
+if(v('amenities'))d+=' Amenities include '+v('amenities')+'.';
+if(v('nearby'))d+=' Location highlights include '+v('nearby')+'.';
+if(v('more'))d+=' '+v('more');
+return d;
 }
 
-function description(){
-
-  const title =
-    v('title') ||
-    (v('type') || 'Residential') + ' Property';
-
-  const purpose =
-    v('purpose') || 'available';
-
-  const loc = v('location');
-
-  const price = v('price');
-
-  let d =
-    `${title} is available ${purpose.toLowerCase()}${loc ? ' in '+loc : ''}.`;
-
-  const specs = [];
-
-  if(v('area'))
-    specs.push(v('area'));
-
-  if(v('beds'))
-    specs.push(v('beds')+' bedrooms');
-
-  if(v('baths'))
-    specs.push(v('baths')+' bathrooms');
-
-  if(specs.length)
-    d += ` The property offers ${specs.join(', ')}.`;
-
-  if(price)
-    d += ` The asking price is ${price}.`;
-
-  const keys = [];
-
-  if(v('ownership'))
-    keys.push(v('ownership')+' ownership');
-
-  if(v('floor'))
-    keys.push('Floor '+v('floor'));
-
-  if(v('facing'))
-    keys.push(v('facing')+' facing');
-
-  if(v('parking'))
-    keys.push(v('parking')+' parking');
-
-  if(
-    v('furnished') &&
-    v('furnished') !== 'Not specified'
-  )
-    d += ` The property is ${v('furnished').toLowerCase()}.`;
-
-  if(keys.length)
-    d += ` Key details include ${keys.join(', ')}.`;
-
-  if(v('amenities'))
-    d += ` Amenities include ${v('amenities')}.`;
-
-  if(v('nearby'))
-    d += ` Location highlights include ${v('nearby')}.`;
-
-  if(v('more'))
-    d += ` ${v('more')}`;
-
-  return d;
+function preview(){
+let title=v('title')||(v('type')||'Residential')+' Property';
+$('pvTitle').textContent=title;
+$('pvLoc').textContent='📍 '+(v('location')||'Location not specified');
+$('pvPrice').textContent=v('price')||'Price on request';
+let a=[v('area')&&'Area: '+v('area'),v('beds')&&'Bedrooms: '+v('beds'),v('baths')&&'Bathrooms: '+v('baths'),v('floor')&&'Floor: '+v('floor'),v('parking')&&'Parking: '+v('parking')].filter(Boolean);
+$('pills').innerHTML=a.map(x=>'<span class="pill">'+x+'</span>').join('');
+$('pvDesc').textContent=text();
 }
 
-function updatePreview(){
-
-  const title =
-    v('title') ||
-    (v('type') || 'Residential')+' Property';
-
-  const loc =
-    v('location') ||
-    'Location not specified';
-
-  const price =
-    v('price') ||
-    'Price on request';
-
-  $('pvTitle').textContent = title;
-
-  $('pvLoc').textContent =
-    '📍 '+loc;
-
-  $('pvPrice').textContent =
-    price;
-
-  const items = [
-
-    v('area') &&
-      'Area: '+v('area'),
-
-    v('beds') &&
-      'Bedrooms: '+v('beds'),
-
-    v('baths') &&
-      'Bathrooms: '+v('baths'),
-
-    v('floor') &&
-      'Floor: '+v('floor'),
-
-    v('parking') &&
-      'Parking: '+v('parking')
-
-  ].filter(Boolean);
-
-  $('pills').innerHTML =
-    items.map(
-      x => `<span class="pill">${esc(x)}</span>`
-    ).join('');
-
-  $('pvDesc').textContent =
-    description();
-  function generate(){
-
-  const title =
-    v('title') ||
-    (v('type') || 'Residential')+' Property';
-
-  const loc =
-    v('location') ||
-    'Location not specified';
-
-  const price =
-    v('price') ||
-    'Price on request';
-
-  const d = description();
-
-  const details = [
-
-    v('area') &&
-      'Area: '+v('area'),
-
-    v('ownership') &&
-      'Ownership: '+v('ownership'),
-
-    v('beds') &&
-      'Bedrooms: '+v('beds'),
-
-    v('baths') &&
-      'Bathrooms: '+v('baths'),
-
-    v('floor') &&
-      'Floor: '+v('floor'),
-
-    v('facing') &&
-      'Facing: '+v('facing'),
-
-    v('parking') &&
-      'Parking: '+v('parking'),
-
-    v('furnished') &&
-      'Furnished: '+v('furnished'),
-
-    v('amenities') &&
-      'Amenities: '+v('amenities')
-
-  ].filter(Boolean);
-
-  lastWA =
-`🏠 ${title}
-📍 ${loc}
-💰 ${price}
-
-${d}
-
-${details.length ?
-'✨ KEY DETAILS\n'+
-details.map(x=>'• '+x).join('\n')
-:''}
-
-📞 ${v('contact') || 'Contact details not provided'}`;
-
-  $('desc').textContent = d;
-
-  $('wa').textContent = lastWA;
-
-  $('web').textContent =
-`${title}
-
-${d}
-
-KEY DETAILS
-${details.join('\n') || 'Details available on request.'}
-
-CONTACT
-${v('contact') || 'Contact details not provided'}`;
-
-  $('ig').textContent =
-`🏠 ${title}
-📍 ${loc}
-💰 ${price}
-
-${d}
-
-${details.slice(0,7).join(' • ')}
-
-📞 ${v('contact') || 'Contact details not provided'}
-
-#RealEstate #PropertyForSale #PropertyListing`;
-
-  updatePreview();
-
-  updateDesign();
-
-  notice(
-    'Content generated successfully.'
-  );
+function generate(){
+let title=v('title')||(v('type')||'Residential')+' Property',loc=v('location')||'Location not specified',price=v('price')||'Price on request',d=text();
+let details=[v('area')&&'Area: '+v('area'),v('ownership')&&'Ownership: '+v('ownership'),v('beds')&&'Bedrooms: '+v('beds'),v('baths')&&'Bathrooms: '+v('baths'),v('floor')&&'Floor: '+v('floor'),v('facing')&&'Facing: '+v('facing'),v('parking')&&'Parking: '+v('parking'),v('furnished')&&'Furnished: '+v('furnished')].filter(Boolean);
+lastWA='🏠 '+title+'\n📍 '+loc+'\n💰 '+price+'\n\n'+d+'\n\n'+(details.length?'✨ KEY DETAILS\n• '+details.join('\n• '):'')+'\n\n📞 '+(v('contact')||'Contact details not provided');
+$('desc').textContent=d;$('wa').textContent=lastWA;
+$('web').textContent=title+'\n\n'+d+'\n\nKEY DETAILS\n'+(details.join('\n')||'Details available on request.')+'\n\nCONTACT\n'+(v('contact')||'Contact details not provided');
+$('ig').textContent='🏠 '+title+'\n📍 '+loc+'\n💰 '+price+'\n\n'+d+'\n\n'+details.slice(0,7).join(' • ')+'\n\n📞 '+(v('contact')||'Contact details not provided')+'\n\n#RealEstate #PropertyForSale #PropertyListing';
+preview();designUpdate();show('Content generated successfully.');
 }
 
-function updateDesign(){
-
-  const title =
-    v('title') ||
-    'PREMIUM PROPERTY';
-
-  $('canvaTitle').textContent =
-    title.toUpperCase();
-
-  $('canvaLocation').textContent =
-    '📍 '+(v('location') || 'Location');
-
-  $('canvaPrice').textContent =
-    v('price') || '₹ —';
-
-  $('canvaContact').textContent =
-    '☎ '+(
-      v('contact') ||
-      'Contact details'
-    );
-
-  $('cArea').textContent =
-    v('area') || '—';
-
-  $('cBeds').textContent =
-    v('beds') || '—';
-
-  $('cBaths').textContent =
-    v('baths') || '—';
-
-  $('cParking').textContent =
-    v('parking') || '—';
-
-  $('cFloor').textContent =
-    v('floor') || '—';
-
-  $('cFacing').textContent =
-    v('facing') || '—';
-
-  $('cAmenities').textContent =
-    v('amenities') || '—';
-
-  $('cNearby').textContent =
-    v('nearby') || '—';
-
-  const box =
-    $('canvaPhotos');
-
-  box.innerHTML = '';
-
-  photoData.slice(0,5).forEach(src=>{
-
-    const img =
-      document.createElement('img');
-
-    img.src = src;
-
-    box.appendChild(img);
-
-  });
-
-  if(!photoData.length){
-
-    for(let i=0;i<5;i++){
-
-      const ph =
-        document.createElement('div');
-
-      ph.style.cssText =
-        'background:linear-gradient(135deg,#eef2f7,#d9dee7);border-radius:5px';
-
-      box.appendChild(ph);
-    }
-  }
+function designUpdate(){
+$('canvaTitle').textContent=(v('title')||'PREMIUM PROPERTY').toUpperCase();
+$('canvaLocation').textContent='📍 '+(v('location')||'Location');
+$('canvaPrice').textContent=v('price')||'₹ —';
+$('canvaContact').textContent='☎ '+(v('contact')||'Contact details');
+$('cArea').textContent=v('area')||'—';$('cBeds').textContent=v('beds')||'—';$('cBaths').textContent=v('baths')||'—';$('cParking').textContent=v('parking')||'—';$('cFloor').textContent=v('floor')||'—';$('cFacing').textContent=v('facing')||'—';$('cAmenities').textContent=v('amenities')||'—';$('cNearby').textContent=v('nearby')||'—';
+let box=$('canvaPhotos');box.innerHTML='';
+if(!photos.length){for(let i=0;i<5;i++){let p=document.createElement('div');p.className='placeholder';box.appendChild(p)}}
+else photos.slice(0,5).forEach(src=>{let im=new Image();im.src=src;box.appendChild(im)});
 }
 
-function renderPhotos(){
-
-  $('gallery').innerHTML = '';
-
-  photoData.forEach((src,i)=>{
-
-    const wrap =
-      document.createElement('div');
-
-    wrap.className =
-      'photoItem';
-
-    const img =
-      document.createElement('img');
-
-    img.src = src;
-
-    const btn =
-      document.createElement('button');
-
-    btn.className =
-      'removePhoto';
-
-    btn.textContent =
-      '×';
-
-    btn.onclick = ()=>{
-
-      photoData.splice(i,1);
-
-      renderPhotos();
-
-      updateDesign();
-
-    };
-
-    wrap.appendChild(img);
-
-    wrap.appendChild(btn);
-
-    $('gallery').appendChild(wrap);
-
-  });
+function render(){
+$('gallery').innerHTML='';
+photos.forEach((src,i)=>{let d=document.createElement('div');d.className='photo';let im=new Image();im.src=src;let b=document.createElement('button');b.className='remove';b.textContent='×';b.onclick=()=>{photos.splice(i,1);render();designUpdate()};d.append(im,b);$('gallery').appendChild(d)});
+designUpdate();
 }
 
-$('photos').addEventListener(
-  'change',
-  e => {
+$('photos').onchange=e=>{
+photos=[];
+[...e.target.files].slice(0,10).forEach(file=>{
+let r=new FileReader();r.onload=ev=>{photos.push(ev.target.result);render()};r.readAsDataURL(file)
+});
+};
+  $('generateBtn').onclick=generate;
+$('copyBtn').onclick=()=>{
+if(!lastWA)generate();
+if(navigator.clipboard)navigator.clipboard.writeText(lastWA).then(()=>show('WhatsApp message copied.'));
+else{let t=document.createElement('textarea');t.value=lastWA;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();show('WhatsApp message copied.')}
+};
 
-    photoData = [];
+$('shareBtn').onclick=async()=>{
+if(!lastWA)generate();
+if(navigator.share){try{await navigator.share({title:'Property Listing',text:lastWA})}catch(e){}}
+else window.open('https://wa.me/?text='+encodeURIComponent(lastWA),'_blank');
+};
 
-    [...e.target.files]
-      .slice(0,10)
-      .forEach(file=>{
+$('pdfBtn').onclick=()=>window.print();
 
-        const r =
-          new FileReader();
+$('canvaBtn').onclick=()=>window.open('https://www.canva.com/create/','_blank');
 
-        r.onload = ev => {
+$('pngBtn').onclick=()=>{
+let node=$('design'),rect=node.getBoundingClientRect(),scale=2;
+let c=document.createElement('canvas');
+c.width=rect.width*scale;
+c.height=rect.height*scale;
 
-          photoData.push(
-            ev.target.result
-          );
+let ctx=c.getContext('2d');
+ctx.scale(scale,scale);
+ctx.fillStyle='#fff';
+ctx.fillRect(0,0,rect.width,rect.height);
 
-          renderPhotos();
+let data='<svg xmlns="http://www.w3.org/2000/svg" width="'+rect.width+'" height="'+rect.height+'"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml">'+node.outerHTML+'</div></foreignObject></svg>';
 
-          updateDesign();
+let img=new Image();
 
-        };
+img.onload=()=>{
+ctx.drawImage(img,0,0);
 
-        r.readAsDataURL(file);
+let a=document.createElement('a');
+a.download='PropDeck-Canva-Design.png';
+a.href=c.toDataURL('image/png');
+a.click();
 
-      });
-  }
+show('PNG created successfully.')
+};
+
+img.onerror=()=>{
+show('PNG export failed in this browser. Use Save / Print PDF instead.')
+};
+
+img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(data);
+};
+
+$('resetBtn').onclick=()=>{
+document.querySelectorAll('input,textarea').forEach(x=>{
+if(x.type!='file')x.value=''
+});
+
+$('photos').value='';
+photos=[];
+render();
+
+$('desc').textContent='—';
+$('wa').textContent='—';
+$('web').textContent='—';
+$('ig').textContent='—';
+
+preview();
+show('Form reset.');
+};
+
+function show(msg){
+$('notice').textContent=msg;
+$('notice').style.display='block';
+clearTimeout(window.nt);
+window.nt=setTimeout(()=>{
+$('notice').style.display='none'
+},2500)
+}
+
+document.querySelectorAll('input,select,textarea').forEach(el=>
+el.addEventListener('input',()=>{
+preview();
+designUpdate()
+})
 );
 
-$('generateBtn').onclick =
-  generate;
-
-$('copyBtn').onclick = ()=>{
-
-  if(!lastWA)
-    generate();
-
-  navigator.clipboard
-    .writeText(lastWA)
-    .then(
-      ()=>notice(
-        'WhatsApp message copied.'
-      )
-    );
-};
-
-$('shareBtn').onclick =
-  async ()=>{
-
-    if(!lastWA)
-      generate();
-
-    if(navigator.share){
-
-      try{
-
-        await navigator.share({
-
-          title:
-            'Property Listing',
-
-          text:
-            lastWA
-
-        });
-
-      }catch(e){}
-
-    }else{
-
-      $('copyBtn').click();
-
-    }
-  };
-
-$('pdfBtn').onclick =
-  ()=>window.print();
-
-$('canvaBtn').onclick = ()=>{
-
-  window.open(
-    'https://www.canva.com/create/',
-    '_blank'
-  );
-
-};
-
-$('pngBtn').onclick =
-  async ()=>{
-
-    notice(
-      'Preparing PNG...'
-    );
-
-    if(
-      typeof html2canvas ===
-      'undefined'
-    ){
-
-      notice(
-        'PNG library is loading. Please try again.'
-      );
-
-      return;
-    }
-
-    const canvas =
-      await html2canvas(
-        $('canvaDesign'),
-        {
-          scale:2,
-          useCORS:true,
-          backgroundColor:'#ffffff'
-        }
-      );
-
-    const a =
-      document.createElement('a');
-
-    a.download =
-      'PropDeck-Canva-Design.png';
-
-    a.href =
-      canvas.toDataURL(
-        'image/png'
-      );
-
-    a.click();
-
-    notice(
-      'Canva-ready PNG downloaded.'
-    );
-  };
-
-$('resetBtn').onclick = ()=>{
-
-  document
-    .querySelectorAll(
-      'input,textarea'
-    )
-    .forEach(el=>{
-
-      if(el.type !== 'file')
-        el.value='';
-
-    });
-
-  $('photos').value='';
-
-  photoData=[];
-
-  renderPhotos();
-
-  $('desc').textContent='—';
-
-  $('wa').textContent='—';
-
-  $('web').textContent='—';
-
-  $('ig').textContent='—';
-
-  $('pvTitle').textContent =
-    'Your Property Title';
-
-  $('pvLoc').textContent =
-    'Location';
-
-  $('pvPrice').textContent =
-    'Price';
-
-  $('pvDesc').textContent =
-    'Your generated description will appear here.';
-
-  updateDesign();
-
-  notice(
-    'Form reset.'
-  );
-};
-
-function notice(msg){
-
-  $('notice').textContent =
-    msg;
-
-  $('notice').style.display =
-    'block';
-
-  clearTimeout(
-    window.__n
-  );
-
-  window.__n =
-    setTimeout(
-      () =>
-        $('notice').style.display =
-          'none',
-      2600
-    );
-}
-
-updateDesign();
+designUpdate();
+preview();
 
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 </body>
 </html>
-}
