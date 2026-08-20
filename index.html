@@ -1,74 +1,321 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>PropDeck AI - Property Marketing</title>
-<style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6f9;color:#101828}button,input,select,textarea{font:inherit}button{cursor:pointer}
-header{height:82px;background:#fff;border-bottom:1px solid #e4e7ec;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:1000}.header-logo{height:56px;width:auto;max-width:220px;object-fit:contain}.header-badge{border:1px solid #9fc3e8;color:#075a9c;background:#eef7ff;padding:9px 14px;border-radius:9px;font-size:13px;font-weight:600}
-.container{width:min(1500px,calc(100% - 40px));margin:28px auto 60px}.page-heading{margin-bottom:20px}.page-heading h1{margin:0 0 8px;font-size:clamp(25px,3vw,34px)}.page-heading p{margin:0;color:#667085;font-size:14px}.main-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}.left-column,.right-column{min-width:0}
-.card,.social-section{background:#fff;border:1px solid #e4e7ec;border-radius:16px;padding:20px;margin-bottom:20px;box-shadow:0 3px 14px rgba(16,24,40,.04)}.card-title{margin:0 0 18px;font-size:18px}.card-subtitle{margin:-10px 0 18px;color:#667085;font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;margin-bottom:7px;font-size:12px;font-weight:700;color:#344054}.field input,.field select,.field textarea{width:100%;border:1px solid #d0d5dd;border-radius:9px;background:#fff;color:#101828;outline:none;padding:11px 12px;font-size:13px}.field input:focus,.field select:focus,.field textarea:focus{border-color:#1769aa;box-shadow:0 0 0 3px rgba(23,105,170,.1)}.field textarea{min-height:105px;resize:vertical}
-.photo-upload{border:1px dashed #b8c1cc;border-radius:12px;padding:16px;background:#fafbfc}.photo-upload input{width:100%}.photo-gallery{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:14px}.photo-item{position:relative;aspect-ratio:1;overflow:hidden;border-radius:10px;background:#eef2f6;border:1px solid #e4e7ec}.photo-item img{width:100%;height:100%;object-fit:cover}.photo-remove{position:absolute;top:5px;right:5px;width:24px;height:24px;border:0;border-radius:50%;background:#fff;color:#d92d20;font-weight:bold}
-.branding-box{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px}.logo-preview{height:120px;border:1px solid #e4e7ec;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;padding:12px}.logo-preview img{max-width:100%;max-height:100%;object-fit:contain}.brand-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.brand-fields .full{grid-column:1/-1}
-.action-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.btn{border:0;border-radius:10px;padding:11px 17px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px}.btn-primary{background:#101828;color:#fff}.btn-secondary{background:#eef2f6;color:#101828}.btn-canva{background:#7c3aed;color:#fff}.btn:active{transform:scale(.98)}
-.property-preview{background:#0b1735;color:#fff;border-radius:16px;padding:24px;min-height:420px}.preview-brand{font-size:10px;letter-spacing:3px;opacity:.7;margin-bottom:12px}.preview-title{font-size:28px;font-weight:800;line-height:1.15;margin-bottom:9px}.preview-location{font-size:14px;margin-bottom:8px}.preview-price{font-size:30px;font-weight:800;margin-bottom:15px}.preview-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}.preview-pills span{border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:6px 9px;font-size:11px}.preview-description{font-size:13px;line-height:1.6;color:#e5e7eb}
-.output-box{background:#f8fafc;border:1px solid #e4e7ec;border-radius:12px;padding:15px;margin-bottom:12px}.output-box h3{margin:0 0 10px;font-size:14px}.output-text{white-space:pre-wrap;font-size:13px;line-height:1.65;color:#344054;min-height:30px}.output-actions{display:flex;gap:8px;margin-top:12px}.output-actions button{border:0;border-radius:9px;padding:9px 12px;background:#eef2f6;color:#101828;font-weight:700;font-size:12px}
-.social-section h2{margin:0 0 5px;font-size:18px}.social-section>p{margin:0 0 16px;color:#667085;font-size:12px}.social-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.social-card{border:0;border-radius:12px;padding:15px;min-height:75px;display:flex;align-items:center;justify-content:center;gap:10px;color:#fff;font-weight:800;font-size:14px}.social-whatsapp{background:#16c965}.social-facebook{background:#1877f2}.social-instagram{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af)}.social-card span{font-size:20px}
-.canva-preview{background:#f7f9fb;border:1px solid #e4e7ec;border-radius:12px;padding:15px;overflow:hidden}.canva-preview canvas{width:100%;display:block;background:#fff}.notice{display:none;margin-top:12px;padding:11px 13px;border-radius:9px;background:#ecfdf3;color:#027a48;font-size:12px;font-weight:700}
-.design-modal{position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,.82);display:none;align-items:center;justify-content:center;padding:15px}.design-modal.active{display:flex}.design-modal-box{width:min(900px,100%);max-height:96vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.4)}.design-modal-header{position:sticky;top:0;z-index:5;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid #eaecf0}.design-modal-header h2{margin:0;font-size:17px}.design-modal-header p{margin:4px 0 0;color:#667085;font-size:11px}.close-modal{width:38px;height:38px;border:0;border-radius:9px;background:#f2f4f7;color:#344054;font-size:20px}.canvas-area{background:#eef2f6;padding:20px;display:flex;justify-content:center;align-items:center;overflow:auto}.canvas-wrap{background:#fff;box-shadow:0 12px 35px rgba(16,24,40,.18);max-width:100%;overflow:hidden}.canvas-wrap canvas{display:block;max-width:100%;height:auto}.modal-actions{display:flex;flex-wrap:wrap;gap:9px;padding:15px 18px}.modal-actions button{border:0;border-radius:9px;padding:11px 15px;font-size:12px;font-weight:800}.download-png{background:#101828;color:#fff}.download-jpg{background:#eef2f6;color:#101828}.modal-canva{background:#7c3aed;color:#fff}
-.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);z-index:100000;background:#101828;color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:700;display:none;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-@media(max-width:1100px){.main-grid{grid-template-columns:1fr}.right-column{display:block}}@media(max-width:750px){header{height:70px;padding:0 15px}.header-logo{height:45px}.container{width:calc(100% - 20px);margin-top:18px}.form-grid,.brand-fields{grid-template-columns:1fr}.field.full,.brand-fields .full{grid-column:auto}.photo-gallery{grid-template-columns:repeat(3,1fr)}.branding-box{grid-template-columns:1fr}.social-grid{grid-template-columns:1fr}.action-row{flex-direction:column}.action-row .btn{width:100%}}@media(max-width:450px){.card,.social-section{padding:15px}.page-heading h1{font-size:23px}.photo-gallery{grid-template-columns:repeat(2,1fr)}}
-</style>
-</head>
-<body>
-<header><img id="headerLogo" class="header-logo" src="./file_00000000bc188211a200a0ccdbc1cecd.png" alt="PropDeck"><div class="header-badge">Real Estate Marketing</div></header>
-<main class="container">
-<div class="page-heading"><h1>Turn property details into marketing content.</h1><p>Enter the property information, upload photos and generate a complete marketing pack.</p></div>
-<div class="main-grid"><div class="left-column">
-<section class="card"><h2 class="card-title">1. Property Details</h2><div class="form-grid">
-<div class="field"><label>Property Type *</label><select id="propertyType"><option>Residential</option><option>Commercial</option><option>Plot</option><option>Villa</option><option>Apartment</option><option>Office</option></select></div>
-<div class="field"><label>Purpose *</label><select id="purpose"><option>For Sale</option><option>For Rent</option><option>For Lease</option></select></div>
-<div class="field"><label>Property Title</label><input id="propertyTitle" placeholder="Premium 4 BHK House"></div>
-<div class="field"><label>Location *</label><input id="location" placeholder="Dwarka, New Delhi"></div>
-<div class="field"><label>Price *</label><input id="price" placeholder="₹ 4 Cr"></div>
-<div class="field"><label>Area</label><input id="area" placeholder="2000 Sq.Ft."></div>
-<div class="field"><label>Ownership</label><select id="ownership"><option>Not specified</option><option>Freehold</option><option>Leasehold</option></select></div>
-</div></section>
-<section class="card"><h2 class="card-title">2. Specifications</h2><div class="form-grid">
-<div class="field"><label>Bedrooms</label><input id="bedrooms" placeholder="4"></div><div class="field"><label>Bathrooms</label><input id="bathrooms" placeholder="4"></div>
-<div class="field"><label>Floor</label><input id="floor" placeholder="2nd Floor"></div><div class="field"><label>Facing</label><input id="facing" placeholder="North-East"></div>
-<div class="field"><label>Parking</label><input id="parking" placeholder="2 Covered"></div><div class="field"><label>Furnished</label><select id="furnished"><option>Not specified</option><option>Furnished</option><option>Semi-Furnished</option><option>Unfurnished</option></select></div>
-<div class="field full"><label>Amenities</label><input id="amenities" placeholder="Lift, Security, Gym, Garden"></div>
-<div class="field full"><label>Nearby / Location Highlights</label><textarea id="nearby" placeholder="Metro, school, hospital, market, highway..."></textarea></div>
-</div></section>
-<section class="card"><h2 class="card-title">3. Photos & Additional Information</h2><div class="photo-upload"><label>Property Photos (up to 12)</label><input id="propertyPhotos" type="file" accept="image/*" multiple><div id="photoGallery" class="photo-gallery"></div></div>
-<div class="form-grid" style="margin-top:16px"><div class="field full"><label>Tell us more</label><textarea id="tellMore" placeholder="Well maintained property with modern interiors..."></textarea></div><div class="field"><label>Description Style</label><select id="descriptionStyle"><option>Professional</option><option>Luxury</option><option>Simple</option><option>Premium</option></select></div><div class="field"><label>Language</label><select id="language"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div><div class="field full"><label>Agent / Company / Contact</label><input id="contact" placeholder="Karan Estates • +91 XXXXX XXXXX"></div></div>
-<div class="action-row"><button class="btn btn-primary" id="generateBtn">✨ Generate Content</button><button class="btn btn-secondary" id="resetBtn">Reset</button></div><div id="notice" class="notice"></div></section>
-<section class="card"><h2 class="card-title">Company Branding</h2><p class="card-subtitle">Add your company logo, email and website. These details will appear on generated designs.</p><div class="branding-box"><div class="logo-preview"><img id="brandLogoPreview" alt="Logo preview"></div><div class="brand-fields"><div class="field full"><label>Company Logo</label><input id="companyLogo" type="file" accept="image/*"></div><div class="field"><label>Company Name</label><input id="companyName" placeholder="Arzu Estates"></div><div class="field"><label>Email ID</label><input id="companyEmail" placeholder="hello@example.com"></div><div class="field full"><label>Website</label><input id="companyWebsite" placeholder="example.com"></div></div></div></section>
-</div><div class="right-column">
-<section class="card"><h2 class="card-title">4. Property Preview</h2><div class="property-preview"><div class="preview-brand">PROPERTY PRESENTATION</div><div id="pvTitle" class="preview-title">Residential Property</div><div id="pvLocation" class="preview-location">📍 Location not specified</div><div id="pvPrice" class="preview-price">Price on request</div><div id="previewPills" class="preview-pills"></div><div id="pvDescription" class="preview-description">Property description will appear here after you generate the content.</div></div></section>
-<section class="card"><h2 class="card-title">5. Marketing Outputs</h2><div class="output-box"><h3>AI Description</h3><div id="aiDescription" class="output-text">—</div></div><div class="output-box"><h3>WhatsApp</h3><div id="whatsappOutput" class="output-text">—</div><div class="output-actions"><button id="copyWhatsappBtn">📋 Copy WhatsApp</button><button id="shareWhatsappBtn">💬 Share</button></div></div><div class="output-box"><h3>Website Listing</h3><div id="websiteOutput" class="output-text">—</div></div><div class="output-box"><h3>Instagram Caption</h3><div id="instagramOutput" class="output-text">—</div></div></section></div></div>
-<section class="social-section"><h2>🎨 Social Media Designs</h2><p>Generate platform-specific property posts using your uploaded photos and branding.</p><div class="social-grid"><button class="social-card social-whatsapp" id="whatsappDesignBtn"><span>🟢</span>WhatsApp Post</button><button class="social-card social-facebook" id="facebookDesignBtn"><span>🔵</span>Facebook Post</button><button class="social-card social-instagram" id="instagramDesignBtn"><span>🟣</span>Instagram Post</button></div></section>
-<section class="card"><h2 class="card-title">6. Canva-ready Design</h2><p class="card-subtitle">Generate the design here. Download the PNG and upload it into Canva for editing.</p><div class="canva-preview"><canvas id="mainCanvas" width="1080" height="1080"></canvas></div><div class="action-row"><button class="btn btn-primary" id="downloadMainPng">⬇ Download PNG</button><button class="btn btn-canva" id="openCanvaBtn">🎨 Open Canva</button></div></section>
-</main>
-<div id="designModal" class="design-modal"><div class="design-modal-box"><div class="design-modal-header"><div><h2 id="modalTitle">Social Media Post</h2><p id="modalSize">1080 × 1350</p></div><button class="close-modal" id="closeModalBtn">×</button></div><div class="canvas-area"><div class="canvas-wrap"><canvas id="socialCanvas" width="1080" height="1350"></canvas></div></div><div class="modal-actions"><button class="download-png" id="downloadDesignPng">⬇ Download Design</button><button class="download-jpg" id="downloadDesignJpg">🖼 Download JPG</button><button class="modal-canva" id="modalCanvaBtn">🎨 Open Canva</button></div></div></div>
-<div id="toast" class="toast"></div>
-<script>
-const $=id=>document.getElementById(id);let photos=[];let brandLogo='';let currentDesign='whatsapp';
-const v=(id,fb='—')=>{const e=$(id);return e&&e.value.trim()?e.value.trim():fb};
-function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.style.display='none',2200)}
-function data(){return{type:v('propertyType','Residential'),purpose:v('purpose','For Sale'),title:v('propertyTitle','Property for Sale'),location:v('location','Location not specified'),price:v('price','Price on request'),area:v('area'),ownership:v('ownership'),bedrooms:v('bedrooms'),bathrooms:v('bathrooms'),floor:v('floor'),facing:v('facing'),parking:v('parking'),furnished:v('furnished'),amenities:v('amenities'),nearby:v('nearby'),extra:v('tellMore',''),style:v('descriptionStyle','Professional'),language:v('language','English'),contact:v('contact','Contact details not provided'),company:v('companyName',''),email:v('companyEmail',''),website:v('companyWebsite','')}}
-function desc(d){let s=`${d.title} is available ${d.purpose.toLowerCase()} in ${d.location}. `;if(d.area!='—')s+=`The property offers ${d.area} of space. `;if(d.bedrooms!='—')s+=`It features ${d.bedrooms} bedrooms `;if(d.bathrooms!='—')s+=`and ${d.bathrooms} bathrooms. `;if(d.floor!='—')s+=`The property is located on ${d.floor}. `;if(d.facing!='—')s+=`Facing ${d.facing}. `;if(d.parking!='—')s+=`Parking: ${d.parking}. `;if(d.furnished!='—')s+=`Furnished status: ${d.furnished}. `;if(d.amenities!='—')s+=`Amenities include ${d.amenities}. `;if(d.nearby!='—')s+=`Nearby: ${d.nearby}. `;if(d.extra)s+=d.extra+' ';if(d.price!='Price on request')s+=`The asking price is ${d.price}.`;return s}
-function whatsapp(d,s){return`🏠 ${d.title}\n\n📍 ${d.location}\n💰 ${d.price}\n\n${s}\n\n📐 Area: ${d.area}\n🛏 Bedrooms: ${d.bedrooms}\n🛁 Bathrooms: ${d.bathrooms}\n🏢 Floor: ${d.floor}\n🚗 Parking: ${d.parking}\n🧭 Facing: ${d.facing}\n\n✨ Amenities: ${d.amenities}\n\n📞 ${d.contact}${d.website?'\n🌐 '+d.website:''}`}
-function website(d,s){return`${d.title}\n\n${s}\n\nKEY DETAILS\n\nArea: ${d.area}\nOwnership: ${d.ownership}\nBedrooms: ${d.bedrooms}\nBathrooms: ${d.bathrooms}\nFloor: ${d.floor}\nFacing: ${d.facing}\nParking: ${d.parking}\nFurnished: ${d.furnished}\n\nAmenities: ${d.amenities}\nLocation Highlights: ${d.nearby}\n\nCONTACT\n${d.contact}${d.email?'\nEmail: '+d.email:''}${d.website?'\nWebsite: '+d.website:''}`}
-function insta(d,s){return`🏠 ${d.title}\n📍 ${d.location}\n💰 ${d.price}\n\n${s}\n\n📐 ${d.area} • 🛏 ${d.bedrooms} Bedrooms • 🛁 ${d.bathrooms} Bathrooms • 🚗 ${d.parking} • 🏢 ${d.floor}\n\n✨ ${d.amenities}\n📞 ${d.contact}\n\n#RealEstate #PropertyForSale #PropertyListing #DreamHome #RealEstateIndia`}
-function updatePreview(d,s){$('pvTitle').textContent=d.title;$('pvLocation').textContent='📍 '+d.location;$('pvPrice').textContent=d.price;$('pvDescription').textContent=s;$('previewPills').innerHTML=[['Area',d.area],['Bedrooms',d.bedrooms],['Bathrooms',d.bathrooms],['Floor',d.floor],['Parking',d.parking],['Facing',d.facing]].filter(x=>x[1]!='—').map(x=>`<span>${x[0]}: ${x[1]}</span>`).join('')}
-function renderPhotos(){const g=$('photoGallery');g.innerHTML='';photos.forEach((src,i)=>{const div=document.createElement('div');div.className='photo-item';div.innerHTML=`<img src="${src}"><button class="photo-remove" data-i="${i}">×</button>`;g.appendChild(div)});g.querySelectorAll('.photo-remove').forEach(b=>b.onclick=()=>{photos.splice(+b.dataset.i,1);renderPhotos();drawMain()})}
-$('propertyPhotos').addEventListener('change',e=>{photos=[];Array.from(e.target.files).slice(0,12).forEach(f=>{if(f.type.startsWith('image/'))photos.push(URL.createObjectURL(f))});renderPhotos()});
-$('companyLogo').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;brandLogo=URL.createObjectURL(f);$('brandLogoPreview').src=brandLogo;drawMain()});
-function loadImage(src){return new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src})}
-function cover(ctx,img,x,y,w,h){const r=Math.max(w/img.width,h/img.height),nw=img.width*r,nh=img.height*r;ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();ctx.drawImage(img,x+(w-nw)/2,y+(h-nh)/2,nw,nh);ctx.restore()}
-async function logo(ctx,x,y,w,h){if(brandLogo){const i=await loadImage(brandLogo);if(i){cover(ctx,i,x,y,w,h);return}}const head=$('headerLogo');if(head&&head.complete&&head.naturalWidth){ctx.drawImage(head,x,y,w,h);return}ctx.fillStyle='#1681e8';ctx.font='bold 38px Arial';ctx.fillText('PropDeck',x,y+42)}
-function wrap(ctx,text,x,y,max,line){const words=String(text).split(/\s+/);let lineText='';for(const word of words){const test=lineText?lineText+' '+word:word;if(ctx.measureText(test).width>max&&lineText){ctx.fillText(lineText,x,y);y+=line;lineText=word}else lineText=test}if(lineText)ctx.fillText(lineText,x,y);return y}
-async function drawMain(){const c=$('mainCanvas'),ctx=c.getContext('2d'),d=data();ctx.clearRect(0,0,1080,1080);ctx.fillStyle='#fff';ctx.fillRect(0,0,1080,1080);ctx.fillStyle='#0b1735';ctx.fillRect(0,0,1080,125);await logo(ctx,40,20,190,80);ctx.fillStyle='#0b1735';ctx.font='bold 
+1	<!DOCTYPE html> 
+2	<html lang="en"> 
+3	<head> 
+4	<meta charset="UTF-8"> 
+5	<meta name="viewport" content="width=device-width,initial-scale=1.0"> 
+6	<title>PropDeck AI — Property Marketing</title> 
+7	<style> 
+8	:root{ 
+9	  --navy:#0b1735;--blue:#1769aa;--line:#e4e7ec;--muted:#667085; 
+10	  --bg:#f4f6f9;--card:#fff;--green:#16c965;--fb:#1877f2; 
+11	} 
+12	*{box-sizing:border-box} 
+13	html{scroll-behavior:smooth} 
+14	body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#101828} 
+15	button,input,select,textarea{font:inherit} 
+16	button{cursor:pointer} 
+17	header{height:82px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100} 
+18	.header-logo{height:56px;max-width:220px;object-fit:contain} 
+19	.badge{border:1px solid #9fc3e8;color:#075a9c;background:#eef7ff;padding:9px 14px;border-radius:9px;font-size:13px;font-weight:700} 
+20	.container{width:min(1500px,calc(100% - 40px));margin:28px auto 60px} 
+21	.heading h1{margin:0 0 8px;font-size:clamp(25px,3vw,34px)} 
+22	.heading p{margin:0 0 20px;color:var(--muted);font-size:14px} 
+23	.grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:20px;align-items:start} 
+24	.card,.social-section{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px;box-shadow:0 3px 14px rgba(16,24,40,.04)} 
+25	.title{margin:0 0 18px;font-size:18px} 
+26	.sub{margin:-10px 0 18px;color:var(--muted);font-size:12px} 
+27	.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px} 
+28	.field{min-width:0}.full{grid-column:1/-1} 
+29	label{display:block;margin:0 0 7px;font-size:12px;font-weight:700;color:#344054} 
+30	input,select,textarea{width:100%;border:1px solid #d0d5dd;border-radius:9px;padding:11px 12px;background:#fff;color:#101828;outline:none;font-size:13px} 
+31	input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,105,170,.1)} 
+32	textarea{min-height:105px;resize:vertical} 
+33	.photo-box{border:1px dashed #b8c1cc;border-radius:12px;padding:16px;background:#fafbfc} 
+34	.photo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px} 
+35	.photo{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#eef2f6;border:1px solid var(--line)} 
+36	.photo img{width:100%;height:100%;object-fit:cover;display:block} 
+37	.remove{position:absolute;right:5px;top:5px;width:24px;height:24px;border:0;border-radius:50%;background:#fff;color:#d92d20;font-weight:800} 
+38	.brand-grid{display:grid;grid-template-columns:150px 1fr;gap:18px} 
+39	.logo-preview{height:120px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden} 
+40	.logo-preview img{max-width:100%;max-height:100%;object-fit:contain}.logo-placeholder{color:#98a2b3;font-size:12px;text-align:center} 
+41	.brand-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px} 
+42	.brand-fields .full{grid-column:1/-1} 
+43	.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px} 
+44	.btn{border:0;border-radius:10px;padding:11px 17px;min-height:42px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px} 
+45	.primary{background:var(--navy);color:#fff}.secondary{background:#eef2f6;color:#101828}.canva{background:#7c3aed;color:#fff} 
+46	.preview{background:linear-gradient(145deg,#0b1735,#111d3d);color:#fff;border-radius:16px;padding:24px;min-height:420px;overflow:hidden} 
+47	.preview small{letter-spacing:3px;opacity:.7}.preview h2{font-size:28px;line-height:1.15;margin:12px 0 9px}.location{font-size:14px;margin-bottom:8px}.price{font-size:30px;font-weight:800;margin-bottom:15px} 
+48	.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}.pill{border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:6px 9px;font-size:11px} 
+49	.preview p{font-size:13px;line-height:1.6;color:#e5e7eb} 
+50	.output{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:15px;margin-bottom:12px} 
+51	.output h3{margin:0 0 10px;font-size:14px}.output-text{white-space:pre-wrap;font-size:13px;line-height:1.65;color:#344054;min-height:30px} 
+52	.out-actions{display:flex;gap:8px;margin-top:12px}.out-actions button{border:0;border-radius:9px;padding:9px 12px;background:#eef2f6;color:#101828;font-weight:700;font-size:12px} 
+53	.social-section h2{margin:0 0 5px;font-size:18px}.social-section>p{margin:0 0 16px;color:var(--muted);font-size:12px} 
+54	.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px} 
+55	.social-card{border:0;border-radius:12px;padding:15px;min-height:75px;color:#fff;font-weight:800;font-size:14px}.wa{background:#16c965}.fb{background:#1877f2}.ig{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af)} 
+56	.canvas-wrap{background:#eef2f6;border:1px solid var(--line);border-radius:12px;padding:15px;overflow:hidden} 
+57	canvas{display:block;width:100%;height:auto;background:#fff;box-shadow:0 8px 28px rgba(16,24,40,.12)} 
+58	.notice{display:none;margin-top:12px;padding:11px 13px;border-radius:9px;background:#ecfdf3;color:#027a48;font-size:12px;font-weight:700} 
+59	.modal{position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.82);display:none;align-items:center;justify-content:center;padding:15px} 
+60	.modal.show{display:flex}.modal-box{width:min(900px,100%);max-height:96vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.4)} 
+61	.modal-head{position:sticky;top:0;z-index:2;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid #eaecf0} 
+62	.modal-head h2{margin:0;font-size:17px}.modal-head p{margin:4px 0 0;color:#667085;font-size:11px} 
+63	.close{width:38px;height:38px;border:0;border-radius:9px;background:#f2f4f7;font-size:20px} 
+64	.canvas-area{background:#eef2f6;padding:20px;display:flex;justify-content:center} 
+65	#socialCanvas{width:auto;max-width:100%;height:auto;max-height:72vh;box-shadow:0 12px 35px rgba(16,24,40,.18)} 
+66	.modal-actions{display:flex;flex-wrap:wrap;gap:9px;padding:15px 18px}.modal-actions button{border:0;border-radius:9px;padding:11px 15px;font-size:12px;font-weight:800} 
+67	@media(max-width:1100px){.grid{grid-template-columns:1fr}} 
+68	@media(max-width:750px){ 
+69	  header{height:70px;padding:0 15px}.header-logo{height:45px}.container{width:calc(100% - 20px);margin-top:18px} 
+70	  .form{grid-template-columns:1fr}.full{grid-column:auto}.photo-grid{grid-template-columns:repeat(3,1fr)} 
+71	  .brand-grid,.brand-fields{grid-template-columns:1fr}.brand-fields .full{grid-column:auto}.social-grid{grid-template-columns:1fr} 
+72	  .actions,.out-actions,.modal-actions{flex-direction:column}.actions .btn,.out-actions button,.modal-actions button{width:100%} 
+73	} 
+74	@media(max-width:450px){.card,.social-section{padding:15px}.photo-grid{grid-template-columns:repeat(2,1fr)}.heading h1{font-size:23px}} 
+75	</style> 
+76	</head> 
+77	<body> 
+78	 
+79	<header> 
+80	  <img id="headerLogo" class="header-logo" alt="PropDeck"> 
+81	  <div class="badge">Real Estate Marketing</div> 
+82	</header> 
+83	 
+84	<main class="container"> 
+85	  <div class="heading"> 
+86	    <h1>Turn property details into marketing content.</h1> 
+87	    <p>Enter the property information, upload photos and generate a complete marketing pack.</p> 
+88	  </div> 
+89	 
+90	  <div class="grid"> 
+91	    <div class="left"> 
+92	 
+93	      <section class="card"> 
+94	        <h2 class="title">1. Property Details</h2> 
+95	        <div class="form"> 
+96	          <div class="field"><label>Property Type *</label><select id="propertyType"><option>Residential</option><option>Commercial</option><option>Plot</option><option>Villa</option><option>Apartment</option><option>Office</option></select></div> 
+97	          <div class="field"><label>Purpose *</label><select id="purpose"><option>For Sale</option><option>For Rent</option><option>For Lease</option></select></div> 
+98	          <div class="field"><label>Property Title</label><input id="title" placeholder="Premium 4 BHK House"></div> 
+99	          <div class="field"><label>Location *</label><input id="location" placeholder="Dwarka, New Delhi"></div> 
+100	          <div class="field"><label>Price *</label><input id="price" placeholder="₹ 4 Cr"></div> 
+101	          <div class="field"><label>Area</label><input id="area" placeholder="2000 Sq.Ft."></div> 
+102	          <div class="field"><label>Ownership</label><select id="ownership"><option>Not specified</option><option>Freehold</option><option>Leasehold</option></select></div> 
+103	        </div> 
+104	      </section> 
+105	 
+106	      <section class="card"> 
+107	        <h2 class="title">2. Specifications</h2> 
+108	        <div class="form"> 
+109	          <div class="field"><label>Bedrooms</label><input id="beds" placeholder="4"></div> 
+110	          <div class="field"><label>Bathrooms</label><input id="baths" placeholder="4"></div> 
+111	          <div class="field"><label>Floor</label><input id="floor" placeholder="2nd Floor"></div> 
+112	          <div class="field"><label>Facing</label><input id="facing" placeholder="North-East"></div> 
+113	          <div class="field"><label>Parking</label><input id="parking" placeholder="2 Covered"></div> 
+114	          <div class="field"><label>Furnished</label><select id="furnished"><option>Not specified</option><option>Furnished</option><option>Semi-Furnished</option><option>Unfurnished</option></select></div> 
+115	          <div class="field full"><label>Amenities</label><input id="amenities" placeholder="Lift, Security, Gym, Garden"></div> 
+116	          <div class="field full"><label>Nearby / Location Highlights</label><textarea id="nearby" placeholder="Metro, school, hospital, market, highway..."></textarea></div> 
+117	        </div> 
+118	      </section> 
+119	 
+120	      <section class="card"> 
+121	        <h2 class="title">3. Photos & Additional Information</h2> 
+122	        <div class="photo-box"> 
+123	          <label>Property Photos (up to 12)</label> 
+124	          <input id="photos" type="file" accept="image/*" multiple> 
+125	          <div id="photoGrid" class="photo-grid"></div> 
+126	        </div> 
+127	        <div class="form" style="margin-top:15px"> 
+128	          <div class="field full"><label>Tell us more</label><textarea id="tellMore" placeholder="Well maintained property with modern interiors. Peaceful location with all facilities nearby."></textarea></div> 
+129	          <div class="field"><label>Description Style</label><select id="descriptionStyle"><option>Professional</option><option>Luxury</option><option>Short & Clean</option><option>Premium Sales</option></select></div> 
+130	          <div class="field"><label>Language</label><select id="language"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div> 
+131	          <div class="field full"><label>Agent / Company / Contact</label><input id="contact" placeholder="Karan Estates • +91 XXXXX XXXXX"></div> 
+132	        </div> 
+133	        <div class="actions"> 
+134	          <button id="generateBtn" class="btn primary">✨ Generate Content</button> 
+135	          <button id="resetBtn" class="btn secondary">Reset</button> 
+136	        </div> 
+137	        <div id="notice" class="notice"></div> 
+138	      </section> 
+139	 
+140	      <section class="card"> 
+141	        <h2 class="title">Company Branding</h2> 
+142	        <p class="sub">Add your company logo, name, email and website. These details will appear on generated designs.</p> 
+143	        <div class="brand-grid"> 
+144	          <div class="logo-preview"><img id="brandLogoPreview" alt="" style="display:none"><div id="logoPlaceholder" class="logo-placeholder">Logo preview</div></div> 
+145	          <div class="brand-fields"> 
+146	            <div class="field full"><label>Company Logo</label><input id="logoInput" type="file" accept="image/*"></div> 
+147	            <div class="field"><label>Company Name</label><input id="companyName" placeholder="Arzu Estates"></div> 
+148	            <div class="field"><label>Email ID</label><input id="companyEmail" placeholder="hello@example.com"></div> 
+149	            <div class="field full"><label>Website</label><input id="companyWebsite" placeholder="example.com"></div> 
+150	          </div> 
+151	        </div> 
+152	      </section> 
+153	 
+154	    </div> 
+155	 
+156	    <div class="right"> 
+157	      <section class="card"> 
+158	        <h2 class="title">4. Property Preview</h2> 
+159	        <div class="preview"> 
+160	          <small>PROPERTY PRESENTATION</small> 
+161	          <h2 id="pvTitle">Residential Property</h2> 
+162	          <div id="pvLocation" class="location">📍 Location not specified</div> 
+163	          <div id="pvPrice" class="price">Price on request</div> 
+164	          <div id="pvPills" class="pills"></div> 
+165	          <p id="pvDesc">Property description will appear here after you generate the content.</p> 
+166	        </div> 
+167	      </section> 
+168	 
+169	      <section class="card"> 
+170	        <h2 class="title">5. Marketing Outputs</h2> 
+171	        <div class="output"><h3>AI Description</h3><div id="aiDescription" class="output-text">—</div></div> 
+172	        <div class="output"><h3>WhatsApp</h3><div id="whatsappOutput" class="output-text">—</div><div class="out-actions"><button id="copyBtn">📋 Copy WhatsApp</button><button id="shareBtn">💬 Share</button></div></div> 
+173	        <div class="output"><h3>Website Listing</h3><div id="websiteOutput" class="output-text">—</div></div> 
+174	        <div class="output"><h3>Instagram Caption</h3><div id="instagramOutput" class="output-text">—</div></div> 
+175	      </section> 
+176	    </div> 
+177	  </div> 
+178	 
+179	  <section class="social-section"> 
+180	    <h2>🎨 Social Media Designs</h2> 
+181	    <p>Generate correctly sized, one-page property creatives from the same details and uploaded photos.</p> 
+182	    <div class="social-grid"> 
+183	      <button id="waDesignBtn" class="social-card wa">🟢 WhatsApp Post</button> 
+184	      <button id="fbDesignBtn" class="social-card fb">🔵 Facebook Post</button> 
+185	      <button id="igDesignBtn" class="social-card ig">🟣 Instagram Post</button> 
+186	    </div> 
+187	  </section> 
+188	 
+189	  <section class="card"> 
+190	    <h2 class="title">6. Canva-ready Design</h2> 
+191	    <p class="sub">The same clean master design is shown here. Download it as PNG or open Canva.</p> 
+192	    <div class="canvas-wrap"><canvas id="mainCanvas" width="1080" height="1080"></canvas></div> 
+193	    <div class="actions"> 
+194	      <button id="mainPngBtn" class="btn primary">⬇ Download PNG</button> 
+195	      <button id="canvaBtn" class="btn canva">🎨 Open Canva</button> 
+196	    </div> 
+197	  </section> 
+198	</main> 
+199	 
+200	<div id="modal" class="modal"> 
+201	  <div class="modal-box"> 
+202	    <div class="modal-head"> 
+203	      <div><h2 id="modalTitle">Social Media Post</h2><p id="modalSize">1080 × 1350</p></div> 
+204	      <button id="closeModal" class="close">×</button> 
+205	    </div> 
+206	    <div class="canvas-area"><canvas id="socialCanvas" width="1080" height="1350"></canvas></div> 
+207	    <div class="modal-actions"> 
+208	      <button id="pngBtn" class="primary">⬇ Download Design</button> 
+209	      <button id="jpgBtn" class="secondary">🖼 Download JPG</button> 
+210	      <button id="modalCanva" class="canva">🎨 Open Canva</button> 
+211	    </div> 
+212	  </div> 
+213	</div> 
+214	 
+215	<script> 
+216	(function(){ 
+217	"use strict"; 
+218	 
+219	/* ---------- STATE ---------- */ 
+220	const state={photos:[],logo:null,current:"whatsapp"}; 
+221	 
+222	const $=id=>document.getElementById(id); 
+223	const val=(id,fb="")=>{ 
+224	  const e=$(id); if(!e)return fb; 
+225	  const v=(e.value??"").trim(); return v||fb; 
+226	}; 
+227	const text=(id,v)=>{const e=$(id);if(e)e.textContent=v}; 
+228	function msg(s){ 
+229	  const n=$("notice"); if(!n)return; 
+230	  n.textContent=s;n.style.display="block"; 
+231	  clearTimeout(window.__msgTimer); 
+232	  window.__msgTimer=setTimeout(()=>n.style.display="none",2600); 
+233	} 
+234	 
+235	/* ---------- BRAND LOGO ---------- */ 
+236	function loadDefaultHeaderLogo(){ 
+237	  /* Self-contained text fallback; user logo is optional. */ 
+238	  const c=$("headerLogo"); 
+239	  c.style.display="none"; 
+240	  const b=document.querySelector(".badge"); 
+241	  const fake=document.createElement("div"); 
+242	  fake.textContent="PropDeck"; 
+243	  fake.style.cssText="font-size:25px;font-weight:900;color:#1769aa;letter-spacing:-1px"; 
+244	  c.parentNode.insertBefore(fake,c); 
+245	} 
+246	loadDefaultHeaderLogo(); 
+247	 
+248	$("logoInput").addEventListener("change",e=>{ 
+249	  const f=e.target.files[0]; if(!f)return; 
+250	  const r=new FileReader(); 
+251	  r.onload=()=>{state.logo=r.result;$("brandLogoPreview").src=r.result;$("brandLogoPreview").style.display="block";$("logoPlaceholder").style.display="none";}; 
+252	  r.readAsDataURL(f); 
+253	}); 
+254	 
+255	/* ---------- PHOTOS ---------- */ 
+256	$("photos").addEventListener("change",e=>{ 
+257	  state.photos=[]; 
+258	  Array.from(e.target.files||[]).slice(0,12).forEach(file=>{ 
+259	    if(!file.type.startsWith("image/"))return; 
+260	    const r=new FileReader(); 
+261	    r.onload=()=>{state.photos.push({src:r.result,name:file.name});renderPhotos();}; 
+262	    r.readAsDataURL(file); 
+263	  }); 
+264	}); 
+265	function renderPhotos(){ 
+266	  const g=$("photoGrid");g.innerHTML=""; 
+267	  state.photos.forEach((p,i)=>{ 
+268	    const d=document.createElement("div");d.className="photo"; 
+269	    d.innerHTML='<img src="'+p.src+'" alt=""><button class="remove" type="button">×</button>'; 
+270	    d.querySelector(".remove").onclick=()=>{state.photos.splice(i,1);renderPhotos();}; 
+271	    g.appendChild(d); 
+272	  }); 
+273	} 
+274	 
+275	/* ---------- DATA ---------- */ 
+276	function data(){ 
+277	  return { 
+278	    type:val("propertyType","Residential"), 
+279	    purpose:val("purpose","For Sale"), 
+280	    title:val("title","Premium Residential Property"), 
+281	    location:val("location","Location not specified"), 
+282	    price:val("price","Price on request"), 
+283	    area:val("area","—"), 
+284	    ownership:val("ownership","—"), 
+285	    beds:val("beds","—"), 
+286	    baths:val("baths","—"), 
+287	    floor:val("floor","—"), 
+288	    facing:val("facing","—"), 
+289	    parking:val("parking","—"), 
+290	    furnished:val("furnished","—"), 
+291	    amenities:val("amenities","—"), 
+292	    nearby:val("nearby","—"), 
+293	    extra:val("tellMore",""), 
+294	    style:val("descriptionStyle","Professional"), 
+295	    language:val("language","English"), 
+296	    contact:val("contact","Contact details not provided"), 
+297	    company:val("companyName",""), 
+298	    email:val("companyEmail",""), 
+299	    website:val("companyWebsite","") 
+300	  }; 
+301	} 
+302	function description(d){ 
+303	  let s=""; 
+304	  if(d.language==="Hindi"||d.language==="Hinglish"){ 
+305	    s=`${d.title} ${d.location} mein ${d.purpose.toLowerCase()} ke liye available hai. `; 
+306	    if(d.area!=="—")s+=`${d.area} area ke saath `; 
+307	    if(d.beds!=="—")s+=`${d.beds} bedrooms `; 
+308	    if(d.baths!=="—")s+=`aur ${d.baths} bathrooms hain. `; 
+309	    if(d.floor!=="—")s+=`Floor: ${d.floor}. `; 
+310	    if(d.facing!=="—")s+=`Facing: ${d.facing}. `; 
+311	    if(d.parking!=="—")s+=`Parking: ${d.parking}. `; 
+312	    if(d.furnished!=="—")s+=`Furnished: ${d.furnished}. `; 
+313	    if(d.amenities!=="—")s+=`Amenities: ${d.amenities}. `; 
+314	    if(d.nearby!=="—")s+=`Nearby: ${d.nearby}. `; 
+315	    if(d.extra)s+=d.extra+" "; 
+316	    if(d.price!=="Price on request")s+=`Price ${d.price} hai.`; 
+317	  }else{ 
+318	    s=`${d.title} is available ${d.purpose.toLowerCase()} in ${d.location}. `; 
+319	    if(d.area!=="—")s+=`The property offers ${d.area} of space. `; 
+320	    if(d.beds!=="—")s+=`It features ${d.beds} bedrooms `; 
+321	    
