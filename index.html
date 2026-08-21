@@ -377,4 +377,274 @@ return `🏡 ${d.title}
 ${state.description}
 
 🛏️ ${d.bedrooms} Bedrooms
-🛁 ${d.bathroo
+🛁 ${d.bathrooms} Bathrooms
+📐 ${d.area}
+🚗 ${d.parking}
+
+✨ ${d.amenities}
+
+📞 ${d.contact}
+
+#RealEstate #PropertyForSale #DreamHome #RealEstateIndia #PropertyListing`;
+}
+
+function update(){
+const d=data();
+$("pvTitle").textContent=d.title;
+$("pvLocation").textContent="📍 "+d.location;
+$("pvPrice").textContent=d.price;
+$("pvDescription").textContent=state.description||"Property description will appear here after you generate the content.";
+$("previewPills").innerHTML=[
+`<span class="preview-pill">🛏️ ${d.bedrooms}</span>`,
+`<span class="preview-pill">🛁 ${d.bathrooms}</span>`,
+`<span class="preview-pill">📐 ${d.area}</span>`,
+`<span class="preview-pill">🚗 ${d.parking}</span>`
+].join("");
+}
+
+$("generateBtn").onclick=()=>{
+const d=data();
+state.description=description(d);
+state.whatsapp=whatsapp(d);
+state.website=website(d);
+state.instagram=instagram(d);
+$("aiDescription").textContent=state.description;
+$("whatsappOutput").textContent=state.whatsapp;
+$("websiteOutput").textContent=state.website;
+$("instagramOutput").textContent=state.instagram;
+update();
+drawMain();
+message("✅ Content generated successfully!");
+};
+
+async function copyText(t,msg){
+if(!t){message("⚠️ Pehle Generate Content par click karo.");return}
+try{await navigator.clipboard.writeText(t)}catch(e){
+const x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();document.execCommand("copy");x.remove()
+}
+message(msg);
+}
+
+$("copyWhatsappBtn").onclick=()=>copyText(state.whatsapp,"✅ WhatsApp copied.");
+$("copyWebsiteBtn").onclick=()=>copyText(state.website,"✅ Website listing copied.");
+$("copyInstagramBtn").onclick=()=>copyText(state.instagram,"✅ Instagram caption copied.");
+
+$("shareWhatsappBtn").onclick=()=>{
+if(!state.whatsapp){message("⚠️ Pehle Generate Content par click karo.");return}
+const u="https://wa.me/?text="+encodeURIComponent(state.whatsapp);
+window.open(u,"_blank");
+};
+
+$("companyLogo").onchange=e=>{
+const f=e.target.files?.[0];if(!f)return;
+const r=new FileReader();
+r.onload=()=>{
+state.logo=r.result;
+$("logoPreview").innerHTML=`<img src="${state.logo}" alt="Company Logo">`;
+drawMain();
+};
+r.readAsDataURL(f);
+};
+
+$("propertyPhotos").onchange=e=>{
+state.photos=[];
+[...e.target.files].slice(0,12).forEach(file=>{
+const r=new FileReader();
+r.onload=()=>{state.photos.push(r.result);gallery();drawMain()};
+r.readAsDataURL(file);
+});
+};
+
+function gallery(){
+$("photoGallery").innerHTML="";
+state.photos.forEach((src,i)=>{
+const d=document.createElement("div");d.className="photo-item";
+d.innerHTML=`<img src="${src}"><button type="button" class="photo-remove">×</button>`;
+d.querySelector("button").onclick=()=>{state.photos.splice(i,1);gallery();drawMain()};
+$("photoGallery").appendChild(d);
+});
+}
+
+function img(src){
+return new Promise(resolve=>{
+const i=new Image();i.onload=()=>resolve(i);i.onerror=()=>resolve(null);i.src=src;
+});
+}
+
+function cover(ctx,image,x,y,w,h){
+const r=Math.max(w/image.width,h/image.height),nw=image.width*r,nh=image.height*r;
+ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();
+ctx.drawImage(image,x+(w-nw)/2,y+(h-nh)/2,nw,nh);ctx.restore();
+}
+
+function logo(ctx,x,y,w,h){
+return state.logo?img(state.logo).then(i=>{if(i)cover(ctx,i,x,y,w,h)}):Promise.resolve();
+}
+
+function wrap(ctx,text,max){
+const words=text.split(" "),lines=[];let line="";
+words.forEach(w=>{
+const t=line?line+" "+w:w;
+if(ctx.measureText(t).width>max&&line){lines.push(line);line=w}else line=t;
+});
+if(line)lines.push(line);return lines;
+}
+
+async function drawMain(target=$("mainCanvas")){
+const d=data(),ctx=target.getContext("2d"),W=target.width,H=target.height;
+ctx.clearRect(0,0,W,H);ctx.fillStyle="#fff";ctx.fillRect(0,0,W,H);
+ctx.fillStyle="#0b1735";ctx.fillRect(0,0,W,170);
+await logo(ctx,35,20,190,125);
+ctx.fillStyle="#fff";ctx.font="bold 30px Arial";ctx.textAlign="right";ctx.fillText(d.company,W-40,85);
+ctx.textAlign="left";ctx.fillStyle="#0b1735";ctx.font="bold 55px Arial";
+let lines=wrap(ctx,d.title,W-80);let y=250;lines.slice(0,2).forEach(l=>{ctx.fillText(l,40,y);y+=65});
+ctx.fillStyle="#555";ctx.font="26px Arial";ctx.fillText("📍 "+d.location,40,y+5);
+ctx.fillStyle="#0b1735";ctx.font="bold 44px Arial";ctx.fillText(d.price,40,y+65);
+let top=y+95,gap=10,w=(W-90)/3,h=220;
+for(let n=0;n<6;n++){
+let x=40+(n%3)*(w+gap),yy=top+Math.floor(n/3)*(h+gap);
+if(state.photos[n]){let im=await img(state.photos[n]);if(im)cover(ctx,im,x,yy,w,h)}
+else{ctx.fillStyle="#edf1f6";ctx.fillRect(x,yy,w,h)}
+}
+let by=top+h*2+gap*2+25;
+ctx.fillStyle="#eef2f8";ctx.fillRect(40,by,W-80,130);
+ctx.fillStyle="#172033";ctx.font="bold 22px Arial";
+ctx.fillText("Area: "+d.area,60,by+40);
+ctx.fillText("Bedrooms: "+d.bedrooms,350,by+40);
+ctx.fillText("Bathrooms: "+d.bathrooms,680,by+40);
+ctx.fillText("Parking: "+d.parking,60,by+90);
+ctx.fillText("Floor: "+d.floor,350,by+90);
+ctx.fillText("Facing: "+d.facing,680,by+90);
+ctx.fillStyle="#0b1735";ctx.fillRect(0,H-135,W,135);
+ctx.fillStyle="#fff";ctx.font="bold 24px Arial";ctx.fillText(d.company,40,H-80);
+ctx.font="20px Arial";ctx.fillText(d.contact,40,H-42);
+ctx.textAlign="right";if(d.website)ctx.fillText(d.website,W-40,H-42);ctx.textAlign="left";
+}
+
+async function social(platform){
+state.current=platform;
+const c=$("socialCanvas");
+if(platform==="facebook"){c.width=1200;c.height=1500}
+else if(platform==="whatsapp"){c.width=1080;c.height=1080}
+else{c.width=1080;c.height=1350}
+$("modalTitle").textContent=platform==="facebook"?"Facebook Property Post":platform==="whatsapp"?"WhatsApp Property Post":"Instagram Property Post";
+$("modalSize").textContent=c.width+" × "+c.height;
+$("designModal").classList.add("active");
+$("socialEditPanel").classList.remove("active");
+const d=data();$("editSocialTitle").value=d.title;$("editSocialCompany").value=d.company;$("editSocialPrice").value=d.price;$("editSocialLocation").value=d.location;
+await drawSocial();
+}
+
+async function drawSocial(custom){
+const d=custom||data(),c=$("socialCanvas"),ctx=c.getContext("2d"),W=c.width,H=c.height;
+ctx.clearRect(0,0,W,H);ctx.fillStyle="#fff";ctx.fillRect(0,0,W,H);
+ctx.fillStyle="#0b1735";ctx.fillRect(0,0,W,155);
+await logo(ctx,35,20,170,115);
+ctx.fillStyle="#fff";ctx.font="bold 28px Arial";ctx.textAlign="right";ctx.fillText(d.company,W-35,85);ctx.textAlign="left";
+ctx.fillStyle="#0b1735";ctx.font="bold 50px Arial";let lines=wrap(ctx,d.title,W-80);let y=230;lines.slice(0,2).forEach(l=>{ctx.fillText(l,40,y);y+=60});
+ctx.fillStyle="#555";ctx.font="25px Arial";ctx.fillText("📍 "+d.location,40,y);
+ctx.fillStyle="#0b1735";ctx.font="bold 42px Arial";ctx.fillText(d.price,40,y+60);
+let py=y+85;
+let ph=H>1200?470:390;
+let gap=12;
+let photoCount=Math.min(4,state.photos.length);
+if(photoCount>=2){
+  let cols=photoCount===2?2:2;
+  let rows=Math.ceil(photoCount/cols);
+  let cellW=(W-80-gap*(cols-1))/cols;
+  let cellH=(ph-gap*(rows-1))/rows;
+  for(let n=0;n<photoCount;n++){
+    let im=await img(state.photos[n]);
+    if(im){
+      let x=40+(n%cols)*(cellW+gap);
+      let yy=py+Math.floor(n/cols)*(cellH+gap);
+      cover(ctx,im,x,yy,cellW,cellH);
+    }
+  }
+}else if(state.photos[0]){
+  let im=await img(state.photos[0]);
+  if(im)cover(ctx,im,40,py,W-80,ph);
+}else{
+  ctx.fillStyle="#edf1f6";
+  ctx.fillRect(40,py,W-80,ph);
+}
+let sy=py+ph+25;
+ctx.fillStyle="#eef2f8";
+ctx.fillRect(40,sy,W-80,125);
+ctx.fillStyle="#172033";ctx.font="bold 21px Arial";
+ctx.fillText("🛏 "+d.bedrooms,60,sy+42);ctx.fillText("🛁 "+d.bathrooms,280,sy+42);ctx.fillText("📐 "+d.area,510,sy+42);ctx.fillText("🚗 "+d.parking,730,sy+42);
+ctx.fillText("🧭 "+d.facing,60,sy+90);
+ctx.font="18px Arial";ctx.fillText("✨ "+d.amenities,280,sy+90);
+ctx.fillStyle="#0b1735";ctx.fillRect(0,H-130,W,130);
+ctx.fillStyle="#fff";ctx.font="bold 23px Arial";ctx.fillText(d.company,40,H-78);
+ctx.font="17px Arial";ctx.fillText(d.contact,40,H-43);
+ctx.textAlign="right";
+if(d.email)ctx.fillText(d.email,W-40,H-78);
+if(d.website)ctx.fillText(d.website,W-40,H-43);
+ctx.textAlign="left";
+}
+
+$("whatsappDesignBtn").onclick=async()=>{if(!state.description){$("generateBtn").click();}await social("whatsapp");};
+$("facebookDesignBtn").onclick=async()=>{if(!state.description){$("generateBtn").click();}await social("facebook");};
+$("instagramDesignBtn").onclick=async()=>{if(!state.description){$("generateBtn").click();}await social("instagram");};
+
+$("closeModalBtn").onclick=()=>$("designModal").classList.remove("active");
+$("editSocialDesignBtn").onclick=()=>$("socialEditPanel").classList.toggle("active");
+
+$("applySocialEditBtn").onclick=async()=>{
+const d=data();d.title=val("editSocialTitle",d.title);d.company=val("editSocialCompany",d.company);d.price=val("editSocialPrice",d.price);d.location=val("editSocialLocation",d.location);await drawSocial(d);message("✅ Design updated.");
+};
+
+$("downloadDesignPng").onclick=()=>download($("socialCanvas"),"PropDeck-Social-Post.png","image/png");
+$("downloadDesignJpg").onclick=()=>download($("socialCanvas"),"PropDeck-Social-Post.jpg","image/jpeg");
+
+$("downloadMainPng").onclick=async()=>{await drawMain();download($("mainCanvas"),"PropDeck-Property-Design.png","image/png")};
+
+$("editMainDesignBtn").onclick=async()=>{
+const d=data();$("editMainTitle").value=d.title;$("editMainCompany").value=d.company;$("editMainPrice").value=d.price;$("editMainLocation").value=d.location;
+$("mainEditModal").classList.add("active");await drawMain($("mainEditCanvas"));
+};
+
+$("closeMainEditBtn").onclick=()=>$("mainEditModal").classList.remove("active");
+
+$("applyMainEditBtn").onclick=async()=>{
+$("propertyTitle").value=val("editMainTitle",val("propertyTitle"));
+$("companyName").value=val("editMainCompany",val("companyName"));
+$("price").value=val("editMainPrice",val("price"));
+$("location").value=val("editMainLocation",val("location"));
+await drawMain();await drawMain($("mainEditCanvas"));message("✅ Design updated.");
+};
+
+$("downloadEditedMainBtn").onclick=()=>download($("mainEditCanvas"),"PropDeck-Edited-Design.png","image/png");
+
+function download(c,name,type){
+const a=document.createElement("a");a.download=name;a.href=c.toDataURL(type,.95);document.body.appendChild(a);a.click();a.remove();
+}
+
+function openCanva(){
+  window.open("https://www.canva.com/create/social-media/", "_blank");
+  message("Canva opened. Upload the downloaded PNG to edit it.");
+}
+$("openCanvaBtn").onclick=openCanva;
+$("modalCanvaBtn").onclick=openCanva;
+
+$("resetBtn").onclick=()=>{
+if(!confirm("Reset all property data?"))return;
+document.querySelectorAll("input,textarea").forEach(e=>{if(e.type!=="file")e.value=""});
+state.photos=[];state.logo=null;state.description="";state.whatsapp="";state.website="";state.instagram="";
+$("photoGallery").innerHTML="";$("logoPreview").innerHTML='<span style="color:#98a2b3;font-size:12px">Logo preview</span>';
+$("aiDescription").textContent="—";$("whatsappOutput").textContent="—";$("websiteOutput").textContent="—";$("instagramOutput").textContent="—";
+update();drawMain();message("↩️ Reset complete.");
+};
+
+["propertyTitle","location","price"].forEach(id=>$(id).addEventListener("input",update));
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape"){$("designModal").classList.remove("active");$("mainEditModal").classList.remove("active")}
+});
+
+drawMain();
+</script>
+
+</body>
+</html>
